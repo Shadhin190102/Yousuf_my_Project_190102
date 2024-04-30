@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expired Medicine Management</title>
+    <style>
+         body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .expired-red {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        .out-of-stock-green {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .remove-button {
+            background-color: #f44336;
+            color: #fff;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .medicine-info {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .total-wastage {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .button-group1 {
+    margin-bottom: 5px;
+    position:relative; left:93%; top:0px;
+  }
+
+  .button-group1 button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+      
+        <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+        <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+        <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+        <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+        <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+        <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+        <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+        <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+        <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+     
+
+    </div>
+
+    <header>
+        <h1>Expired Medicine Management</h1>
+    </header>
+
+    <div class="container">
+        <h2>Inventory Overview</h2>
+        <div class="button-group1">
+            <button onclick="document.location='wastage-history.html'">History</button>
+          </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Expiration Date</th>
+                    <th>Stock Quantity</th>
+                    <th>Status</th>
+                    <th>Wastage Count</th>
+                    <th>Wastage Value</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="inventoryOverview">
+                
+            </tbody>
+            <tfoot>
+                <tr class="total-wastage">
+                    <td colspan="4">Total Wastage:</td>
+                    <td id="totalWastageCount">0</td>
+                    <td id="totalWastageValue">$0.00</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+       
+        const medicineData = [
+            { name: 'Medicine A', expirationDate: '2022-03-15', quantity: 10 },
+            { name: 'Medicine B', expirationDate: '2022-04-20', quantity: 5 },
+            { name: 'Medicine C', expirationDate: '2022-05-10', quantity: 8 },
+           
+        ];
+
+        const wastageData = [
+            { name: 'Medicine C', quantity: 3 },
+            { name: 'Medicine D', quantity: 2 },
+           
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            displayInventoryOverview(medicineData, wastageData);
+        });
+
+        function displayInventoryOverview(medicineData, wastageData) {
+            const tableBody = document.getElementById('inventoryOverview');
+            const totalWastageCountCell = document.getElementById('totalWastageCount');
+            const totalWastageValueCell = document.getElementById('totalWastageValue');
+
+            let totalWastageCount = 0;
+            let totalWastageValue = 0;
+
+            medicineData.forEach(medicine => {
+                const wastageInfo = getWastageInfo(medicine.name, wastageData);
+
+                if (wastageInfo) {
+                    const newRow = tableBody.insertRow(-1);
+                    const statusClass = isExpired(medicine.expirationDate) ? 'expired-red' : 'out-of-stock-green';
+
+                    newRow.innerHTML = `
+                        <td>${medicine.name}</td>
+                        <td>${medicine.expirationDate}</td>
+                        <td>${medicine.quantity}</td>
+                        <td class="${statusClass}">${isExpired(medicine.expirationDate) ? 'Expired' : 'In Stock'}</td>
+                        <td>${wastageInfo.count}</td>
+                        <td>$${wastageInfo.value.toFixed(2)}</td>
+                        <td><button class="remove-button" onclick="removeWastage('${medicine.name}', ${medicine.quantity})">Remove</button></td>
+                    `;
+
+                    totalWastageCount += wastageInfo.count;
+                    totalWastageValue += wastageInfo.value;
+                }
+            });
+
+            
+            totalWastageCountCell.textContent = totalWastageCount;
+            totalWastageValueCell.textContent = `$${totalWastageValue.toFixed(2)}`;
+        }
+
+        function getWastageInfo(medicineName, wastageData) {
+            const medicineWastage = wastageData.find(medicine => medicine.name === medicineName);
+
+            if (medicineWastage) {
+                const costPerUnit = 2.5; 
+                const value = medicineWastage.quantity * costPerUnit;
+
+                return {
+                    count: medicineWastage.quantity,
+                    value: value
+                };
+            }
+
+            return null;
+        }
+
+        function isExpired(expirationDate) {
+            const today = new Date();
+            const expDate = new Date(expirationDate);
+            return expDate < today;
+        }
+
+        function removeWastage(medicineName, quantity) {
+        
+            const inventoryOverview = document.getElementById('inventoryOverview');
+            const rowToRemove = Array.from(inventoryOverview.rows).find(row =>
+                row.cells[0].textContent === medicineName
+            );
+
+            if (rowToRemove) {
+                inventoryOverview.deleteRow(rowToRemove.rowIndex);
+               
+                const updatedWastageData = wastageData.filter(medicine => medicine.name !== medicineName);
+                displayTotalWastage(updatedWastageData);
+            }
+        }
+    </script>
+
+</body>
+</html>

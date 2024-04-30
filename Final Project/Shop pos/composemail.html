@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail Clone</title>
+  <style>
+     body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+  
+    body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #D44638;
+      color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    .search-bar button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #D44638;
+      color: white;
+      cursor: pointer;
+    }
+
+    .compose-button {
+      margin-left: 10px;
+    }
+
+    .compose-button button {
+      padding: 5px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #D44638;
+      color: white;
+      cursor: pointer;
+    }
+
+    .user-info img {
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .compose-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .compose-container input[type="text"],
+    .compose-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .compose-container button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #D44638;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav1">
+      
+    <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+    <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+    <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+    <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+    <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+    <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+    <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+    <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+    <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+ 
+
+</div>
+  <header>
+    <div class="compose-button">
+      <button onclick="document.location='mailbox.html'">Mail Box</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search mail">
+      <button>Search</button>
+    </div>
+    <div class="compose-button">
+      <button onclick="document.location='composemail.html'">Compose</button>
+    </div>
+    <div class="user-info">
+      <img src="user_avatar.png" alt="User Avatar">
+      <span>Yousuf</span>
+    </div>
+  </header>
+
+  <div class="compose-container">
+    <h2>Compose Mail</h2>
+    <input type="text" placeholder="From" value="john.doe@example.com" readonly>
+    <input type="text" placeholder="To">
+    <input type="text" placeholder="Subject">
+    <textarea placeholder="Write your email here..."></textarea>
+    <input type="file" id="file" style="margin-top: 10px;">
+    <button>Send</button>
+  </div>
+
+</body>
+</html>

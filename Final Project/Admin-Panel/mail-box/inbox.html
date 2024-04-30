@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mailbox</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .mailbox-panel {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .mailbox-column {
+        width: calc(100% / 3);
+    }
+    .mailbox-options {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .mail-info {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    .mail-details {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="mailbox-panel">
+        <div class="mailbox-column">
+            <div class="mailbox-options">
+                <h3>Mailbox</h3>
+                <button onclick="showAllMail()">All Mail</button>
+                <button onclick="showSendMail()">Send Mail</button>
+                <button onclick="showDrafts()">Drafts</button>
+            </div>
+        </div>
+        <div class="mailbox-column">
+            <div class="mail-info">
+                <h3>Title of the Mail</h3>
+                <p>Compose Option</p>
+                <p>Login Mail ID</p>
+                <img src="mail_icon.jpg" alt="Mail Icon">
+            </div>
+        </div>
+    </div>
+
+    <div id="second-layer" style="display: none;">
+        <!-- Second layer content will be populated here -->
+    </div>
+
+    <div id="third-layer" style="display: none;">
+        <div class="mail-details">
+            <!-- Third layer content will be populated here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function showAllMail() {
+        document.getElementById("second-layer").style.display = "block";
+        // Implement logic to show all mail
+    }
+
+    function showSendMail() {
+        document.getElementById("second-layer").style.display = "block";
+        // Implement logic to show sent mail
+    }
+
+    function showDrafts() {
+        document.getElementById("second-layer").style.display = "block";
+        // Implement logic to show drafts
+    }
+
+    // Placeholder function to show mail details in the third layer
+    function showMailDetails() {
+        document.getElementById("third-layer").style.display = "block";
+        // Implement logic to populate mail details
+    }
+</script>
+
+</body>
+</html>

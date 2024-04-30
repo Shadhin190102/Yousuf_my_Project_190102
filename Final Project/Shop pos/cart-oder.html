@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Order</title>
+    <style>
+         body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-input button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cancel-btn:hover {
+            background-color: #ff6666;
+        }
+
+        .total {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .confirm-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+      
+        <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+        <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+        <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+        <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+        <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+        <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+        <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+        <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+        <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+     
+
+    </div>
+    <header>
+        <h1>My Order</h1>
+    </header>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Company Name</th>
+                    <th>Regular Price</th>
+                    <th>Discount</th>
+                    <th>Final Price</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P001</td>
+                    <td>Product A</td>
+                    <td>Company XYZ</td>
+                    <td>$50.00</td>
+                    <td>$10.00</td>
+                    <td>$40.00</td>
+                    <td class="quantity-input">
+                        <button onclick="decreaseQuantity()">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="increaseQuantity()">+</button>
+                    </td>
+                    <td><button class="cancel-btn">Cancel</button></td>
+                </tr>
+                <tr>
+                    <td>P001</td>
+                    <td>Product A</td>
+                    <td>Company XYZ</td>
+                    <td>$50.00</td>
+                    <td>$10.00</td>
+                    <td>$40.00</td>
+                    <td class="quantity-input">
+                        <button onclick="decreaseQuantity()">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="increaseQuantity()">+</button>
+                    </td>
+                    <td><button class="cancel-btn">Cancel</button></td>
+                </tr>
+                <tr>
+                    <td>P001</td>
+                    <td>Product A</td>
+                    <td>Company XYZ</td>
+                    <td>$50.00</td>
+                    <td>$10.00</td>
+                    <td>$40.00</td>
+                    <td class="quantity-input">
+                        <button onclick="decreaseQuantity()">-</button>
+                        <input type="text" value="1" readonly>
+                        <button onclick="increaseQuantity()">+</button>
+                    </td>
+                    <td><button class="cancel-btn">Cancel</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+
+        <div class="total">
+            Total Quantity: <span id="total-quantity">1</span><br>
+            Total Price: $<span id="total-price">40.00</span>
+        </div>
+
+        <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+    </div>
+
+    <script>
+        function decreaseQuantity() {
+            var quantityInput = document.querySelector('.quantity-input input');
+            var quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+                updateTotal();
+            }
+        }
+
+        function increaseQuantity() {
+            var quantityInput = document.querySelector('.quantity-input input');
+            var quantity = parseInt(quantityInput.value);
+            quantityInput.value = quantity + 1;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            var quantity = parseInt(document.querySelector('.quantity-input input').value);
+            var finalPrice = parseFloat(document.querySelector('tbody td:nth-child(6)').textContent.replace('$', ''));
+            var totalPrice = quantity * finalPrice;
+            document.getElementById('total-quantity').textContent = quantity;
+            document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+        }
+
+        function confirmOrder() {
+            alert("Order confirmed!");
+            // Add code to handle order confirmation here
+        }
+    </script>
+</body>
+</html>

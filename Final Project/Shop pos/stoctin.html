@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock In</title>
+    <style>
+       body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .options {
+            text-align: right;
+            margin: 20px 40px;
+        }
+
+        .options button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        #stock-in-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #stock-in-table th, #stock-in-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #stock-in-table th {
+            background-color: #f2f2f2;
+        }
+
+        #stock-in-table td:last-child {
+            text-align: center;
+        }
+
+        #stock-in-table td:last-child a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        #stock-in-table td:last-child a:hover {
+            color: #0044cc;
+        }
+    </style>
+</head>
+<body>
+  <div class="nav1">
+      
+    <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+    <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+    <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+    <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+    <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+    <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+    <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+    <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+    <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+ 
+
+</div>
+    <header>
+        <h1>Stock In</h1>
+    </header>
+    
+    <div class="options">
+        <button onclick="refresh()">Refresh</button>
+        <a href="invoice-history.html"><button>History</button></a>
+    </div>
+    
+    <table id="stock-in-table">
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Date</th>
+                <th>Company Name</th>
+                <th>Total Count</th>
+                <th>Price</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>INV001</td>
+                <td>2024-03-15</td>
+                <td>ABC Company</td>
+                <td>50</td>
+                <td>$500</td>
+                <td><a href="invoice-detalies.html">Details</a></td>
+            </tr>
+            <tr>
+                <td>INV002</td>
+                <td>2024-03-16</td>
+                <td>XYZ Corporation</td>
+                <td>30</td>
+                <td>$300</td>
+                <td><a href="invoice-detalies.html">Details</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

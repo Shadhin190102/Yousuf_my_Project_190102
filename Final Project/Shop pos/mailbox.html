@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail Clone</title>
+  <style>
+     body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+    
+    body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #D44638;
+      color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    .search-bar button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #D44638;
+      color: white;
+      cursor: pointer;
+    }
+
+    .compose-button {
+      margin-left: 10px;
+    }
+
+    .compose-button button {
+      padding: 5px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #D44638;
+      color: white;
+      cursor: pointer;
+    }
+
+    .user-info img {
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    nav {
+      display: flex;
+      background-color: #12d78f;
+      max-width: 10%;
+      padding: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+    }
+
+    nav ul li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    nav ul li:hover {
+      background-color: #e6e6e6;
+    }
+
+    main {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+      width: 10%;
+    }
+
+    .mails {
+      display: none;
+    }
+
+    .mails.active {
+      display: block;
+    }
+
+    .mails h2 {
+      margin-bottom: 10px;
+    }
+
+    .mails ul {
+      list-style-type: none;
+    }
+
+    .mails ul li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .mails ul li:hover {
+      background-color: #f9f9f9;
+    }
+
+    .mail-content {
+      display: none;
+    }
+
+    .mail-content.active {
+      display: block;
+    }
+
+    .mail-content h2 {
+      margin-bottom: 10px;
+    }
+
+    .mail-content p {
+      margin-bottom: 5px;
+    }
+    .onepart{
+      max-width: 10%;
+      background-color: rgb(25, 211, 106);
+    }
+  </style>
+</head>
+<body>
+  <div class="nav1">
+      
+    <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+    <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+    <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+    <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+    <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+    <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+    <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+    <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+    <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+ 
+
+</div>
+  <header>
+    <div class="compose-button">
+      <button onclick="document.location='mailbox.html'">Mail Box</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search mail">
+      <button>Search</button>
+    </div>
+    <div class="compose-button">
+      <button onclick="document.location='composemail.html'">Compose</button>
+    </div>
+    <div class="user-info">
+      <img src="user_avatar.png" alt="User Avatar">
+      <span>Yousuf</span>
+    </div>
+  </header>
+  <nav>
+    <u1 class="onepart">
+      <li onclick="showSection('starred')">InBox</li>
+      <li onclick="showSection('sent')">Sent Mail</li>
+    </u1>
+    
+  </nav>
+  <main>
+  
+    <div class="column">
+      <section class="mails" id="starred">
+        <h2>Inbox</h2>
+        <ul>
+          <li onclick="showMailContent('starred', 1)">Inboc Email 1</li>
+          <li onclick="showMailContent('starred', 2)">Inbox Email 2</li>
+          <li onclick="showMailContent('starred', 3)">Inbox Email 3</li>
+        
+        </ul>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mails" id="sent">
+        <h2>Sent Mail</h2>
+        <ul>
+          <li onclick="showMailContent('sent', 1)">Sent Email 1</li>
+          <li onclick="showMailContent('sent', 2)">Sent Email 2</li>
+          <li onclick="showMailContent('sent', 3)">Sent Email 3</li>
+         
+        </ul>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="mail1">
+        <h2>Email 1</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="mail2">
+        <h2>Email 2</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="mail3">
+        <h2>Email 3</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="starred1">
+        <h2>Starred Email 1</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="starred2">
+        <h2>Starred Email 2</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="starred3">
+        <h2>Starred Email 3</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="sent1">
+        <h2>Sent Email 1</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="sent2">
+        <h2>Sent Email 2</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+    <div class="column">
+      <section class="mail-content" id="sent3">
+        <h2>Sent Email 3</h2>
+        <p>From: sender@example.com</p>
+        <p>To: recipient@example.com</p>
+        <p>Subject: Example Subject</p>
+        <p>Message: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+    </div>
+  </main>
+  <script>
+    function showSection(sectionId) {
+      
+      document.querySelectorAll('.mails, .mail-content').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    function showMailContent(mailType, mailId) {
+     
+      document.querySelectorAll('.mail-content').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      
+      document.getElementById(`${mailType}${mailId}`).classList.add('active');
+
+     
+      document.getElementById(`${mailType}${mailId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showMails(mailType) {
+      
+      document.querySelectorAll('.mails').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      document.getElementById(mailType).classList.add('active');
+    }
+  </script>
+</body>
+</html>

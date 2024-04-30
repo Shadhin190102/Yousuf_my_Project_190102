@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine POS</title>
+  <style>
+     body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    form input[type="number"],
+    form input[type="text"] {
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: calc(20% - 10px);
+    }
+
+    .print-history input[type="submit"] {
+      position: relative;
+      right: -470px;
+      top: -10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      width: calc(20% - 10px);
+    }
+
+    .quantity-stock-price {
+      text-align: right;
+    }
+
+    #discount {
+      margin-top: 10px;
+    }
+
+    #return-amount {
+      margin-top: 10px;
+    }
+
+    #save-button {
+      margin-top: 20px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav1">
+      
+    <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+    <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+    <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+    <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+    <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+    <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+    <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+    <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+    <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+ 
+
+</div>
+
+<header>
+  <h1>Medicine Point of Sale</h1>
+</header>
+
+<div class="container">
+  <form id="posForm">
+    <input type="number" id="productsCode" name="productsCode" placeholder="Products Code">
+    <input type="text" id="productName" name="productName" placeholder="Product Name">
+    <input type="text" id="qrCode" name="qrCode" placeholder="QR Code">
+    <input type="text" id="salesId" name="salesId" placeholder="Sales ID">
+  </form>
+  <div class="print-history"><a href="/Shop pos/sale-print.html"><input type="submit" value="Print"></a>
+    <a href="/Shop pos/Sales-history.html"><input type="submit" value="History"></a>
+  </div>
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Stock</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>A001</td>
+        <td>Product A</td>
+        <td class="quantity-stock-price">
+          <input type="number" id="productQuantity" name="productQuantity" min="1" value="1">
+        </td>
+        <td>100</td>
+        <td>$10.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="total-price">$0.00</div>
+
+  <div class="subtotal">
+    <span>Total Count: <span id="totalCount">0</span></span>
+    <span>Total Amount: <span id="totalAmount">$0.00</span></span>
+  </div>
+
+  <div id="discount">
+    <label for="discountAmount">Discount:</label>
+    <input type="number" id="discountAmount" name="discountAmount" placeholder="Discount" onchange="calculateTotal()">
+  </div>
+
+  <div id="return-amount">
+    <label for="receivedAmount">Received Amount:</label>
+    <input type="number" id="receivedAmount" name="receivedAmount" placeholder="Received Amount" onchange="calculateReturn()">
+    <span>Return Amount: <span id="returnAmount">$0.00</span></span>
+  </div>
+
+  <button id="save-button">Save</button>
+</div>
+
+<script>
+  
+  function updatePrice() {
+    var quantity = document.getElementById("productQuantity").value;
+    var pricePerUnit = 10.00; 
+    var totalPrice = quantity * pricePerUnit;
+    document.querySelector("#productTable tbody tr td:nth-child(5)").innerText = "$" + totalPrice.toFixed(2);
+    calculateTotal();
+  }
+
+  
+  document.getElementById("productQuantity").addEventListener("input", updatePrice);
+
+  
+  function calculateTotal() {
+    var totalAmount = parseFloat(document.getElementById("total-price").innerText.replace("$", ""));
+    var discount = parseFloat(document.getElementById("discountAmount").value);
+    var total = totalAmount - discount;
+    document.getElementById("totalAmount").innerText = "$" + total.toFixed(2);
+
+    var totalCount = document.getElementById("productQuantity").value;
+    document.getElementById("totalCount").innerText = totalCount;
+
+    calculateReturn();
+  }
+
+  
+  function calculateReturn() {
+    var receivedAmount = parseFloat(document.getElementById("receivedAmount").value);
+    var totalAmount = parseFloat(document.getElementById("totalAmount").innerText.replace("$", ""));
+    var returnAmount = receivedAmount - totalAmount;
+    document.getElementById("returnAmount").innerText = "$" + returnAmount.toFixed(2);
+  }
+
+  
+  document.getElementById("posForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+  });
+
+</script>
+
+</body>
+</html>

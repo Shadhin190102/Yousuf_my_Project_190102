@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+         body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        #invoice-details {
+            margin-bottom: 20px;
+        }
+
+        #invoice-details p {
+            margin: 5px 0;
+        }
+
+        #invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        #invoice-table th, #invoice-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #invoice-table th {
+            background-color: #f2f2f2;
+        }
+
+        #invoice-table tfoot td {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .status-button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .accept-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+      
+        <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+        <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+        <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+        <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+        <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+        <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+        <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+        <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+        <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+     
+
+    </div>
+    <div class="container">
+        <header>
+            <h1>Invoice</h1>
+        </header>
+        
+        <div id="invoice-details">
+            <p><strong>Date:</strong> March 13, 2024</p>
+            <p><strong>Invoice Number:</strong> INV001</p>
+            <p><strong>Company Name:</strong> Company A</p>
+        </div>
+        
+        <table id="invoice-table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P001</td>
+                    <td>Product A</td>
+                    <td>5</td>
+                    <td>$50</td>
+                </tr>
+                <tr>
+                    <td>P002</td>
+                    <td>Product B</td>
+                    <td>3</td>
+                    <td>$30</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total Price:</td>
+                    <td>$80</td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div id="actions">
+            <button class="status-button accept-button">Accept</button>
+            <button class="status-button cancel-button">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>

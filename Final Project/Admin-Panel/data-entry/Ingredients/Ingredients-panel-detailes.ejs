@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .nav1{
+
+background-color: rgb(235, 222, 222);
+
+width: 100%;
+
+margin: 20px 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: space-around;
+text-decoration: none;
+}
+.nav-left-1 a{
+font-family: 'Dancing Script', cursive;
+font-weight: bold;
+text-decoration: none;
+color: rgb(243, 237, 237);
+
+font-size: 35px;
+}
+
+.nav-left a{
+font-weight: bold;
+color: rgb(142, 139, 139);
+text-decoration: none;
+font-size: 30px;
+}
+.nav-left a:hover {
+font-weight: bold;
+color: rgb(84, 78, 78);
+text-decoration: none;
+font-size: 30px;
+}
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        td, th {
+            
+            text-align: center;
+            align-items: center;
+            
+        }
+
+        th:nth-child(9) {
+    color: rgb(3, 126, 3);
+    text-decoration: none;
+    
+    padding: 2px 100px;
+}
+
+input[type="submit"] {
+    color: green;
+    border: 1px solid white;
+    background-color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 2px 40px; 
+}
+
+input[type="submit"]:hover {
+    color: rgb(17, 226, 17);
+}
+
+    td a:nth-child(1) {
+    color: rgb(108, 223, 108);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+    margin: auto;
+}
+
+td a:nth-child(2) {
+  color: rgb(255, 0, 0);
+    text-decoration: none;
+    border: 1px solid white;
+    background-color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+    margin-left: 20px;
+}
+
+td a:hover:nth-child(1) {
+    color: rgb(0, 255, 0);
+    
+}
+
+td a:hover:nth-child(2) {
+  color: rgb(177, 4, 4);
+    font-weight: 20px;
+}
+        
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
+        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
+        
+
+     
+
+    </div>
+    <div class="container">
+        
+
+        <table id="searchResults">
+            <tr>
+              <th>Panel Serial</th>
+              <th>ingredient_name</th>
+                <th>weight</th>
+                <th>ingredient_type</th>
+                <th>sub_ingredient_name</th>
+                <th>product_name</th>
+                <th>Detailes</th>
+                <th>View</th>
+                <th>Action</th>
+                
+
+
+            </tr>
+            <% panel_info.forEach(item => { %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.ingredient_name %></td>
+                    <td><%= item.weight %></td>
+                    <td><%= item.ingredient_type %></td>
+                    <td><%= item.sub_ingredient_name %></td>
+                    <td><%= item.product_name %></td>
+                    <td><%= item.details %></td>
+                    <td><a href="/Ingredients-panel-entry?id=<%= item.id %>">View</a></td>
+                    <td>
+                      <form id="new_ingredients_<%= item.id %>" action="/ingredients_accept" method="POST">
+                        <input type="hidden" name="id" value="<%= item.id %>">
+                        <input type="submit" value="Accept">
+                        <a href="/Ingredients_deleted?id=<%= item.id %>">Reject</a>
+                    </form>
+                     
+                    
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+    </div>
+</body>
+</html>

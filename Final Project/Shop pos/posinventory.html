@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory</title>
+<style>
+   body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .button-group button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="nav1">
+      
+    <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+    <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+    <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+    <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+    <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+    <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+    <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+    <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+    <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+ 
+
+</div>
+<div class="container">
+  <div class="row">
+    <input type="text" placeholder="Product ID">
+    <input type="text" placeholder="Product Name">
+    <input type="text" placeholder="Product QR Code">
+    <input type="text" placeholder="Company Name">
+    <div class="button-group">
+      <button>Show All Products</button>
+      <button>Short Stock</button>
+      <button>Over Stock</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th>Product Code</th>
+          <th>Product Name</th>
+          <th>Company Name</th>
+          <th>POS Stock</th>
+          <th>Physical Stock</th>
+          <th>Over/Short</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>ABC123</td>
+          <td>Product A</td>
+          <td>Company X</td>
+          <td>50</td>
+          <td>55</td>
+          <td>+5</td>
+        </tr>
+        <tr>
+          <td>DEF456</td>
+          <td>Product B</td>
+          <td>Company Y</td>
+          <td>30</td>
+          <td>25</td>
+          <td>-5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

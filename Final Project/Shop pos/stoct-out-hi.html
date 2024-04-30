@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine POS</title>
+  <style>
+     body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    form input[type="number"],
+    form input[type="text"], 
+    form input[type="date"] {
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: calc(20% - 10px);
+    }
+
+    form input[type="submit"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      width: calc(20% - 10px);
+      position: right;
+    }
+
+
+
+  </style>
+</head>
+<body>
+    <div class="nav1">
+      
+        <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+        <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+        <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+        <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+        <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+        <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+        <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+        <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+        <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+     
+
+    </div>
+<header>
+  <h1>Stock Out History</h1>
+</header>
+
+<div class="container">
+  <form id="posForm">
+    <input type="number" id="productsCode" name="productsCode" placeholder="Products Code">
+    <input type="text" id="productName" name="productName" placeholder="Product Name">
+    <input type="text" id="qrCode" name="qrCode" placeholder="QR Code">
+    <input type="date" id="startDate" name="startDate" placeholder="Start Date">
+    <input type="submit" value="Search">
+
+  </form>
+
+  <table id="productTable">
+    <thead>
+        <tr>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Stock Out Quantity</th>
+            <th>Date</th>
+          </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td>A001</td>
+            <td>Product A</td>
+            <td>5</td>
+            <td>03-03-2024</td>
+          </tr>
+          <tr>
+            <td>A001</td>
+            <td>Product A</td>
+            <td>5</td>
+            <td>03-03-2024</td>
+          </tr>
+          <tr>
+            <td>A001</td>
+            <td>Product A</td>
+            <td>5</td>
+            <td>03-03-2024</td>
+          </tr>
+                  
+    </tbody>
+  </table>
+
+</body>
+</html>

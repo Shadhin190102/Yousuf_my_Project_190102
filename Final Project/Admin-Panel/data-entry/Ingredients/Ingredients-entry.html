@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Ingredients</title>
+    <style>
+          body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(235, 222, 222);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            font-weight: bold;
+            color: rgb(142, 139, 139);
+            text-decoration: none;
+            font-size: 30px;
+        }
+        .nav-left a:hover {
+            font-weight: bold;
+            color: rgb(84, 78, 78);
+            text-decoration: none;
+            font-size: 30px;
+        }
+        /* body {
+           
+            padding:auto;
+            margin:auto;
+            text-align:centre;
+            
+        } */
+
+        .container {
+
+            
+            max-width: 80%;
+            margin: 0% 10%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #666666;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="number"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input.error {
+            border-color: red;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
+        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
+        
+
+     
+
+    </div>
+    <div class="container">
+        <h2>New Ingredients</h2>
+        <form id="new_ingredients" action="Ingredients-entry" method="POST">
+            <label for="ingredient_name">Ingredients Name:</label>
+            <input type="text" id="ingredient_name" name="ingredient_name" required>
+
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="weight" required>
+
+            <label for="ingredient_type	">Ingredients Type:</label>
+            <select id="ingredient_type" name="ingredient_type" required>
+              <option value="solid ">Solid </option>
+              <option value="liquid ">Liquid </option>
+              <option value="gas ">Gas </option>
+          </select>
+
+            <label for="sub_ingredient_name">Sub-Ingredients:</label>
+            <input type="text" id="sub_ingredient_name" name="sub_ingredient_name" required>
+
+            <label for="product_name">Make Uese:</label>
+            <input type="text" id="product_name" name="product_name" required>
+            
+            <label for="details">Detailes:</label>
+            <input type="text" id="details" name="details" required>
+
+            
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo">
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+<script>
+    document.getElementById("new_ingredients").addEventListener("submit", function() {
+        // Disable the submit button to prevent multiple submissions
+        document.getElementById("submitBtn").disabled = true;
+    });
+</script>
+
+
+</body>
+</html>

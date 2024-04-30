@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .nav1{
+
+background-color: rgb(235, 222, 222);
+
+width: 100%;
+
+margin: 20px 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: space-around;
+text-decoration: none;
+}
+.nav-left-1 a{
+font-family: 'Dancing Script', cursive;
+font-weight: bold;
+text-decoration: none;
+color: rgb(243, 237, 237);
+
+font-size: 35px;
+}
+
+.nav-left a{
+font-weight: bold;
+color: rgb(142, 139, 139);
+text-decoration: none;
+font-size: 30px;
+}
+.nav-left a:hover {
+font-weight: bold;
+color: rgb(84, 78, 78);
+text-decoration: none;
+font-size: 30px;
+}
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form label {
+            font-weight: bold;
+        }
+
+        .search-form input[type="text"],
+        .search-form select {
+            padding: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+
+        .panel {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .new-product-btn {
+        
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+            position:relative; left:70%; top:2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        td, th {
+            
+            text-align: center;
+            align-items: center;
+            
+        }
+
+        td a {
+            
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #175019;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
+        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
+        
+
+     
+
+    </div>
+    <div class="container">
+        <h2>Product panel</h2>
+    
+        <table id="searchResults">
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Product Count</th>
+                <th>Weight</th>
+                <th>Company</th>
+                <th>Product Type</th>
+                <th>Price</th>
+                <th>Create Date</th>
+                <th>Action</th>
+            </tr>
+            <% product_database.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.productName %></td>
+                <td><%= item.ProductCount %></td>
+                <td><%= item.weight %></td>
+                <td><%= item.companyName %></td>
+                <td><%= item.productType %></td>
+                <td><%= item.price %></td>
+                <td><%= new Date(item.publishedDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                <td><a href="/product-panel_detailes?id=<%= item.id %>">Edit</a></td>
+            </tr>
+            <% }); %>
+        </table>
+    </div>
+
+    
+</body>
+</html>

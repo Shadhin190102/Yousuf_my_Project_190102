@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Company Information</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    form {
+        margin-top: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"], input[type="email"], input[type="tel"], select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Company Information</h2>
+
+    <form id="companyForm">
+        <tbody>
+            <tr>
+                <th>Company ID : </th>
+                <td>123</td>
+            </tr>
+        </tbody>
+        <br> <br>
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required>
+
+        <label for="companyType">Company Type:</label>
+        <select id="companyType" name="companyType" required>
+            <option value="">Select Type...</option>
+            <option value="Factory">Factory</option>
+            <option value="Shop">Shop</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label for="companyMail">Mail:</label>
+        <input type="email" id="companyMail" name="companyMail" required>
+
+        <label for="companyNumber">Number:</label>
+        <input type="tel" id="companyNumber" name="companyNumber" required>
+
+        <label for="companyAddress">Address:</label>
+        <input type="text" id="companyAddress" name="companyAddress" required>
+
+        <label for="ownerName">Owner Name:</label>
+        <input type="text" id="ownerName" name="ownerName" required>
+
+        <label for="ownerMobile">Owner Mobile Number:</label>
+        <input type="tel" id="ownerMobile" name="ownerMobile" required>
+
+        <label for="ownerNID">Owner NID:</label>
+        <input type="text" id="ownerNID" name="ownerNID" required>
+
+        <label for="tinNumber">TIN Number:</label>
+        <input type="text" id="tinNumber" name="tinNumber" required>
+
+        <label for="tradeLicense">Trade License Number:</label>
+        <input type="text" id="tradeLicense" name="tradeLicense" required>
+
+        <label for="activeStatus">Active Status:</label>
+        <select id="activeStatus" name="activeStatus" required>
+            <option value="">Select Status...</option>
+            <option value="Active">Active</option>
+            <option value="Deactive">Deactive</option>
+        </select>
+
+        <label for="productDiscount">Product Discount:</label>
+        <input type="text" id="productDiscount" name="productDiscount" required>
+
+        <label for="companyPhoto">Company Photo:</label>
+        <input type="file" id="companyPhoto" name="companyPhoto" accept="image/*">
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<script>
+    // Assume this is the existing company information (you can replace it with your actual data)
+    var existingCompanyInfo = {
+        companyName: "Company A",
+        companyType: "Shop",
+        companyMail: "companya@example.com",
+        companyNumber: "1234567890",
+        companyAddress: "123, Street Name, City",
+        ownerName: "John Doe",
+        ownerMobile: "9876543210",
+        ownerNID: "1234567890123456",
+        tinNumber: "7890123456",
+        tradeLicense: "ABC123",
+        activeStatus: "Active",
+        productDiscount: "10%"
+    };
+
+    // Prepopulate form fields with existing company information
+    document.getElementById("companyName").value = existingCompanyInfo.companyName;
+    document.getElementById("companyType").value = existingCompanyInfo.companyType;
+    document.getElementById("companyMail").value = existingCompanyInfo.companyMail;
+    document.getElementById("companyNumber").value = existingCompanyInfo.companyNumber;
+    document.getElementById("companyAddress").value = existingCompanyInfo.companyAddress;
+    document.getElementById("ownerName").value = existingCompanyInfo.ownerName;
+    document.getElementById("ownerMobile").value = existingCompanyInfo.ownerMobile;
+    document.getElementById("ownerNID").value = existingCompanyInfo.ownerNID;
+    document.getElementById("tinNumber").value = existingCompanyInfo.tinNumber;
+    document.getElementById("tradeLicense").value = existingCompanyInfo.tradeLicense;
+    document.getElementById("activeStatus").value = existingCompanyInfo.activeStatus;
+    document.getElementById("productDiscount").value = existingCompanyInfo.productDiscount;
+
+    document.getElementById("companyForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Get form values
+        var companyName = document.getElementById("companyName").value;
+        var companyType = document.getElementById("companyType").value;
+        var companyMail = document.getElementById("companyMail").value;
+        var companyNumber = document.getElementById("companyNumber").value;
+        var companyAddress = document.getElementById("companyAddress").value;
+        var ownerName = document.getElementById("ownerName").value;
+        var ownerMobile = document.getElementById("ownerMobile").value;
+        var ownerNID = document.getElementById("ownerNID").value;
+        var tinNumber = document.getElementById("tinNumber").value;
+        var tradeLicense = document.getElementById("tradeLicense").value;
+        var activeStatus = document.getElementById("activeStatus").value;
+        var productDiscount = document.getElementById("productDiscount").value;
+
+        // Implement saving logic here
+        // For demonstration, let's just log the form data
+        console.log("Company Name: " + companyName);
+        console.log("Company Type: " + companyType);
+        console.log("Mail: " + companyMail);
+        console.log("Number: " + companyNumber);
+        console.log("Address: " + companyAddress);
+        console.log("Owner Name: " + ownerName);
+        console.log("Owner Mobile Number: " + ownerMobile);
+        console.log("Owner NID: " + ownerNID);
+        console.log("TIN Number: " + tinNumber);
+        console.log("Trade License Number: " + tradeLicense);
+        console.log("Active Status: " + activeStatus);
+        console.log("Product Discount: " + productDiscount);
+    });
+</script>
+
+</body>
+</html>

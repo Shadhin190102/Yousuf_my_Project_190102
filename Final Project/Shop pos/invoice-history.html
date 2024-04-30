@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock In History</title>
+    <style>
+         body{
+            margin: 0px;
+            height: 0px;
+            background-color: rgb(250, 247, 247);
+
+        }
+        .nav1{
+
+            background-color: rgb(6, 6, 6);
+            
+            width: 100%;
+          
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a{
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            
+            font-size: 35px;
+        }
+
+        .nav-left a{
+            color: rgb(246, 245, 245);
+            text-decoration: none;
+            font-size: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        .search-bar button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+        .btn-container {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        .accept {
+            color: green;
+        }
+
+        .decline {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+      
+        <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+        <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+        <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+        <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+        <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+        <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+        <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+        <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+        <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+
+     
+
+    </div>
+    <div class="container">
+        <header>
+            <h1>Stock In History</h1>
+        </header>
+
+        <div class="search-bar">
+            <input type="text" id="date-search" placeholder="Search by Date">
+            <input type="text" id="invoice-number-search" placeholder="Search by Invoice Number">
+            <button onclick="search()">Search</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Invoice Number</th>
+                    <th>Date</th>
+                    <th>Company Name</th>
+                    <th>Total Count</th>
+                    <th>Price</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>INV001</td>
+                    <td>2024-03-13</td>
+                    <td>ABC Corporation</td>
+                    <td>100</td>
+                    <td>$500</td>
+                    <td><a href="history-det-inv.html">Details</a></td>
+                    <td class="accept">Accept</td>
+                </tr>
+                <tr>
+                    <td>INV002</td>
+                    <td>2024-03-14</td>
+                    <td>XYZ Enterprises</td>
+                    <td>50</td>
+                    <td>$300</td>
+                    <td><a href="history-det-inv.html">Details</a></td>
+                    <td class="decline">Decline</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
