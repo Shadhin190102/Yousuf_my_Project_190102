@@ -143,49 +143,62 @@ font-size: 30px;
             color: #175019;
         }
         
+
+        #savesave {
+        
+        background-color: #4CAF50; /* Green background color */
+        color: white; /* White text color */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 10px 20px; /* Padding */
+        cursor: pointer; /* Cursor style */
+        font-size: 16px; /* Font size */
+        transition: background-color 0.3s; /* Smooth transition for background color */
+        margin: 10px;
+        width: 20%;
+        position:relative; left:76%; top:2px;
+        
+        
+    }
+
+    /* Hover effect for the submit button */
+    input[type="submit"]:hover {
+        background-color: #45a049; /* Darker green background color on hover */
+    }
+
+    th:nth-child(1) {
+        width: 40px; /* Example width */
+        /* Add any other CSS styling for the 9th table header */
+    }
+
     </style>
 </head>
 <body>
     <div class="nav1">
-        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
-        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
+        <div class="nav-left"><a href="/Dash_Board_panel">Desh Board</a></div>
+
         
 
      
 
     </div>
     <div class="container">
-        <button class="new-product-btn" onclick="location.href='product-entry.html'">New Product Entry</button>
-        <button class="new-product-btn" onclick="location.href='panel-entry'">Product Entry</button>
         <h2>Product</h2>
         <div class="search-form">
-            <form action="/product-search" method="GET">
+            <form action="/Predection-report-search" method="GET">
     
-                <input type="text" id="idSearch" placeholder="Search by ID...">
-                <input type="text" id="medicineSearch" placeholder="Search by Medicine...">
-                <input type="text" id="companySearch" placeholder="Search by Company...">
-                <!-- <select id="seasonType">
-                    <option value="">Select Season...</option>
-                    <option value="Winter Flu Season">Winter Flu Season</option>
-                    <option value="Monsoon Season">Monsoon Season</option>
-                    <option value="Spring Allergies">Spring Allergies</option>
-                    <option value="Summer Allergies">Summer Allergies</option>
-                    <option value="Fall Allergies">Fall Allergies</option>
-                    <option value="Boro Harvest">Boro Harvest</option>
-                    <option value="Aman Harvest">Aman Harvest</option>
-                    <option value="Aus Harvest">Aus Harvest</option>
-                    <option value="Winter Allergies">Winter Allergies</option>
-                    <option value="Pre-monsoon Season">Pre-monsoon Season</option>
-                    <option value="Post-monsoon Season">Post-monsoon Season</option>
-                </select>  -->
+                <input type="search" id="product_id" name="product_id" placeholder="Search by ID...">
+                <input type="search" id="Name"  name="Name" placeholder="Search by Medicine...">
+                <input type="search" id="Company" name="Company" placeholder="Search by Company...">
 
                 <input type="submit" value="Search">
             </form>
         </div>
-    
+        <form id="Predection-report-form" action="/production-repot-entry" method="POST">
+ 
      <table id="searchResults">
         <tr>
-            <th>ID</th>
+            <th>Product ID</th>
             <th>Name</th>
             <th>weight</th>
             <th>Company</th>
@@ -199,14 +212,14 @@ font-size: 30px;
             <th>Last Production Quantity</th>
             <th>Physical Stock</th>
             <th>Production Prediction</th>
-            <th>Production Quantity</th>
+            <!-- <th>Production Quantity</th> -->
         </tr>
         <% 
         // Initialize an empty object to store grouped data
         const groupedData = {};
     
         // Iterate through the data to group rows by product_id
-        production_prediction_database_backup.forEach(item => {
+        production_prediction_database.forEach(item => {
             if (!groupedData[item.product_id]) {
                 // If product_id is not in groupedData, initialize it with the current item
                 groupedData[item.product_id] = { ...item };
@@ -237,10 +250,15 @@ font-size: 30px;
             <td><%= item.LastProductionQuantity %></td>
             <td><%= item.PhysicalStock %></td>
             <td><%= item.ProductionPrediction %></td>
-            <td><input type="number" id="productionQuantity"></td>
+            <!-- <td><input type="number" id="productionQuantity"></td> -->
         </tr>
         <% }); %>
     </table>
+
+    <input type="submit" id="savesave" value="Save">
+        </form>
+
+
     </div>
 
     

@@ -38,7 +38,7 @@ app.post('/admin-id', function(req, res){
 
     con.connect(function(err) {
         if (err) throw err;
-        var sql = "INSERT INTO admin_database (names, address, mobileNumber, email, type, nidNumber, bankAccountName, bankAccountNumber, bankBranchName, password, confirmPassword, photo) VALUES ?";
+        var sql = "INSERT INTO admin_information (names, address, mobileNumber, email, type, nidNumber, bankAccountName, bankAccountNumber, bankBranchName, password, confirmPassword, photo) VALUES ?";
         var values = [
     
         [names, address, mobileNumber, email, type, nidNumber, bankAccountName, bankAccountNumber, bankBranchName, password, confirmPassword, photo ]

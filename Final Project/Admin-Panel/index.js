@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
 const app = express();
-const port = 8080;
+const port = 8081;
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -322,6 +322,24 @@ app.get('/Ingredients-search', function(req, res) {
     }
   });
 });
+
+
+
+app.post('/Ingredients-edite', function(req, res) {
+  const con = req.con;
+  const { ingredient_name, weight, ingredient_type, sub_ingredient_name, product_name, details, photo, id } = req.body;
+  const sql = "UPDATE ingredient_info SET ingredient_name=?, weight=?, ingredient_type=?, sub_ingredient_name=?, product_name=?, details=?, photo=? WHERE id=?";
+  con.query(sql, [ingredient_name, weight, ingredient_type, sub_ingredient_name, product_name, details, photo, id], function(error, result) {
+    if (error) {
+      console.log(error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.redirect('/data-entry/Ingredients/ingredients-home'); // Redirect after successful update
+    }
+    con.end(); // Close the connection
+  });
+});
+
 
 
 

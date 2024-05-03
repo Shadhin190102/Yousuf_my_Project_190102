@@ -9,15 +9,15 @@ var con = mysql.createConnection({
 
 
 
-var con2 = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "product"
-});
+// var con2 = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "product"
+// });
 
 module.exports = con;
-module.exports = con2;
+// module.exports = con2;
 
 // const express = require('express');
 // const mysql = require('mysql');

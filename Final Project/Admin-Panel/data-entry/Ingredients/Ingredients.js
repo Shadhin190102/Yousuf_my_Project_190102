@@ -10,9 +10,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Set view engine
 app.set('view engine', 'ejs');
 
+
+
 // Middleware for database connection
 function connectDB(req, res, next) {
-  const con = mysql.createConnection({
+  const pool = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",

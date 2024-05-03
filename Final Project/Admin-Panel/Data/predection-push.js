@@ -33,13 +33,11 @@ db.connect((err) => {
     var lastSeasonSales = Math.random() * 1000 + 200;
     var thisYearSales = Math.random() * 3000 + 1000;
     var thisSeasonSales = Math.random() * 1500 + 500;
-    var lastDaySales = Math.random() * 100;
+    var lastDaySales = Math.random() * 500;
     var thisWeekAllSales = Math.random() * 300;
     var thisMonthAllSales = Math.random() * 800;
-    var lastProductionQuantity = Math.floor(Math.random() * 200) + 1;
     var physicalStock = Math.floor(Math.random() * 700) + 1;
     var productionPrediction = Math.random() * 1000;
-    var productionQuantity = Math.floor(Math.random() * 500) + 1;
 
     // Combine name and weight to create a unique key for product_id generation
     var key = name + weight;
@@ -54,8 +52,8 @@ db.connect((err) => {
     }
 
     // SQL query to insert data into the database
-    var sql = `INSERT INTO production_prediction_database (product_id, Name, weight, Company, LastYearSales, LastSeasonSales, ThisYearSales, ThisSeasonSales, LastDaySales, ThisWeekAllSales, ThisMonthAllSales, LastProductionQuantity, PhysicalStock, ProductionPrediction, ProductionQuantity) VALUES 
-      (${product_id}, '${name}', ${weight}, '${company}', ${lastYearSales}, ${lastSeasonSales}, ${thisYearSales}, ${thisSeasonSales}, ${lastDaySales}, ${thisWeekAllSales}, ${thisMonthAllSales}, ${lastProductionQuantity}, ${physicalStock}, ${productionPrediction}, ${productionQuantity})`;
+    var sql = `INSERT INTO production_prediction_database (product_id, Name, weight, Company, LastYearSales, LastSeasonSales, ThisYearSales, ThisSeasonSales, LastDaySales, ThisWeekAllSales, ThisMonthAllSales, PhysicalStock, ProductionPrediction) VALUES 
+      (${product_id}, '${name}', ${weight}, '${company}', ${lastYearSales}, ${lastSeasonSales}, ${thisYearSales}, ${thisSeasonSales}, ${lastDaySales}, ${thisWeekAllSales}, ${thisMonthAllSales}, ${physicalStock}, ${productionPrediction})`;
 
     // Execute the SQL query
     db.query(sql, (err, result) => {
