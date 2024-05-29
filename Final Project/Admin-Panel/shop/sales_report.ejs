@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternate Sales History</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .sales-details {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Alternate Sales History</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Sale ID</th>
+            <th>After Discount Amount</th>
+            <th>Sales Time</th>
+            <th>Sales Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (salesHistory.length > 0) { %>
+            <% salesHistory.forEach((sale, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= sale.after_discount_price %></td>
+                    <td><%= sale.current_time %></td>
+                    <td><a href="/sales_report_detalis/<%= sale.id %>">View Sales Details</a></td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="4">No sales history available.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+</body>
+</html>

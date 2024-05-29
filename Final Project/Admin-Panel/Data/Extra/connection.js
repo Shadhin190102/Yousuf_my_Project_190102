@@ -44,14 +44,17 @@ db.connect((err) => {
   console.log('MySQL connected');
   
   // Create Table Query
-  var sql = `CREATE TABLE IF NOT EXISTS report_for_production (
+  var sql = `CREATE TABLE IF NOT EXISTS xyz1_shop (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
-    Name VARCHAR(255),
-    weight INT,
-    Company VARCHAR(255),
-    PhysicalStock INT,
-    productionQuantity INT
+    product_code VARCHAR(50) NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    product_weight DECIMAL(10, 2) NOT NULL,
+    product_type VARCHAR(50) NOT NULL,
+    company_name VARCHAR(100) NOT NULL,
+    shop_name VARCHAR(100) DEFAULT 'xyz1-shop',
+    shop_area VARCHAR(50) DEFAULT 'Dhaka',
+    price_per_pcs DECIMAL(10, 2) NOT NULL,
+    shop_stock INT NOT NULL,
   )`;
 
   db.query(sql, (err, result) => {

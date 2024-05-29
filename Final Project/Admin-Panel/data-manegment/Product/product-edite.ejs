@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Edit</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            height: 0;
+            background-color: rgb(250, 247, 247);
+        }
+        .container {
+            max-width: 80%;
+            margin: 0% 10%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        label {
+            font-weight: bold;
+            color: #666666;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="number"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input.error {
+            border-color: red;
+        }
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .image_photo {
+            width: 20%;
+            height: auto;
+            margin: 2px;
+            border: 1px solid green;
+        }
+        .product-photo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 100px;
+            border: 1px solid green;
+        }
+        .date_formate {
+            display: flex;
+            align-items: center;
+            width: 60%;
+        }
+        .date-format {
+            margin: 20px;
+            display: flex;
+            border: 1px solid gray;
+            padding: 5px 50px;
+        }
+        input[type="date"] {
+            margin: 0px 20px;
+        }
+
+        /* Navigation Styles */
+        .nav1 {
+            background-color: rgb(235, 222, 222);
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+        }
+        .nav-left-1 a {
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(243, 237, 237);
+            font-size: 35px;
+        }
+        .nav-left a {
+            font-weight: bold;
+            color: rgb(142, 139, 139);
+            text-decoration: none;
+            font-size: 30px;
+        }
+        .nav-left a:hover {
+            font-weight: bold;
+            color: rgb(84, 78, 78);
+            text-decoration: none;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
+        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
+    </div>
+    <div class="container">
+      <h2>Product Edit</h2>
+
+      <label for="id">Product Id:</label>
+    <span id="id"><%= product_database[0].id %></span>
+      <form id="product_edit" action="/product-edite" method="POST">
+          <div class="image_photo">
+              <label for="photo">Photo:</label>
+              <img class="product-photo" src="<%= product_database[0].photo %>" alt="">
+          </div>
+          <br>
+
+          <input type="text" id="id" name="id" value="<%= product_database[0].id %>" style="display: none;"> 
+          <br>
+          <label for="productName">Product Name:</label>
+          <input type="text" id="productName" name="productName" value="<%= product_database[0].productName %>" required>
+
+          <label for="ProductCount">Product Count:</label>
+          <input type="number" id="ProductCount" name="ProductCount" value="<%= product_database[0].ProductCount %>" required>
+          <label for="productType">Product Type:</label>
+          <select id="productType" name="productType" required>
+              <option value="solid">Solid</option>
+              <option value="liquid">Liquid</option>
+              <option value="gas">Gas</option>
+          </select>
+          <label for="ingredients">Ingredients:</label>
+          <select id="ingredients" name="ingredients" required>
+              <!-- Options will be populated from database data -->
+              <% product_database.forEach(product => { %>
+                  <option value="<%= product.ingredients %>"><%= product.ingredients %></option>
+              <% }); %>
+          </select>
+          <label for="diseaseName">Disease:</label>
+          <input type="text" id="diseaseName" name="diseaseName" value="<%= product_database[0].diseaseName %>" required>
+          <label for="weight">Weight:</label>
+          <input type="text" id="weight" name="weight" value="<%= product_database[0].weight %>" required>
+          <label for="companyName">Company Name:</label>
+          <input type="text" id="companyName" name="companyName" value="<%= product_database[0].companyName %>" required>
+          <label for="age">Age:</label>
+          <input type="text" id="age" name="age" value="<%= product_database[0].age %>" required>
+          <label for="price">Single Price:</label>
+          <input type="number" id="single_price" name="single_price" value="<%= product_database[0].single_price %>" required>
+          <label for="price">Box Price:</label>
+          <input type="number" id="box_price" name="box_price" value="<%= product_database[0].box_price %>" required>
+          <label for="discount">Discount :</label>
+         
+          <input type="number" id="discount" name="discount" value="<%= product_database[0].discount %>" required>
+          <label for="discount">A.D.B.Price :</label>
+          <input type="number" id="a_d_b_price" name="a_d_b_price" value="<%= product_database[0].a_d_b_price %>" required>
+          <div class="date_formate">
+          </div>
+          <label for="productDetails">Details:</label>
+          <textarea name="productDetails" id="productDetails" cols="30" rows="10" style="width: 100%; height: 60px;" required><%= product_database[0].productDetails %></textarea>
+          <input type="submit" value="Edit">
+          <!-- Direct link for deletion -->
+          <a href="/product_deleted?id=<%= product_database[0].id %>">Deleted</a>
+          <!-- Adding ID to submit button -->
+      </form>
+  </div>
+
+
+
+
+
+    <script>
+        document.getElementById("product_edit").addEventListener("submit", function() {
+            // Disable the submit button to prevent multiple submissions
+            document.getElementById("submitBtn").disabled = true;
+        });
+        // Fetch ingredients options from the server
+        window.onload = function() {
+            fetch('/ingredients')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received data:', data); // Log received data
+                    const select = document.getElementById('ingredients');
+                    data.forEach(option => {
+                        console.log('Option:', option); // Log individual option
+                        const optionElement = document.createElement('option');
+                        optionElement.textContent = option.ingredient_name; // Use option.ingredient_name
+                        optionElement.value = option.ingredient_name; // Use option.ingredient_name
+                        select.appendChild(optionElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching ingredients:', error));
+        };
+        // Change date functionality
+    //     document.getElementById("newDate").addEventListener("change", function() {
+    //         changeDate(this.value);
+    //     });
+
+    //     function changeDate(newDate) {
+    //         var date = new Date(newDate);
+    //         var options = { month: 'long', day: 'numeric', year: 'numeric' };
+    //         var formattedDate = date.toLocaleDateString('en-US', options);
+    //         document.getElementById("currentDate").innerText = formattedDate;
+    //     }
+    // </script>
+
+
+<script>
+
+
+document.getElementById("product_edit").addEventListener("submit", function(event) {
+    // Disable the submit button to prevent multiple submissions
+    document.getElementById("submitBtn").disabled = true;
+    // Prevent the default form submission
+    event.preventDefault();
+    // Submit the form using AJAX
+    submitForm();
+});
+
+// Function to submit the form data using AJAX
+
+</script>
+
+
+
+</body>
+</html>

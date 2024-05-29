@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>New Data</h1>
+    <form action="/search" method="get">
+        <label for="conditionName">Condition Name or Duration:</label>
+        <input type="text" id="conditionName" name="conditionName">
+        <label for="mainConditionName">Main Condition Name or Age:</label>
+        <input type="text" id="mainConditionName" name="mainConditionName">
+        <button type="submit">Search</button>
+    </form>
+
+    <% if (typeof searchResults !== 'undefined' && searchResults.length > 0) { %>
+        <h2>Search Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient Name</th>
+                    <th>Weight</th>
+                    <th>Ingredient Type</th>
+                    <th>Sub Ingredient Name</th>
+                    <th>Problems</th>
+                    <th>Main Condition Name</th>
+                    <th>Condition Name</th>
+                    <th>Time Period</th>
+                    <th>Quantity</th>
+                    <th>Prandial</th>
+                    <th>Time Duration</th>
+                    <th>Warnings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% searchResults.forEach(item => { %>
+                    <% item.main_conditions.forEach(mainCondition => { %>
+                        <% mainCondition.conditions.forEach(condition => { %>
+                            <% condition.condition_details.forEach(detail => { %>
+                                <tr>
+                                    <td><%= item.ingredient_name %></td>
+                                    <td><%= item.weight %></td>
+                                    <td><%= item.ingredient_type %></td>
+                                    <td><%= item.sub_ingredient_name %></td>
+                                    <td><%= item.problems.join(", ") %></td>
+                                    <td><%= mainCondition.main_condition_name %></td>
+                                    <td><%= condition.condition_name %></td>
+                                    <td><%= detail.time_period %></td>
+                                    <td><%= detail.quantity %></td>
+                                    <td><%= detail.prandial %></td>
+                                    <td><%= detail.time_duration %></td>
+                                    <td><%= item.warnings.join(", ") %></td>
+                                </tr>
+                            <% }); %>
+                        <% }); %>
+                    <% }); %>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No search results found.</p>
+    <% } %>
+</body>
+</html>

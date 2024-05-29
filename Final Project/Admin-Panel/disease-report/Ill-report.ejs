@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Sales Report - <%= season %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .date {
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Disease Sales Report - <%= season %></h1>
+        <div class="date">Date: <%= currentDate %></div>
+    </div>
+
+    <h2>Seasonal Diseases</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Disease Name</th>
+                <th>Total Sales Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (seasonalData.length === 0) { %>
+                <tr>
+                    <td colspan="2">No seasonal diseases data found</td>
+                </tr>
+            <% } else { %>
+                <% seasonalData.forEach(item => { %>
+                    <tr>
+                        <td><%= item.diseaseName %></td>
+                        <td><%= item.total_sales %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+
+    <h2>Common Diseases All Year</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Disease Name</th>
+                <th>Total Sales Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (nonSeasonalData.length === 0) { %>
+                <tr>
+                    <td colspan="2">No common diseases data found</td>
+                </tr>
+            <% } else { %>
+                <% nonSeasonalData.forEach(item => { %>
+                    <tr>
+                        <td><%= item.diseaseName %></td>
+                        <td><%= item.total_sales %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
