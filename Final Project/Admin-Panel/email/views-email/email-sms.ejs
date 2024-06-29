@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Details</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .email-box {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .email-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .email-header div {
+      margin: 5px 0;
+    }
+
+    .email-header .email-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .email-header .email-info div {
+      margin-bottom: 5px;
+    }
+
+    .email-body {
+      margin-bottom: 20px;
+    }
+
+    .email-attachment {
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+
+    .email-attachment a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .email-attachment a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="email-box">
+      <div class="email-header">
+        <div class="email-info">
+          <div>From: <strong><%= email.sender %></strong></div>
+          <div>To: <strong><%= email.recipient %></strong></div>
+          <div>Date: <strong><%= new Date(email.created_at).toLocaleString() %></strong></div>
+          <div>Subject: <strong><%= email.subject %></strong></div>
+        </div>
+      </div>
+      <div class="email-body">
+        <p><%= email.body %></p>
+      </div>
+      <% if (email.attachment) { %>
+        <div class="email-attachment">
+          <div>Attachment: <a href="<%= email.attachment %>" target="_blank"><%= email.attachment %></a></div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Edit</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image_photo {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+           
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .image_photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ebf1f7;
+            border-radius: 5px;
+        }
+        .form-row label {
+            flex: 1;
+            font-weight: bold;
+        }
+        .form-row span {
+            flex: 2;
+            color: #555;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .nav1 {
+
+
+width: 100%;
+
+margin: 20px 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: space-around;
+text-decoration: none;
+font-weight: bold;
+}
+
+
+.nav-left a {
+color: rgb(78, 67, 67);
+text-decoration: none;
+font-size: 18px;
+}
+
+.nav-left a:hover {
+background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+transform: scale(1.05);
+color: black;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
+        <div class="nav-left"><a href="/pos_xyz">POS</a></div>
+        <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
+        <div class="nav-left"><a href="/shop_all_history">History</a></div>
+        <div class="nav-left"><a href="/shop-online-order">Market</a></div>
+        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/login_shop">LogOut</a></div>
+    </div>
+    
+    <div class="container">
+        <h2>Product Edit</h2>
+        <div class="image_photo">
+            <img class="product-photo" src="/image/<%= product_database[0].id %>" alt="Product Photo">
+        </div>
+        <form id="product_add" action="/online-product-details" method="POST">
+            <input type="hidden" id="id" name="id" value="<%= product_database[0].id %>">
+            <div class="form-row">
+                <label for="productName">Product Name:</label>
+                <input type="hidden" id="productName" name="productName" value="<%= product_database[0].productName %>">
+                <span><%= product_database[0].productName %></span>
+            </div>
+            <div class="form-row">
+                <label for="ProductCount">Product Count:</label>
+                <input type="hidden" id="ProductCount" name="ProductCount" value="<%= product_database[0].ProductCount %>">
+                <span><%= product_database[0].ProductCount %></span>
+            </div>
+            <div class="form-row">
+                <label for="productType">Product Type:</label>
+                <input type="hidden" id="productType" name="productType" value="<%= product_database[0].productType %>">
+                <span><%= product_database[0].productType %></span>
+            </div>
+            <div class="form-row">
+                <label for="ingredients">Ingredients:</label>
+                <input type="hidden" id="ingredients" name="ingredients" value="<%= product_database[0].ingredients %>">
+                <span><%= product_database[0].ingredients %></span>
+            </div>
+            <div class="form-row">
+                <label for="weight">Weight:</label>
+                <input type="hidden" id="weight" name="weight" value="<%= product_database[0].weight %>">
+                <span><%= product_database[0].weight %></span>
+            </div>
+            <div class="form-row">
+                <label for="companyName">Company Name:</label>
+                <input type="hidden" id="companyName" name="companyName" value="<%= product_database[0].companyName %>">
+                <span><%= product_database[0].companyName %></span>
+            </div>
+            <div class="form-row">
+                <label for="age">Age:</label>
+                <input type="hidden" id="age" name="age" value="<%= product_database[0].age %>">
+                <span><%= product_database[0].age %></span>
+            </div>
+            <div class="form-row">
+                <label for="single_price">Price:</label>
+                <input type="hidden" id="single_price" name="single_price" value="<%= product_database[0].single_price %>">
+                <span><%= product_database[0].single_price %></span>
+            </div>
+
+            <div class="form-row">
+                <label for="box_price">Price:</label>
+                <input type="hidden" id="box_price" name="box_price" value="<%= product_database[0].box_price %>">
+                <span><%= product_database[0].box_price %></span>
+            </div>
+
+
+            <div class="form-row">
+                <label for="discount">Discount:</label>
+                <input type="hidden" id="discount" name="discount" value="<%= product_database[0].discount %>">
+                <span><%= product_database[0].discount %></span>
+            </div>
+
+            <div class="form-row">
+                <label for="a_d_b_price">Price:</label>
+                <input type="hidden" id="a_d_b_price" name="a_d_b_price" value="<%= product_database[0].a_d_b_price %>">
+                <span><%= product_database[0].a_d_b_price %></span>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

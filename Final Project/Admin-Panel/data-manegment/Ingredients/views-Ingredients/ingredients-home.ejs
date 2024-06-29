@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .search-form {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .search-form input[type="search"],
+        .search-form input[type="submit"] {
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .new-product-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            float: right;
+            margin-left: 10px;
+            
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #175019;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 7px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+        <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+        <div class="nav-left"><a href="/login">LogOut</a></div>
+    </div>
+
+    <div class="container">
+        <button class="new-product-btn" onclick="location.href='Ingredients-entry'">New Entry</button>
+        <button class="new-product-btn" onclick="location.href='Ingredients-panel-entry'">Panel Enry</button>
+        <h2>Ingredients</h2>
+        <div class="search-form">
+            <form action="Ingredients-search" method="GET">
+                <label for="searchId">Id:</label>
+                <input type="search" id="searchId" name="id">
+
+                <label for="ingredient_name">Ingredients Name:</label>
+                <input type="search" id="ingredient_name" name="ingredient_name">
+
+                <label for="weight">Weight:</label>
+                <input type="search" id="weight" name="weight">
+
+                <label for="ingredient_type	">Ingredients Type:</label>
+                <select id="ingredient_type" name="ingredient_type" required>
+                    <option value="solid ">Solid </option>
+                    <option value="liquid ">Liquid </option>
+                    <option value="gas ">Gas </option>
+                </select>
+
+                <input type="submit" value="Search">
+            </form>
+
+        </div>
+
+        <div class="panel">
+        </div>
+
+        <table id="searchResults">
+            <tr>
+                <th>Id</th>
+                <th>ingredient_name</th>
+                <th>weight</th>
+                <th>ingredient_type</th>
+                <th>Detailes</th>
+            </tr>
+            <% new_ingredient_final.forEach(item=> { %>
+                <tr>
+                    <td>
+                        <%= item.id %>
+                    </td>
+                    <td>
+                        <%= item.ingredient_name %>
+                    </td>
+                    <td>
+                        <%= item.weight %>
+                    </td>
+                    <td>
+                        <%= item.ingredient_type %>
+                    </td>
+
+                    <td><a href="/Ingredients-edite/<%= item.id %>"><i class="fas fa-edit"></a></td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+</body>
+
+</html>

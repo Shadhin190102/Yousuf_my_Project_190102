@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 70%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        th,
+        td {
+            text-align: center;
+        }
+
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+
+            color: rgb(0, 0, 0);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .bottom-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        .info {
+            font-weight: bold;
+
+
+        }
+
+        .container2 {
+            width: 25%;
+            margin-left: 75%;
+        }
+
+
+        .nav1 {
+
+
+            width: 100%;
+
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav1">
+        <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
+        <div class="nav-left"><a href="/pos_xyz">POS</a></div>
+        <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
+        <div class="nav-left"><a href="/shop_all_history">History</a></div>
+        <div class="nav-left"><a href="/shop-online-order">Market</a></div>
+        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/login_shop">LogOut</a></div>
+    </div>
+    <div class="container">
+        <div class="top-info">
+            <div class="info">Sales Invoice: <%= salesDetails.id %>
+            </div>
+            <div class="info">Sales Time: <%= salesDetails.sales_time %>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Product Weight</th>
+                    <th>Product Type</th>
+                    <th>Company Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% salesDetails.products.forEach(product=> { %>
+                    <tr>
+                        <td>
+                            <%= product.product_id %>
+                        </td>
+                        <td>
+                            <%= product.product_name %>
+                        </td>
+                        <td>
+                            <%= product.product_weight %>
+                        </td>
+                        <td>
+                            <%= product.product_type %>
+                        </td>
+                        <td>
+                            <%= product.company_name %>
+                        </td>
+                        <td>
+                            <%= product.price %>
+                        </td>
+                        <td>
+                            <%= product.quantity %>
+                        </td>
+                        <td>
+                            <%= product.quantity * product.price %>
+                        </td>
+
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+        <br>
+        <div class="container2">
+
+            <div class="bottom-info">
+                <div class="info">Total Price :</div>
+                <div class="info">
+                    <%= salesDetails.total_price %>
+                </div>
+            </div>
+            <div class="bottom-info">
+                <div class="info">Discount :</div>
+                <div class="info">
+                    <%= salesDetails.discount %>%
+                </div>
+            </div>
+            <div class="bottom-info">
+                <div class="info">Grand Total Price :</div>
+                <div class="info">
+                    <%= salesDetails.after_discount_price %>
+                </div>
+            </div>
+            <div class="bottom-info">
+                <div class="info">Recive Amount :</div>
+                <div class="info">
+                    <%= salesDetails.receive_price %>
+                </div>
+            </div>
+            <div class="bottom-info">
+                <div class="info">Return Amount :</div>
+                <div class="info">
+                    <%= salesDetails.return_price %>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>

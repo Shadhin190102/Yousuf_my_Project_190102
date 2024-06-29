@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product panel</title>
+    <title>Product Panel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,73 +11,57 @@
             margin: 0;
             padding: 0;
         }
-        .nav1{
+        .nav1 {
+            background-color: #f3f3f3;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
 
-background-color: rgb(235, 222, 222);
+        .nav-left a {
+            color: rgb(34, 31, 31);
+            text-decoration: none;
+            padding: 8px 16px;
+            display: inline-block;
+            margin: 0px 30px;
+            font-weight: bold;
+        }
 
-width: 100%;
-
-margin: 20px 0px;
-display: flex;
-justify-content: center;
-align-items: center;
-justify-content: space-around;
-text-decoration: none;
-}
-.nav-left-1 a{
-font-family: 'Dancing Script', cursive;
-font-weight: bold;
-text-decoration: none;
-color: rgb(243, 237, 237);
-
-font-size: 35px;
-}
-
-.nav-left a{
-font-weight: bold;
-color: rgb(142, 139, 139);
-text-decoration: none;
-font-size: 30px;
-}
-.nav-left a:hover {
-font-weight: bold;
-color: rgb(84, 78, 78);
-text-decoration: none;
-font-size: 30px;
-}
+        .nav-left a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #f3f3f3;
+            
+        }
         .container {
             width: 90%;
-            margin: 20px auto;
+          
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         h2 {
             text-align: center;
             color: #333333;
         }
-
         .search-form {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .search-form label {
             font-weight: bold;
         }
-
         .search-form input[type="text"],
-        .search-form select {
+        .search-form input[type="search"] {
             padding: 8px;
             border: 1px solid #cccccc;
             border-radius: 5px;
             box-sizing: border-box;
         }
-
         .search-form input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -86,16 +70,8 @@ font-size: 30px;
             padding: 8px 20px;
             cursor: pointer;
         }
-
-        .panel {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .new-product-btn {
         
+        .new-product-btn {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -104,115 +80,102 @@ font-size: 30px;
             cursor: pointer;
             position:relative; left:70%; top:2px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         table, th, td {
             border: 1px solid #cccccc;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
-
         th {
             background-color: #f2f2f2;
         }
         td, th {
-            
             text-align: center;
             align-items: center;
-            
         }
-
         td a {
-            
             color: #4CAF50;
             text-decoration: none;
             font-size: 15px;
             font-weight: bold;
         }
-
         td a:hover {
             color: #175019;
         }
-        
+        .container2{
+            width: 95%;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
     <div class="nav1">
-        <div class="nav-left"><a href="/Dash_Board_panel.html">Desh Board</a></div>
-        <div class="nav-left"><a href="/data-entry/create_id_home.html">Home</a></div>
-     
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+        <div class="nav-left"><a href="/e-commerce-profile">Profile</a></div>
+    </div>
+    <div class="container2">
+
+        <div class="search-form">
+            <form action="/e-commerce-search" method="GET">
+                <label for="searchId">Id:</label>
+                <input type="search" id="searchId" name="product_code">
+                <label for="productName">Product Name:</label>
+                <input type="search" id="productName" name="product_name">
+                <label for="companyName">Company:</label>
+                <input type="search" id="companyName" name="company_name">
+                <label for="shopArea">Area:</label>
+                <input type="search" id="shopArea" name="shop_area">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div class="container">
+            <h2>Product Panel</h2>
+            <table id="searchResults">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Product Name</th>
+                        <th>Weight</th>
+                        <th>Product Type</th>
+                        <th>Company</th>
+                        <th>Shop Name</th>
+                        <th>Shop Area</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% all_shop_stock.forEach(item => { %>
+                      <tr>
+                        <form action="/product-panel_detailes" method="GET">
+                          <td><%= item.product_id %></td>
+                          <td><%= item.product_name %></td>
+                          <td><%= item.product_weight %></td>
+                          <td><%= item.product_type %></td>
+                          <td><%= item.company_name %></td>
+                          <td><%= item.shop_name %></td>
+                          <td><%= item.shop_area %></td>
+                          <td><%= item.shop_stock %></td>
+                          <td class="price" data-base-price="<%= item.price %>"><%= Number(item.price).toFixed(2) %></td>
+                          <td><input type="number" class="quantity-input" name="quantity" value="1" min="0"></td>
+                          <td>
+                            <input type="hidden" name="id" value="<%= item.id %>">
+                            <button type="submit">Add</button>
+                          </td>
+                        </form>
+                      </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
 
     </div>
-    <div class="search-form">
-        <form action="/e-commerce-search" method="GET">
-
-            <label for="searchId">Id:</label>
-            <input type="search" id="searchId" name="product_code">
-
-            <label for="productName">Product Name:</label>
-            <input type="search" id="productName" name="product_name">
-
-            <label for="companyName">Company:</label>
-            <input type="search" id="companyName" name="company_name">
-
-            <label for="companyName">Area:</label>
-            <input type="search" id="companyName" name="shop_area">
-
-            
-
-            <input type="submit" value="Search">
-        </form>
-    </div>
-
-
-    <div class="container">
-        <h2>Product panel</h2>
     
-        <table id="searchResults">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Product Name</th>
-                    <th>Weight</th>
-                    <th>Product Type</th>
-                    <th>Company</th>
-                    <th>Shop Name</th>
-                    <th>Shop Area</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% all_shop_stock.forEach(item => { %>
-                  <tr>
-                    <form action="/product-panel_detailes" method="GET">
-                      <td><%= item.product_code %></td>
-                      <td><%= item.product_name %></td>
-                      <td><%= item.product_weight %></td>
-                      <td><%= item.product_type %></td>
-                      <td><%= item.company_name %></td>
-                      <td><%= item.shop_name %></td>
-                      <td><%= item.shop_area %></td>
-                      <td><%= item.shop_stock %></td>
-                      <td class="price" data-base-price="<%= item.price %>"><%= item.price.toFixed(2) %></td>
-                      <td><input type="number" class="quantity-input" name="quantity" value="1" min="0"></td>
-                      <td>
-                        <input type="hidden" name="id" value="<%= item.id %>">
-                        <button type="submit">Add</button>
-                      </td>
-                    </form>
-                  </tr>
-                <% }); %>
-              </tbody>
-        </table>
-    </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const quantityInputs = document.querySelectorAll(".quantity-input");
@@ -228,10 +191,7 @@ font-size: 30px;
                     priceCell.textContent = newPrice.toFixed(2);
                 });
             });
-
         });
     </script>
-
-    
 </body>
 </html>

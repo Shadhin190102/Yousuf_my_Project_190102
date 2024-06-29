@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Entry Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="text"],
+        textarea,
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: rgb(22, 170, 22);
+            border: none;
+            font-weight: bold;
+            font-size: 15px;
+            color: white;
+        }
+
+        input[type="submit"]:hover {
+            background-color: green;
+            transform: scale(1.01);
+            box-shadow: 0 0px 16px rgba(0, 0, 0, 0.2);
+
+        }
+
+        #selectedOptions {
+            margin-top: 20px;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 7px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h2{
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+        <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+        <div class="nav-left"><a href="/disease-panel-home">Disease Panel</a></div>
+
+        <div class="nav-left"><a href="/login">LogOut</a></div>
+    </div>
+    <br>
+    <div class="form-container">
+        <h2>Disease Form</h2>
+        <form id="diseaseForm">
+            <div class="form-group">
+                <label for="diseaseName">Disease Name:</label>
+                <input type="text" id="diseaseName" name="diseaseName" required>
+            </div>
+            <div class="form-group">
+                <label for="season">Season:</label>
+                <select id="season" name="season" required>
+                    <option value="summer">All Years</option>
+                    <option value="summer">Summer</option>
+                    <option value="winter">Winter</option>
+                    <option value="spring">Spring</option>
+                    <option value="autumn">Autumn</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="problem">What is the problem from this?</label>
+                <select id="problem" name="problem" multiple="multiple" required>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="physicals_condition">Patient's physical condition:</label>
+                <select id="physicals_condition" name="physicals_condition" multiple="multiple" required>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="confirmTest">Confirm to test:</label>
+                <select id="confirmTest" name="confirmTest" multiple="multiple" required>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ingredient_name">Ingredient Name:</label>
+                <select id="ingredient_name" name="ingredient_name" multiple="multiple" required>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="resistance">Resistance:</label>
+                <textarea id="resistance" name="resistance" required></textarea>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#confirmTest').select2();
+            $('#problem').select2();
+            $('#ingredient_name').select2();
+            $('#physicals_condition').select2();
+
+            fetch('http://localhost:8081/api/confirm-test-options')
+                .then(response => response.json())
+                .then(data => {
+                    const confirmTestSelect = $('#confirmTest');
+                    data.forEach(option => {
+                        const opt = new Option(option.testName, option.testName);
+                        confirmTestSelect.append(opt);
+                    });
+                })
+                .catch(error => console.error('Error fetching confirm test options:', error));
+
+
+
+            fetch('http://localhost:8081/api/physical_condition-options')
+                .then(response => response.json())
+                .then(data => {
+                    const physical_conditionSelect = $('#physicals_condition');
+                    data.forEach(option => {
+                        const opt = new Option(option.physicals_condition, option.physicals_condition);
+                        physical_conditionSelect.append(opt);
+                    });
+                })
+                .catch(error => console.error('Error fetching physical condition options:', error));
+
+
+
+
+
+
+            fetch('http://localhost:8081/api/problemSelect-options')
+                .then(response => response.json())
+                .then(data => {
+                    const problemSelect = $('#problem');
+                    data.forEach(option => {
+                        const opt = new Option(option.problem_name, option.problem_name);
+                        problemSelect.append(opt);
+                    });
+                })
+                .catch(error => console.error('Error fetching problem options:', error));
+
+
+            fetch('http://localhost:8081/api/ingredient_nameSelect-options')
+                .then(response => response.json())
+                .then(data => {
+                    const ingredient_nameSelect = $('#ingredient_name');
+                    data.forEach(option => {
+                        const opt = new Option(option.ingredient_name, option.ingredient_name);
+                        ingredient_nameSelect.append(opt);
+                    });
+                })
+                .catch(error => console.error('Error fetching ingredient_name options:', error));
+
+
+
+            $('#confirmTest, #problem, #ingredient_name, #physicals_condition').on('change', function () {
+                const selectedOptions = $(this).val();
+                displaySelectedOptions(selectedOptions);
+            });
+
+            function displaySelectedOptions(options) {
+                const selectedOptionsDiv = $('#selectedOptions');
+                selectedOptionsDiv.empty();
+                if (options && options.length > 0) {
+                    const ul = $('<ul></ul>');
+                    options.forEach(option => {
+                        const li = $('<li></li>').text(option);
+                        ul.append(li);
+                    });
+                    selectedOptionsDiv.append(ul);
+                } else {
+                    selectedOptionsDiv.text('No options selected');
+                }
+            }
+
+
+
+            $('#diseaseForm').on('submit', function (event) {
+                event.preventDefault();
+
+                const jsonData = {
+                    diseaseName: $('#diseaseName').val(),
+                    season: $('#season').val(),
+                    problem: $('#problem').val(),
+                    physicals_condition: $('#physicals_condition').val(),
+                    confirmTest: $('#confirmTest').val(),
+                    ingredient_name: $('#ingredient_name').val(),
+                    resistance: $('#resistance').val()
+                };
+
+                console.log('Form Submitted (JSON):', jsonData);
+
+                // Send jsonData to the server
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8081/api/submit-data',
+                    contentType: 'application/json',
+                    data: JSON.stringify(jsonData),
+                    success: function (response) {
+                        console.log('Server Response:', response);
+                        window.location.href = '/disease-panel-home';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        // Handle error response from the server
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

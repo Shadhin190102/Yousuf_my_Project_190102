@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 96%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333333;
+}
+
+.search-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-form input[type="search"],
+.search-form input[type="submit"] {
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.search-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #cccccc;
+    padding: 6px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td input[type="number"] {
+    width: 100%;
+}
+
+#savesave {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin: 10px;
+    width: 20%;
+    position: relative;
+    left: 76%;
+    top: 2px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.nav1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    background-color: #333;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.nav-left a, .nav-right a {
+    color: white;
+    text-decoration: none;
+    padding: 0 20px;
+}
+
+.nav-left a:hover, .nav-right a:hover {
+    box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+}
+
+    </style>
+   
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div> 
+        <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        <div class="nav-right"><a href="/compnay-productions-report">Production</a></div>
+        <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+
+    </div>
+    <div class="container">
+        <h2>Product</h2>
+        <div class="search-form">
+            <form action="/Predection-report-search" method="GET">
+                <input type="search" id="product_id" name="product_id" placeholder="Search by ID...">
+                <input type="search" id="product_name" name="product_name" placeholder="Search by Medicine...">
+                <input type="search" id="company_name" name="company_name" placeholder="Search by Company...">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <form id="Predection-report-form" onsubmit="gatherAndSendData(event)">
+            <table id="searchResults">
+                <tr>
+                    <th>Product ID</th>
+                    <th>Name</th>
+                    <th>Weight</th>
+                    <th>Company</th>
+                    <th>Last Year Sales</th>
+                    <th>Last Season Sales</th>
+                    <th>This Year Sales</th>
+                    <th>This Season Sales</th>
+                    <th>Last Day Sales</th>
+                    <th>This Week All Sales</th>
+                    <th>This Month All Sales</th>
+                    <th>Last Production Quantity</th>
+                    <th>Physical Stock</th>
+                    <th>Production Prediction</th>
+                    <th>Production Quantity</th>
+                </tr>
+                <% production_prediction_database.forEach(item => { %>
+                <tr>
+                    <td><%= item.product_id %></td>
+                    <td><%= item.product_name %></td>
+                    <td><%= item.product_weight %></td>
+                    <td><%= item.company_name %></td>
+                    <td><%= item.LastYearSales %></td>
+                    <td><%= item.LastSeasonSales %></td>
+                    <td><%= item.ThisYearSales %></td>
+                    <td><%= item.ThisSeasonSales %></td>
+                    <td><%= item.LastDaySales %></td>
+                    <td><%= item.ThisWeekAllSales %></td>
+                    <td><%= item.ThisMonthAllSales %></td>
+                    <td><%= item.LastProductionQuantity %></td>
+                    <td><%= item.PhysicalStock %></td>
+                    <td><%= item.ProductionPrediction %></td>
+                    <td><input type="number" name="productionQuantity" value="<%= item.ProductionPrediction %>"></td>
+                </tr>
+                <% }); %>
+            </table>
+            <input type="submit" id="savesave" value="Save">
+        </form>
+    </div>
+
+
+    <script>
+        function gatherAndSendData(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const data = [];
+
+            document.querySelectorAll('#searchResults tr').forEach((row, index) => {
+                if (index === 0) return; // Skip the header row
+                const product_id = row.cells[0].innerText;
+                const product_name = row.cells[1].innerText;
+                const product_weight = row.cells[2].innerText;
+                const company_name = row.cells[3].innerText;
+                const productionQuantity = row.querySelector('input[name="productionQuantity"]').value;
+                const PhysicalStock = row.cells[12].innerText; // Assuming PhysicalStock is in the 13th column
+
+                data.push({
+                    product_id,
+                    product_name,
+                    product_weight,
+                    company_name,
+                    productionQuantity,
+                    PhysicalStock
+                });
+            });
+
+            fetch('/submit-compnay-productions-report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/compnay-productions-report'; // Redirect to the success page
+                } else {
+                    alert('Error submitting data');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting data');
+            });
+        }
+    </script>
+</body>
+</html>

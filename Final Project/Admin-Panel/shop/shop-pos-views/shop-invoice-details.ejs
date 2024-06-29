@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box1 {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .box {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            margin-bottom: 5px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        td {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: rgb(54, 172, 54);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #delete-button {
+
+            background-color: rgb(226, 46, 46);
+        }
+
+        .buttons button:hover {
+            background-color: green;
+            box-shadow: 0 8px 16px rgba(100, 95, 95, 0.2);
+        }
+
+        #delete-button:hover {
+            background-color: red;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav1">
+        <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
+        <div class="nav-left"><a href="/pos_xyz">POS</a></div>
+        <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
+        <div class="nav-left"><a href="/shop_all_history">History</a></div>
+        <div class="nav-left"><a href="/shop-online-order">Market</a></div>
+        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/login_shop">LogOut</a></div>
+    </div>
+
+    <div class="container">
+        <h2>Invoice Details</h2>
+        <div class="box1">
+            <p>Invoice Number: <%= invoice.id %>
+            </p>
+            <p>Company Name: <%= invoice.company %>
+            </p>
+            <p>Invoice Date: <%= invoice.date_time %>
+            </p>
+        </div>
+        <div class="box">
+
+            <table>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Pack</th>
+                    <th>Per Product Weight</th>
+                    <th>Product Type</th>
+                    <th>Single Price</th>
+                    <th>Box Price</th>
+                    <th>Discount</th>
+                    <th>Box</th>
+                    <th>Price A D B</th>
+                </tr>
+                <% invoiceDetails.forEach(item=> { %>
+                    <tr>
+                        <td>
+                            <%= item.product_id %>
+                        </td>
+                        <td>
+                            <%= item.product_name %>
+                        </td>
+                        <td>
+                            <%= item.product_pcs %>
+                        </td>
+                        <td>
+                            <%= item.weight %>
+                        </td>
+                        <td>
+                            <%= item.product_type %>
+                        </td>
+                        <td>
+                            <%= item.single_price %>
+                        </td>
+                        <td>
+                            <%= item.box_price %>
+                        </td>
+                        <td>
+                            <%= item.discount %>
+                        </td>
+                        <td>
+                            <%= item.quantity %>
+                        </td>
+                        <td>
+                            <%= item.a_d_b_price %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </table>
+        </div>
+        <div class="buttons">
+            <button id="save-button">Save</button>
+            <button id="delete-button">Delete</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('delete-button').addEventListener('click', () => {
+            const invoiceId = <%= invoice.id %>;
+            fetch(`/shop-invoice-delete/${invoiceId}`, {
+                method: 'DELETE'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/xyz1_shop_invoice';
+                } else {
+                    alert('Failed to delete the invoice.');
+                }
+            });
+        });
+
+        document.getElementById('save-button').addEventListener('click', () => {
+            const invoiceId = <%= invoice.id %>;
+            fetch(`/shop-invoice-save/${invoiceId}`, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/xyz1_shop_invoice';
+                } else {
+                    alert('Failed to save the invoice.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

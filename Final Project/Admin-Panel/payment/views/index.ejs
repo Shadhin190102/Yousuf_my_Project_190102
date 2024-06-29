@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Layout</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #cecccc;
+        }
+        .container {
+            box-sizing: border-box;
+        }
+        #container1 {
+            height: 15%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            
+            text-align: center;
+            color: white;
+            background-color: #202220;
+            flex-direction: row-reverse;
+           
+        }
+        #container2 {
+    min-height: 85vh; /* Use vh for relative height */
+    width: 15%;
+    float: left;
+    align-items: center;
+    text-align: center;
+    background-color: #cecccc;
+    overflow: hidden; /* Prevent overflow */
+    display: flex; /* Use flex for alignment */
+    flex-direction: column;
+}
+
+#container3 {
+    min-height: 85vh; /* Use vh for relative height */
+    width: 85%;
+    float: left;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: flex-start; /* Align items to the start */
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden; /* Prevent overflow */
+}
+        .subscription-plan {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 20px;
+            padding: 20px;
+        
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .subscription-plan:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .subscription-plan h3 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+        .subscription-plan p {
+            margin: 0 0 20px;
+            color: #666;
+            font-size: 18px;
+        }
+        .subscription-plan button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .subscription-plan button:hover {
+            background-color: #45a049;
+        }
+        #payment-options, #card-details {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+        .payment-option, .card-option {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .payment-option:hover, .card-option:hover {
+            background-color: #f0f0f0;
+        }
+        #card-details input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        input[readonly] {
+            background-color: #f5f5f5;
+            border: none;
+            color: #333;
+        }
+
+
+
+
+
+
+
+        .row2 {
+            justify-content: flex-end; 
+            display: flex;
+            align-items: center;
+
+        
+ 
+        }
+        .box2 a hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+        .box2 img {
+            border-radius: 4px;
+            width: 25%;
+            height: 95%;
+            display: block;
+        }
+
+        .box2 {
+
+            width: 100px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-weight: bold;
+
+
+}
+
+img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 5px;
+        }
+        .small-icon {
+            padding: 0% 2% 0% 2%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 5px;
+        }
+
+        .part-one-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+
+.box1 {
+            width: 80%;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .box1:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box1 a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .box2:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box2 a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .user-img{
+            
+            margin-left:2%;
+    margin-right:auto;
+    display:table;
+        }
+
+
+
+        .alert {
+            border: 1px solid green;
+            padding: 10px;
+            margin-bottom: 10px;
+            color: green;
+        }
+       
+        .container-table {
+           
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 97%;
+            background-color: #f5f5f5;
+            justify-content: space-around;
+            padding: 20px;
+            
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 85%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            align-items: center;
+    text-align: center;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            align-items: center;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            align-items: center;
+    text-align: center;
+        }
+
+        .message {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #f2f2f2;
+            background-color: #ffdddd;
+            color: #d8000c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container1" class="container">
+       
+            <div class="row2">
+                <div class="box2">
+                    <a href="/data-management-panel">Mail</a>
+                </div>
+                <div class="box2">
+                    <a href="/data-management-panel">Logout</a>
+                </div>
+            </div>
+            <div class="user-img">
+            <span id="user-name" ><%= user9.username %></span>
+                
+            </div>
+            
+    </div>
+    <div id="container2" class="container">
+
+            <br>
+            <h3><img src="/dashboard.png" width="200" height="200"></h3>
+            <div class="part-one-row">
+                <div class="box1">
+                    <a href="/all-panel">Panel</a>
+                </div>
+                <div class="box1">
+                    <a href="/data-management-panel">Subcribtion History</a>
+                </div>
+                <div class="box1">
+                    <a href="/email-panel">Mail</a>
+                </div>
+            </div>
+    </div>
+
+    
+
+    <div class="container-table">
+        <% if (message) { %>
+            <div class="alert"><%= message %></div>
+        <% } %>
+
+        <h2>Active Plans</h2>
+        <% if (plans.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Subscription Date</th>
+                        <th>Subscription End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% plans.forEach(plan => { %>
+                        <tr>
+                            <td><%= plan.plan %></td>
+                            <td><%= plan.created_at %></td>
+                            <td><%= plan.plan_end_date %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No active plans</p>
+        <% } %>
+    </div>
+    <div id="container3" class="container">
+
+       
+
+       
+        
+
+        <div class="subscription-plan">
+            <div>1 Year</div>
+            <br>
+            <div>Amount: TK- 25000</div>
+            <br><br>
+            <button onclick="showPaymentOptions('25000', '1 Year')">Confirm</button>
+        </div>
+        <div class="subscription-plan">
+            <div>2 Year</div>
+            <br>
+            <div>Amount: TK- 45000</div>
+            <br><br>
+            <button onclick="showPaymentOptions('45000', '2 Year')">Confirm</button>
+        </div>
+        <div class="subscription-plan">
+            <div>3 Year</div>
+            <br>
+            <div>Amount: TK- 100</div>
+            <br><br>
+            <button onclick="showPaymentOptions('70000', '3 Year')">Confirm</button>
+        </div>
+        <div class="subscription-plan">
+            <div>5 Year</div>
+            <br>
+            <div>Amount: TK- 110000</div>
+            <br><br>
+            <button onclick="showPaymentOptions('110000', '5 Year')">Confirm</button>
+        </div>
+        <div class="subscription-plan">
+            <div>10 Year</div>
+            <br>
+            <div>Amount: TK- 200000</div>
+            <br><br>
+            <button onclick="showPaymentOptions('200000', '10 Year')">Confirm</button>
+        </div>
+
+        <div id="payment-options" class="popup">
+            <span class="close" onclick="closePopup('payment-options')">Close</span>
+            <h3>Selected Amount: Tk- <span id="selected-amount"></span></h3>
+            <h3>Plan: <span id="selected-plan"></span></h3>
+            <div class="payment-option" onclick="showCardDetails('visa')">Visa Card</div>
+            <div class="payment-option" onclick="showCardDetails('master')">MasterCard</div>
+            <div class="payment-option" onclick="showCardDetails('others')">Others</div>
+        </div>
+
+        <div id="card-details" class="popup">
+            <span class="close" onclick="closePopup('card-details')">Close</span>
+            <h3>Enter Card Details</h3>
+            <div>Card Type: <span id="card-type"></span></div>
+            <input type="text" id="cardholder-name" placeholder="Cardholder Name">
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="expiration-date" placeholder="Expiration Date (MM/YY)">
+            <input type="text" id="cvv" placeholder="CVV">
+            <div>Amount: Tk- <span id="final-amount"></span></div>
+            <button onclick="validateCardNumber()">Confirm</button>
+            <p class="error-message" id="error-message"></p>
+        </div>
+    </div>
+
+    <script>
+        function showPaymentOptions(amount, plan) {
+            document.getElementById('selected-amount').innerText = amount;
+            document.getElementById('selected-plan').innerText = plan;
+            document.getElementById('payment-options').style.display = 'block';
+        }
+    
+        function showCardDetails(cardType) {
+            const amount = document.getElementById('selected-amount').innerText;
+            document.getElementById('final-amount').innerText = amount;
+            document.getElementById('card-type').innerText = cardType.charAt(0).toUpperCase() + cardType.slice(1) + ' Card';
+            document.getElementById('payment-options').style.display = 'none';
+            document.getElementById('card-details').style.display = 'block';
+            document.getElementById('card-details').setAttribute('data-card-type', cardType);
+        }
+    
+        function validateCardNumber() {
+            const cardType = document.getElementById('card-details').getAttribute('data-card-type');
+            const cardNumberInput = document.getElementById('card-number').value.trim();
+            const cardholderNameInput = document.getElementById('cardholder-name').value.trim();
+            const expirationDateInput = document.getElementById('expiration-date').value.trim();
+            const cvvInput = document.getElementById('cvv').value.trim();
+            const errorMessage = document.getElementById('error-message');
+    
+            let isValid = false;
+    
+            switch (cardType) {
+                case 'visa':
+                    isValid = isValidVisaCardNumber(cardNumberInput);
+                    break;
+                case 'master':
+                    isValid = isValidMasterCardNumber(cardNumberInput);
+                    break;
+                case 'others':
+                    isValid = isValidOtherCardNumber(cardNumberInput);
+                    break;
+                default:
+                    break;
+            }
+    
+            if (isValid) {
+                errorMessage.innerText = "";
+                errorMessage.style.display = 'none';
+    
+                const jsonData = convertToJSON();
+                console.log(jsonData);
+    
+                fetch('/payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    if (data.success) {
+                        alert('Payment confirmed successfully!');
+                        window.location.href = `/index?message=${encodeURIComponent('Payment confirmed successfully!')}`;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+    
+            } else {
+                errorMessage.innerText = "Invalid card number. Please enter a valid card number.";
+                errorMessage.style.display = 'block';
+                document.getElementById('card-number').style.borderColor = 'red';
+            }
+        }
+    
+        function isValidVisaCardNumber(cardNumber) {
+            const visaCardNumbers = ["4111111111111111", "4012888888881881", "4222222222222"];
+            return visaCardNumbers.includes(cardNumber);
+        }
+    
+        function isValidMasterCardNumber(cardNumber) {
+            const masterCardNumbers = ["5111111111111111", "5555555555554444", "5105105105105100"];
+            return masterCardNumbers.includes(cardNumber);
+        }
+    
+        function isValidOtherCardNumber(cardNumber) {
+            const otherCardNumbers = ["6011111111111117", "6011000990139424"];
+            return otherCardNumbers.includes(cardNumber);
+        }
+    
+        function extractYearsCount(plan) {
+            const match = plan.match(/\d+/);
+            return match ? parseInt(match[0], 10) : null;
+        }
+    
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    
+        function convertToJSON() {
+            const plan = document.getElementById('selected-plan').innerText;
+            const amount = document.getElementById('selected-amount').innerText;
+            const cardType = document.getElementById('card-type').innerText;
+            const cardNumber = document.getElementById('card-number').value.trim();
+            const cardholderName = document.getElementById('cardholder-name').value.trim();
+            const expirationDate = document.getElementById('expiration-date').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+            const yearsCount = extractYearsCount(plan);
+            const userName = document.getElementById('user-name').innerText; // Extract user name
+    
+            const data = {
+                plan: plan,
+                amount: amount,
+                years_count: yearsCount,
+                card_type: cardType,
+                card_number: cardNumber,
+                cardholder_name: cardholderName,
+                expiration_date: expirationDate,
+                cvv: cvv,
+                userName: userName // Add user name to JSON data
+            };
+    
+            return JSON.stringify(data);
+        }
+
+
+
+
+
+
+
+
+
+
+        function formatDate(dateString) {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+    </script>
+    
+</body>
+</html>

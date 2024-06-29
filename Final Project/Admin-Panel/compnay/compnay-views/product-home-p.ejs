@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            color: #181a19;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-form label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .search-form input[type="search"] {
+            padding: 8px;
+            border: 1px solid #262929;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .search-form input[type="submit"] {
+            background-color: #21bd29;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-form input[type="submit"]:hover {
+            background-color: #26d835;
+        }
+
+        .new-product-btn {
+            background-color: #22b81d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .new-product-btn:hover {
+            background-color: #13c23f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #0c0c0c;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #367541;
+            color: white;
+        }
+
+        td, th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        td a {
+            color: #141414;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        td a:hover {
+            color: #3eaa1d;
+        }
+        .nav1 {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            /* justify-content: space-between; */
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+        <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+        <div class="nav-right"><a href="/compnay-data-management">Data Mangement</a></div>
+        <div class="nav-right"><a href="/ingredients-home-p">Ingredient Home</a></div>
+    
+      </div>
+   
+    <div class="container">
+        <br>
+        <br>
+        <button class="new-product-btn" onclick="location.href='product-entry-p'">New Entry</button>
+        <h2>Product</h2>
+        <div class="search-form">
+            <form action="/product-search-p" method="GET">
+    
+                <label for="searchId">Id:</label>
+                <input type="search" id="searchId" name="id" placeholder="Product ID">
+    
+                <label for="productName">Product Name:</label>
+                <input type="search" id="productName" name="productName" placeholder="Product Name">
+    
+                <label for="companyName">Company:</label>
+                <input type="search" id="companyName" name="companyName" placeholder="Company Name">
+    
+                <input type="submit" value="Search">
+            </form>
+        </div>
+    
+        <table id="searchResults">
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Weight</th>
+                <th>Product Type</th>
+                <th>Company</th>
+                <th>Product Count</th>
+                <th>Price</th>
+                <th>Publication Date</th>
+                <th>Action</th>
+            </tr>
+            <% product_panel_dashboard.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.productName %></td>
+                <td><%= item.weight %></td>
+                <td><%= item.productType %></td>
+                <td><%= item.companyName %></td>
+                <td><%= item.ProductCount %></td>
+                <td><%= item.single_price %></td>
+                <td><%= new Date(item.publishedDate).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+                <td><a href="/product-details-p/<%= item.id %>"><i class="fas fa-edit"></a></td>
+            </tr>
+            <% }); %>
+        </table>
+    </div>
+
+    
+</body>
+</html>

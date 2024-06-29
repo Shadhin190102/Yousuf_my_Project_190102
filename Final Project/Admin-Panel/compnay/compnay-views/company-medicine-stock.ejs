@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Medicine Stock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 96%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        .search-form {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-direction: column;
+            text-align: center;
+        }
+        .search-form label {
+            font-weight: bold;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin: 5px;
+        }
+        .search-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #cccccc;
+            padding: 6px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .update-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .update-button:hover {
+            background-color: #45a049;
+        }
+        .nav1 {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            /* justify-content: space-between; */
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+        <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+    </div>
+    <div class="container">
+        <h2>Company Medicine Stock</h2>
+        <div class="search-form">
+            <form action="/company-medicine-stock-search" method="GET">
+                <input type="text" id="product_id" name="product_id" placeholder="Search by Product ID...">
+                <input type="text" id="product_name" name="product_name" placeholder="Search by Product Name...">
+                <input type="text" id="company_name" name="company_name" placeholder="Search by Company Name...">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Product Quantity</th>
+                <th>Product Weight</th>
+                <th>Company Name</th>
+                <th>Product Type</th>
+                <th>Last Production</th>
+                <th>Update Stock</th>
+               
+            </tr>
+            <% copmay_medicine_stock.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.product_name %></td>
+                <td><%= item.product_quantity %></td>
+                <td><%= item.product_weight %></td>
+                <td><%= item.company_name %></td>
+                <td><%= item.productType %></td>
+                <td><%= item.lastproduction %></td>
+                <td><%= item.updateStock %></td>
+                
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>

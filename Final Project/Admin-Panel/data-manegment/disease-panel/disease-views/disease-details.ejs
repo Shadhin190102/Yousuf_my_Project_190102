@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Details Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+        }
+
+        .container2 {
+            width: 80%;
+            margin: auto;
+        }
+
+
+        h2 {
+            margin-bottom: 30px;
+            color: #000000;
+            align-items: center;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-btn-delete {
+            background-color: red;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            float: right;
+            position: relative;
+            bottom: 45px;
+            margin-right: 10px;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 7px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+        <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+        <div class="nav-left"><a href="/disease-panel-home">Disease Panel</a></div>
+
+        <div class="nav-left"><a href="/login">LogOut</a></div>
+    </div>
+    <br><br>
+    <div class="container2">
+        <h2>Disease Details</h2>
+        <form action="/update-disease/<%= data.id %>" method="POST">
+            <label for="diseaseName">Disease Name:</label>
+            <input type="text" id="diseaseName" name="diseaseName" value="<%= data.diseaseName %>"><br>
+
+            <label for="season">Season:</label>
+            <input type="text" id="season" name="season" value="<%= data.season %>"><br>
+
+
+
+            <label for="problems">Problems:</label><br>
+            <% if (data.problem) { %>
+                <% let problems=[]; %>
+                    <% try { problems=JSON.parse(data.problem); } catch(e) { problems=[]; } %>
+                        <% if (Array.isArray(problems)) { %>
+                            <% problems.forEach(function(problem, index) { %>
+                                <input type="text" name="problems[]" value="<%= problem %>"><br>
+                                <% }); %>
+                                    <% } else { %>
+                                        <input type="text" name="problems[]" value="<%= data.problem %>"><br>
+                                        <% } %>
+                                            <% } %>
+
+                                                <label for="physicals_conditions">Physical Conditions:</label><br>
+                                                <% if (data.physicals_condition) { %>
+                                                    <% let physicals_conditions=[]; %>
+                                                        <% try {
+                                                            physicals_conditions=JSON.parse(data.physicals_condition); }
+                                                            catch(e) { physicals_conditions=[]; } %>
+                                                            <% if (Array.isArray(physicals_conditions)) { %>
+                                                                <% physicals_conditions.forEach(function(condition,
+                                                                    index) { %>
+                                                                    <input type="text" name="physicals_conditions[]"
+                                                                        value="<%= condition %>"><br>
+                                                                    <% }); %>
+                                                                        <% } else { %>
+                                                                            <input type="text"
+                                                                                name="physicals_conditions[]"
+                                                                                value="<%= data.physicals_condition %>"><br>
+                                                                            <% } %>
+                                                                                <% } %>
+
+                                                                                    <label for="confirmTests">Confirm
+                                                                                        Tests:</label><br>
+                                                                                    <% if (data.confirmTest) { %>
+                                                                                        <% let confirmTests=[]; %>
+                                                                                            <% try {
+                                                                                                confirmTests=JSON.parse(data.confirmTest);
+                                                                                                } catch(e) {
+                                                                                                confirmTests=[]; } %>
+                                                                                                <% if
+                                                                                                    (Array.isArray(confirmTests))
+                                                                                                    { %>
+                                                                                                    <% confirmTests.forEach(function(test,
+                                                                                                        index) { %>
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="confirmTests[]"
+                                                                                                            value="<%= test %>"><br>
+                                                                                                        <% }); %>
+                                                                                                            <% } else {
+                                                                                                                %>
+                                                                                                                <input
+                                                                                                                    type="text"
+                                                                                                                    name="confirmTests[]"
+                                                                                                                    value="<%= data.confirmTest %>"><br>
+                                                                                                                <% } %>
+                                                                                                                    <% }
+                                                                                                                        %>
+
+                                                                                                                        <label
+                                                                                                                            for="ingredient_names">Ingredient
+                                                                                                                            Names:</label><br>
+                                                                                                                        <% if
+                                                                                                                            (data.ingredient_name)
+                                                                                                                            {
+                                                                                                                            %>
+                                                                                                                            <% let
+                                                                                                                                ingredient_names=[];
+                                                                                                                                %>
+                                                                                                                                <% try
+                                                                                                                                    {
+                                                                                                                                    ingredient_names=JSON.parse(data.ingredient_name);
+                                                                                                                                    }
+                                                                                                                                    catch(e)
+                                                                                                                                    {
+                                                                                                                                    ingredient_names=[];
+                                                                                                                                    }
+                                                                                                                                    %>
+                                                                                                                                    <% if
+                                                                                                                                        (Array.isArray(ingredient_names))
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <% ingredient_names.forEach(function(ingredient,
+                                                                                                                                            index)
+                                                                                                                                            {
+                                                                                                                                            %>
+                                                                                                                                            <input
+                                                                                                                                                type="text"
+                                                                                                                                                name="ingredient_names[]"
+                                                                                                                                                value="<%= ingredient %>"><br>
+                                                                                                                                            <% });
+                                                                                                                                                %>
+                                                                                                                                                <% } else
+                                                                                                                                                    {
+                                                                                                                                                    %>
+                                                                                                                                                    <input
+                                                                                                                                                        type="text"
+                                                                                                                                                        name="ingredient_names[]"
+                                                                                                                                                        value="<%= data.ingredient_name %>"><br>
+                                                                                                                                                    <% }
+                                                                                                                                                        %>
+                                                                                                                                                        <% }
+                                                                                                                                                            %>
+
+                                                                                                                                                            <label
+                                                                                                                                                                for="resistance">Resistance:</label>
+                                                                                                                                                            <textarea
+                                                                                                                                                                id="resistance"
+                                                                                                                                                                name="resistance"><%= data.resistance %></textarea><br>
+
+                                                                                                                                                            <input
+                                                                                                                                                                type="submit"
+                                                                                                                                                                value="Update">
+        </form>
+
+        <form action="/delete-disease/<%= data.id %>" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete this data?');">
+            <button type="submit" class="btn-btn-delete">Delete</button>
+        </form>
+
+    </div>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

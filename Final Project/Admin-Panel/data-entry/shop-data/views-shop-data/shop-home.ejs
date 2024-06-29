@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            ;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form label {
+            font-weight: bold;
+        }
+
+        .search-form input[type="text"],
+        .search-form select {
+            padding: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+
+        .panel {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .new-product-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+           float: right;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td,
+        th {
+            text-align: center;
+            align-items: center;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #175019;
+        }
+
+       
+
+        .nav1 {
+
+
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 7px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+        <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+        <div class="nav-left"><a href="/login">LogOut</a></div>
+    </div>
+    <div class="container">
+        <button class="new-product-btn" onclick="location.href='/shop-form'">New Shop</button>
+        <h2>Shop</h2>
+
+        <div class="search-form">
+            <form action="/shop-search" method="GET">
+                <label for="searchId">Id:</label>
+                <input type="search" id="searchId" name="id">
+                <label for="name">Shop Name:</label>
+                <input type="search" id="name" name="name">
+                <label for="area">Shop Area:</label>
+                <select id="areaSelect" name="area">
+                    <option value="">Select Area</option>
+                </select>
+                <label for="type">Shop Type:</label>
+                <select id="type" name="type">
+                    <option value="">Select Type</option>
+                    <option value="Hospital Pharmacy">Hospital Pharmacy</option>
+                    <option value="Clinical Pharmacy">Clinical Pharmacy</option>
+                    <option value="Industrial Pharmacy">Industrial Pharmacy</option>
+                    <option value="Regulatory Pharmacy">Regulatory Pharmacy</option>
+                    <option value="Wholesale">Wholesale</option>
+                </select>
+                <br>
+                <br>
+                <label for="mobileNumber">Mobile Number:</label>
+                <input type="search" id="mobileNumber" name="mobileNumber">
+                <label for="email">Email:</label>
+                <input type="search" id="email" name="email">
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <table id="searchResults">
+            <tr>
+                <th>Id</th>
+                <th>Shop Name</th>
+                <th>Area</th>
+                <th>Area</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+            <% admin_shop_id.forEach(item=> { %>
+                <tr>
+                    <td>
+                        <%= item.id %>
+                    </td>
+                    <td>
+                        <%= item.name %>
+                    </td>
+                    <td>
+                        <%= item.area %>
+                    </td>
+                    <td>
+                        <%= item.type %>
+                    </td>
+                    <td>
+                        <%= item.mobileNumber %>
+                    </td>
+                    <td>
+                        <%= item.email %>
+                    </td>
+                    <td>
+                        <% if (item.photo) { %>
+                            <img src="data:<%= item.mime_type %>;base64,<%= item.photo.toString('base64') %>"
+                                alt="Admin Photo" width="50" height="50">
+                            <% } else { %>
+                                No Photo
+                                <% } %>
+                    </td>
+                    <td><a href="/shop-detalies/<%= item.id %>">Details</a></td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+
+
+    <script>
+        const areas = ["Adabor", "Badda", "Bandar", "Bangshal", "Biman Bandar", "Cantonment", "Chak Bazar", "Dakshinkhan", "Darus Salam", "Demra", "Dhanmondi", "Gazipur Sadar", "Gendaria", "Gulshan", "Hazaribagh", "Jatrabari", "Kadamtali", "Kafrul", "Kalabagan", "Kamrangir Char", "Keraniganj", "Khilkhet", "Khilgaon", "Kotwali", "Lalbagh", "Mirpur", "Mohammadpur", "Motijheel", "Narayanganj Sadar", "New Market", "Pallabi", "Paltan", "Ramna", "Rampura", "Sabujbagh", "Savar", "Shah Ali", "Shahbagh", "Sher-E-Bangla Nagar", "Shyampur", "Sutrapur", "Tejgaon", "Tejgaon Industrial Area", "Turag", "Uttara", "Uttar Khan"];
+
+        const selectElement = document.getElementById("areaSelect");
+
+        areas.forEach(area => {
+            const option = document.createElement("option");
+            option.value = area;
+            option.text = area;
+            selectElement.appendChild(option);
+        });
+    </script>
+
+</body>
+
+</html>

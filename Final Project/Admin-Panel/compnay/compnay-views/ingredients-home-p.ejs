@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .search-form {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .search-form input[type="search"],
+        .search-form input[type="submit"] {
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .new-product-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            float: right; /* Align the button to the right */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #175019;
+        }
+
+        .nav1 {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            /* justify-content: space-between; */
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+        <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+        <div class="nav-right"><a href="/compnay-data-management">Data Mangement</a></div>
+    
+      </div>
+    <br><br>
+    
+    <div class="container">
+        <button class="new-product-btn" onclick="location.href='Ingredients-entry-p'">New Entry</button>
+        <h2>Ingredients</h2>
+        <div class="search-form">
+            <form action="Ingredients-search-p" method="GET">
+
+                <input type="search" id="searchId" name="id" placeholder="Ingredients ID">
+
+
+                <input type="search" id="ingredient_name" name="ingredient_name" placeholder="Ingredients Name">
+
+
+                <input type="search" id="weight" name="weight" placeholder="Ingredients Weight">
+
+
+                <input type="submit" value="Search">
+            </form>
+
+        </div>
+
+        <table id="searchResults">
+            <tr>
+                <th>Id</th>
+                <th>ingredient_name</th>
+                <th>weight</th>
+                <th>ingredient_type</th>
+                <th>Detailes</th>
+            </tr>
+            <% panel_new_ingredient_final.forEach(item=> { %>
+                <tr>
+                    <td>
+                        <%= item.id %>
+                    </td>
+                    <td>
+                        <%= item.ingredient_name %>
+                    </td>
+                    <td>
+                        <%= item.weight %>
+                    </td>
+                    <td>
+                        <%= item.ingredient_type %>
+                    </td>
+
+                    <td><a href="/Ingredients-edite-p/<%= item.id %>"><i class="fas fa-edit"></a></td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+</body>
+
+</html>

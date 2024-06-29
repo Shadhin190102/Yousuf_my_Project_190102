@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #8a7e7e;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
+        <div class="nav-left"><a href="/pos_xyz">POS</a></div>
+        <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
+        <div class="nav-left"><a href="/shop_all_history">History</a></div>
+        <div class="nav-left"><a href="/shop-online-order">Market</a></div>
+        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/login_shop">LogOut</a></div>
+    </div>
+    <div class="container">
+        <h2>Sales Reports</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sales Invoice</th>
+                    <th>After Discount Amount</th>
+                    <th>Sales Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% salesReports.forEach(report=> {
+                    const salesDetails = JSON.parse(report.sales_details);
+                    %>
+                    <tr>
+                        <td>
+                            <%= report.id %>
+                        </td>
+                        <td>
+                            <%= salesDetails.after_discount_price %>
+                        </td>
+                        <td>
+                            <%= salesDetails.sales_time %>
+                        </td>
+                        <td><a href="/sales_report_detalis/<%= report.id %>" class="action-btn">View</a></td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

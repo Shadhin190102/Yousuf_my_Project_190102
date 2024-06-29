@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td input[type="number"] {
+            width: 100%;
+        }
+
+        .cancel-button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .cancel-button:hover {
+            background-color: #cc0000;
+        }
+
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .save-button:hover {
+            background-color: #45a049;
+        }
+
+        .nav1 {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            /* justify-content: space-between; */
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+        <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+        <div class="nav-right"><a href="/Predection-report">Predection</a></div>
+        <div class="nav-right"><a href="/compnay-production-history">History</a></div>
+
+    </div>
+    <div class="container">
+        <h2>Production Report</h2>
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Product Weight</th>
+                <th>Company Name</th>
+                <th>Physical Stock</th>
+                <th>Production Quantity</th>
+                <th>Action</th>
+            </tr>
+            <% report_for_production.forEach(item=> { %>
+                <tr>
+                    <td>
+                        <%= item.product_id %>
+                    </td>
+                    <td>
+                        <%= item.product_name %>
+                    </td>
+                    <td>
+                        <%= item.product_weight %>
+                    </td>
+                    <td>
+                        <%= item.company_name %>
+                    </td>
+                    <td>
+                        <%= item.PhysicalStock %>
+                    </td>
+                    <td><input type="number" value="<%= item.productionQuantity %>"></td>
+                    <td><button class="cancel-button" onclick="deleteRow(<%= item.id %>)">Cancel</button></td>
+                </tr>
+                <% }) %>
+        </table>
+    </div>
+    <button class="save-button" onclick="saveData()">Save</button>
+
+    <script>
+        function deleteRow(id) {
+            fetch('/delete-compnay-productions-report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Reload the page to reflect the changes
+                    } else {
+                        alert('Error deleting data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting data');
+                });
+        }
+
+        function saveData() {
+            const rows = document.querySelectorAll('table tr:not(:first-child)');
+            const data = [];
+
+            rows.forEach(row => {
+                const item = {
+                    id: row.querySelector('td:nth-child(1)').textContent,
+                    product_id: row.querySelector('td:nth-child(1)').textContent,
+                    product_name: row.querySelector('td:nth-child(2)').textContent,
+                    product_weight: row.querySelector('td:nth-child(3)').textContent,
+                    company_name: row.querySelector('td:nth-child(4)').textContent,
+                    PhysicalStock: row.querySelector('td:nth-child(5)').textContent,
+                    productionQuantity: row.querySelector('td:nth-child(6) input').value
+                };
+                data.push(item);
+            });
+
+            fetch('/save-compnay-productions-report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.href = '/'; // Redirect to the home page after saving
+                    } else {
+                        alert('Error saving data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving data');
+                });
+        }
+
+    </script>
+</body>
+
+</html>

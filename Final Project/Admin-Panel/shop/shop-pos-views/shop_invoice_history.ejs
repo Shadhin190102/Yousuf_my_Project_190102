@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Invoices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        th,
+        td {
+            text-align: center;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #175019;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav1">
+        <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
+        <div class="nav-left"><a href="/pos_xyz">POS</a></div>
+        <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
+        <div class="nav-left"><a href="/shop_all_history">History</a></div>
+        <div class="nav-left"><a href="/shop-online-order">Market</a></div>
+        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/login_shop">LogOut</a></div>
+    </div>
+    <div class="container">
+        <h2>Shop Invoices</h2>
+        <table>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Company Name</th>
+                <th>Invoice Date</th>
+                <th>Action</th>
+            </tr>
+            <% invoices.forEach(invoice=> { %>
+                <tr>
+                    <td>
+                        <%= invoice.id %>
+                    </td>
+                    <td>
+                        <%= invoice.company %>
+                    </td>
+                    <td>
+                        <%= invoice.date_time %>
+                    </td>
+                    <td><a href="/shop_invoice_history_detalis/<%= invoice.id %>">View</a></td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+</body>
+
+</html>

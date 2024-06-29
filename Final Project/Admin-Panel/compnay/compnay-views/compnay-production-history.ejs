@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 96%;
+      margin: 20px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    th, td {
+      text-align: center;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+
+    .search-form input {
+      margin-right: 10px;
+      padding: 5px;
+    }
+
+    .search-form button {
+      padding: 5px 10px;
+    }
+
+    .nav1 {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            /* justify-content: space-between; */
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .nav-left a,
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        .nav-left a:hover,
+        .nav-right a:hover {
+            box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+        }
+  </style>
+</head>
+<body>
+
+  <div class="nav1">
+    <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+    <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+    <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+    <div class="nav-right"><a href="/compnay-productions-report">Productions</a></div>
+    <div class="nav-right"><a href="/compnay_all_history">All History</a></div>
+
+</div>
+  <div class="container">
+    <h2>Company Production History</h2>
+    <form class="search-form" action="/company_production_history-search" method="POST">
+      <input type="text" name="product_id" placeholder="Product ID" value="<%= search.product_id %>">
+      <input type="text" name="product_name" placeholder="Product Name" value="<%= search.product_name %>">
+      <input type="text" name="company_name" placeholder="Company Name" value="<%= search.company_name %>">
+      <input type="text" name="date_time" placeholder="Date Time" value="<%= search.date_time %>">
+      <button type="submit">Search</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Product Weight</th>
+          <th>Company Name</th>
+          <th>Physical Stock</th>
+          <th>Production Quantity</th>
+          <th>Date Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% history.forEach(item => { %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.product_id %></td>
+            <td><%= item.product_name %></td>
+            <td><%= item.product_weight %></td>
+            <td><%= item.company_name %></td>
+            <td><%= item.PhysicalStock %></td>
+            <td><%= item.productionQuantity %></td>
+            <td><%= new Date(item.date_time).toLocaleDateString('en-GB') %>
+            </td>
+            
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

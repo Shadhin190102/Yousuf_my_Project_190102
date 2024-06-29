@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Problem Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .nav1 {
+
+
+      width: 100%;
+      margin: 20px 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+
+    .nav-left a {
+      color: rgb(78, 67, 67);
+      text-decoration: none;
+      font-size: 18px;
+      padding: 7px;
+    }
+
+    .nav-left a:hover {
+      background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+      transform: scale(1.05);
+      color: black;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav1">
+    <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+    <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+
+
+    <div class="nav-left"><a href="/login">LogOut</a></div>
+  </div>
+  <br>
+
+  <div class="container">
+    <h2>Disease Problem Form</h2>
+
+    <% if (successMessage) { %>
+      <div class="success-message">
+        <%= successMessage %>
+      </div>
+      <% } %>
+
+        <form action="/disease_problem-submit" method="post">
+          <label for="disease_problem">Disease Problem:</label><br>
+          <input type="text" id="disease_problem" name="disease_problem" placeholder="Enter disease problem"><br><br>
+          <input type="submit" value="Submit">
+        </form>
+  </div>
+
+</body>
+
+</html>

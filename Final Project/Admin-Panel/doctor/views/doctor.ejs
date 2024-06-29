@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007BFF;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .results {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+    .result-item {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .result-item p {
+      margin: 0;
+      color: #333;
+    }
+    .result-item ol {
+      padding-left: 20px;
+    }
+    .result-item ol li {
+      margin-bottom: 5px;
+    }
+    .radio-options {
+      display: flex;
+      align-items: center;
+    }
+    .radio-option label {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+    <h1>Search for Diseases</h1>
+    <form action="/search" method="POST">
+      <label for="problem">Enter Problem:</label>
+      <input type="text" id="problem" name="problem" required>
+      <button type="submit">Search</button>
+    </form>
+  
+    <% if (typeof results !== 'undefined') { %>
+      <div class="results">
+        <h2>Search Results</h2>
+        <% if (results.length > 0) { %>
+          <% results.forEach(result => { %>
+            <div class="result-item">
+              <% 
+                const conditions = JSON.parse(result.physicals_condition);
+              %>
+              <ol>
+                <% conditions.forEach((condition, index) => { %>
+                  <li>
+                    <%= condition %>
+                    <div class="radio-options">
+                      <div class="radio-option">
+                        <label for="yes_<%= index %>">Yes</label>
+                        <input type="radio" id="yes_<%= index %>" name="condition_<%= index %>" value="true" required>
+                      </div>
+                      <div class="radio-option">
+                        <label for="no_<%= index %>">No</label>
+                        <input type="radio" id="no_<%= index %>" name="condition_<%= index %>" value="false" required>
+                      </div>
+                    </div>
+                  </li>
+                <% }) %>
+              </ol>
+            </div>
+          <% }) %>
+          <button onclick="return validateForm()">Enter</button>
+        <% } else { %>
+          <p>No matching diseases found.</p>
+        <% } %>
+      </div>
+    <% } %>
+  
+    <% if (typeof diseaseNames !== 'undefined' && typeof results === 'undefined') { %>
+      <div class="results">
+        <h2>Matching Diseases</h2>
+        <% if (diseaseNames.length > 0) { %>
+          <ul>
+            <% diseaseNames.forEach(name => { %>
+              <li><%= name %></li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>No diseases found.</p>
+        <% } %>
+      </div>
+    <% } %>
+  
+    <script>
+        function validateForm() {
+          const radioGroups = document.querySelectorAll('.radio-options');
+          for (let i = 0; i < radioGroups.length; i++) {
+            const radios = radioGroups[i].querySelectorAll('input[type="radio"]');
+            let selected = false;
+            for (let j = 0; j < radios.length; j++) {
+              if (radios[j].checked) {
+                selected = true;
+                break;
+              }
+            }
+            if (!selected) {
+              alert('Please select Yes or No for all conditions.');
+              return false;
+            }
+          }
+          return true;
+        }
+      </script>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Layout</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #cecccc;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            box-sizing: border-box;
+        }
+        #container1 {
+            height: 15%;
+            width: 100%;
+            display: flex;
+            background-color: #202220;
+            
+           
+        }
+  
+
+#container3 {
+    min-height: 85vh; /* Use vh for relative height */
+    width: 100%;
+    float: left;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: flex-start; /* Align items to the start */
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden; /* Prevent overflow */
+}
+        
+        input[readonly] {
+            background-color: #f5f5f5;
+            border: none;
+            color: #333;
+        }
+
+
+
+
+
+
+
+        .row2 {
+            height: 100%;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            flex-direction: row-reverse;
+
+        
+ 
+        }
+        .box2 a hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+        .box2 img {
+            border-radius: 4px;
+            width: 25%;
+            height: 95%;
+            display: block;
+        }
+
+        .box2 {
+
+            width: 100px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-weight: bold;
+
+
+}
+
+img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 5px;
+        }
+        .small-icon {
+            padding: 0% 2% 0% 2%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 5px;
+        }
+
+        .part-one-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+
+.box1 {
+            width: 80%;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .box1:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box1 a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .box2:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box2 a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .box a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .user-img{
+            
+            margin-left:2%;
+    margin-right:auto;
+    display:table;
+        }
+
+
+
+        .nav1 {
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            width: 50%;
+            padding: 10px;
+            display: flex;
+           text-align: right;
+           transition: all 0.3s ease;
+           margin-right: 20px;
+           font-weight: bold;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            display: inline-block;
+        }
+
+        .nav-left a:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+            
+        }
+       
+
+
+    </style>
+</head>
+<body>
+    <div id="container1" class="container">
+        <div class="nav1">
+            <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+            <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+        </div>
+       
+            <div class="row2">
+                <div class="box2">
+                    <a href="/email-panel">Mail</a>
+                </div>
+                <div class="box2">
+                    <a href="/login-compnay-admin">Logout</a>
+                </div>
+            </div>
+            <div class="user-img">
+              
+                
+            </div>
+            
+    </div>
+
+    
+
+    
+    <div id="container3" class="container">
+
+       
+
+       
+       
+<div class="row">
+  <div class="box">
+    <a href="/Predection-report">Prediction</a>
+  </div>
+  <div class="box">
+    <a href="compnay-productions-report">Production</a>
+  </div>
+   
+  <div class="box">
+    <a href="company-medicine-stock">Stock</a>
+  </div>
+</div>
+<div class="row">
+   <div class="box">
+    <a href="compnay-data-management">Data Management</a>
+  </div>
+  <div class="box">
+    <a href="/shop-order-view">Shop Order</a>
+  </div>
+  <div class="box">
+    <a href="compnay_all_history">History</a>
+  </div>
+</div>
+
+    </div>
+
+   
+    
+</body>
+</html>
+
+
+

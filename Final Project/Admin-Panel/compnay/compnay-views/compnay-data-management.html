@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>create_id_home</title>
+  <style>
+    body {
+      margin: 0px;
+      height: 0px;
+      background-color: rgb(250, 247, 247);
+      font-family: Arial, sans-seri
+    }
+
+    .nav1 {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      background-color: #333;
+      padding: 20px;
+      color: white;
+      font-weight: bold;
+    }
+
+
+    .nav-left a,
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      padding: 0 20px;
+    }
+
+    .nav-left a:hover,
+    .nav-right a:hover {
+      box-shadow: 0 0 2px 1px rgba(153, 188, 199, 0.5);
+    }
+
+    .container {
+      max-width: 80%;
+      margin: 0% 10%;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .box {
+      width: 80%;
+      height: 50px;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .box a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav1">
+    <div class="nav-left"><a href="/dash_board">Desh Board</a></div>
+    <div class="nav-left"><a href="/compnay-admin-profile">Profile</a></div>
+    <div class="nav-right"><a href="/compnay-panel">Panel</a></div>
+
+  </div>
+  <br><br>
+  <div class="container">
+    <h2>Data Management</h2>
+    <div class="row">
+      <div class="box">
+        <a href="/ingredients-home-p">Ingredients</a>
+      </div>
+
+      <div class="box">
+        <a href="/product-home-p">Product</a>
+      </div>
+      <div class="box">
+        <a href="/disease-panel-home">Disease</a>
+      </div>
+      <div class="box">
+        <a href="/disease-problem-form">Disease Problem</a>
+      </div>
+
+      <div class="box">
+        <a href="/disease-test-form">Disease Test</a>
+      </div>
+
+      <div class="box">
+        <a href="/physical-condition-form">Physical Condition</a>
+      </div>
+
+
+
+    </div>
+  </div>
+
+</body>
+
+</html>
