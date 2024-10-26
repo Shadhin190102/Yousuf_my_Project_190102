@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    #newForm {
+        max-width: 95%;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label {
+        font-weight: bold;
+        flex: 0 0 180px; /* Adjust label width as needed */
+        margin-right: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .condition-section, .warning-section {
+        margin-top: 20px;
+    }
+
+    .main_condition-input-group {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .condition-input-group {
+        border: 2px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        
+    }
+
+    .condition-details {
+        margin-left: 20px;
+    }
+
+    .addCondition, .addMainCondition, #addWarning, #addproblem, input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        flex: 0 0 auto;
+    }
+
+    .addCondition:hover, .addMainCondition:hover, #addproblem, #addWarning:hover, input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .addCondition, .addMainCondition {
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+    <form id="newForm">
+        <input type="hidden" name="Conditions" value="Conditions">
+        <div class="input-group">
+            <label for="ingredient_name">Ingredient Name:</label>
+            <input type="text" id="ingredient_name" name="ingredient_name" required>
+        </div>
+        <div class="input-group">
+            <label for="weight">Weight:</label>
+            <input type="text" id="weight" name="weight" required>
+        </div>
+        <div class="input-group">
+            <label for="ingredient_type">Ingredient Type:</label>
+            <input type="text" id="ingredient_type" name="ingredient_type" required>
+        </div>
+        <div class="input-group">
+            <label for="sub_ingredient_name">Sub Ingredient Name:</label>
+            <input type="text" id="sub_ingredient_name" name="sub_ingredient_name">
+        </div>
+
+
+        <div class="problem-section">
+            <div class="problem-input-group">
+                <label for="problem">problem:</label>
+                <input type="text" id="problem" name="problem[]">
+            </div>
+            
+        </div>
+        <button type="button" id="addproblem">Add problem</button>
+
+
+        <div class="condition-section">
+            <div class="main_condition-input-group">
+                <label for="main_condition_name">Main Condition Name:</label>
+                <input type="text" name="main_condition_name[]" required>
+                <br><br>
+
+                <div class="condition-input-group">
+                    <label for="condition_name">Condition Name:</label>
+                    <input type="text" name="condition_name[]" required>
+                    <div class="condition-details">
+                        <label for="time_period">Time Period:</label>
+                        <input type="text" name="time_period[]" required>
+                        <label for="quantity">Quantity:</label>
+                        <input type="text" name="quantity[]" required>
+                        <label for="prandial">Prandial:</label>
+                        <input type="text" name="prandial[]" required>
+                        <label for="time_duration">Time Duration:</label>
+                        <input type="text" name="time_duration[]" required>
+                    </div>
+                </div>
+                <button type="button" class="addCondition">Add Condition</button>
+            </div>
+           
+        </div>
+        <button type="button" class="addMainCondition">Add Main Condition</button>
+
+        <div class="warning-section">
+            <h3>Warnings</h3>
+            <div class="warning-input-group">
+                <label for="warning">Warning:</label>
+                <input type="text" id="warning" name="warning[]">
+            </div>
+           
+        </div>
+        <button type="button" id="addWarning">Add Warning</button>
+
+        <input type="submit" value="Save">
+    </form>
+
+    <script>
+        // JavaScript for adding new main condition input group
+        document.querySelector(".addMainCondition").addEventListener("click", function() {
+            const conditionSection = document.querySelector(".condition-section");
+            const newMainConditionInputGroup = document.createElement("div");
+            newMainConditionInputGroup.classList.add("main_condition-input-group");
+            newMainConditionInputGroup.innerHTML = `
+                <label for="main_condition_name">Main Condition Name:</label>
+                <input type="text" name="main_condition_name[]" required>
+                <br><br>
+                <div class="condition-input-group">
+                    <label for="condition_name">Condition Name:</label>
+                    <input type="text" name="condition_name[]" required>
+                    <div class="condition-details">
+                        <label for="time_period">Time Period:</label>
+                        <input type="text" name="time_period[]" required>
+                        <label for="quantity">Quantity:</label>
+                        <input type="text" name="quantity[]" required>
+                        <label for="prandial">Prandial:</label>
+                        <input type="text" name="prandial[]" required>
+                        <label for="time_duration">Time Duration:</label>
+                        <input type="text" name="time_duration[]" required>
+                    </div>
+                </div>
+                <button type="button" class="addCondition">Add Condition</button>
+            `;
+            conditionSection.appendChild(newMainConditionInputGroup);
+        });
+
+        // JavaScript for adding new condition input group within each main condition
+        document.addEventListener("click", function(event) {
+            if (event.target.classList.contains("addCondition")) {
+                const mainConditionInputGroup = event.target.closest(".main_condition-input-group");
+                const conditionInputGroup = mainConditionInputGroup.querySelector(".condition-input-group");
+                const newConditionInputGroup = document.createElement("div");
+                newConditionInputGroup.classList.add("condition-input-group");
+                newConditionInputGroup.innerHTML = `
+                    <label for="condition_name">Condition Name:</label>
+                    <input type="text" name="condition_name[]" required>
+                    <div class="condition-details">
+                        <label for="time_period">Time Period:</label>
+                        <input type="text" name="time_period[]" required>
+                        <label for="quantity">Quantity:</label>
+                        <input type="text" name="quantity[]" required>
+                        <label for="prandial">Prandial:</label>
+                        <input type="text" name="prandial[]" required>
+                        <label for="time_duration">Time Duration:</label>
+                        <input type="text" name="time_duration[]" required>
+                    </div>
+                `;
+                conditionInputGroup.parentNode.insertBefore(newConditionInputGroup, event.target);
+            }
+        });
+
+        // JavaScript for adding new warning input group
+        document.getElementById("addWarning").addEventListener("click", function() {
+            const warningSection = document.querySelector(".warning-section");
+            const newWarningInputGroup = document.createElement("div");
+            newWarningInputGroup.classList.add("warning-input-group");
+            newWarningInputGroup.innerHTML = `
+                <label for="warning">Warning:</label>
+                <input type="text" name="warning[]">
+            `;
+            warningSection.appendChild(newWarningInputGroup);
+        });
+
+
+
+        document.getElementById("addproblem").addEventListener("click", function() {
+    const problemSection = document.querySelector(".problem-section");
+    const newproblemInputGroup = document.createElement("div"); // Corrected variable name
+    newproblemInputGroup.classList.add("problem-input-group");
+    newproblemInputGroup.innerHTML = `
+        <label for="problem">problem:</label>
+        <input type="text" name="problem[]">
+    `;
+    problemSection.appendChild(newproblemInputGroup);
+});
+
+
+ function formDataToJSON(form) {
+            const formData = new FormData(form);
+            const jsonData = {
+                ingredient_name: formData.get('ingredient_name'),
+                weight: formData.get('weight'),
+                ingredient_type: formData.get('ingredient_type'),
+                sub_ingredient_name: formData.get('sub_ingredient_name'),
+                Problem: [],
+                main_conditions: [],
+                Warnings: []
+            };
+
+            // Handling Problems
+            formData.getAll('problem[]').forEach(problem => {
+                jsonData.Problem.push(problem);
+            });
+
+            // Handling nested JSON for main conditions and their conditions
+            document.querySelectorAll(".main_condition-input-group").forEach(mainCondition => {
+                const mainConditionObj = {
+                    main_condition_name: mainCondition.querySelector("input[name='main_condition_name[]']").value,
+                    conditions: []
+                };
+
+                mainCondition.querySelectorAll(".condition-input-group").forEach(conditionInputGroup => {
+                    const conditionDetails = {
+                        condition_name: conditionInputGroup.querySelector("input[name='condition_name[]']").value,
+                        condition_details: [{
+                            time_period: conditionInputGroup.querySelector("input[name='time_period[]']").value,
+                            quantity: conditionInputGroup.querySelector("input[name='quantity[]']").value,
+                            prandial: conditionInputGroup.querySelector("input[name='prandial[]']").value,
+                            time_duration: conditionInputGroup.querySelector("input[name='time_duration[]']").value
+                        }]
+                    };
+                    mainConditionObj.conditions.push(conditionDetails);
+                });
+
+                jsonData.main_conditions.push(mainConditionObj);
+            });
+
+            // Handling Warnings
+            formData.getAll('warning[]').forEach(warning => {
+                jsonData.Warnings.push(warning);
+            });
+
+            return jsonData;
+        }
+
+        // Function to handle form submission
+        document.getElementById("newForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const jsonData = formDataToJSON(this);
+            console.log(JSON.stringify(jsonData, null, 2)); // Logging JSON to console for demonstration
+
+            // Send the JSON data to the server using Fetch API
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = '/new-entry';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

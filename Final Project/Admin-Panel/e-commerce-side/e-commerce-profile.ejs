@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Container Layout</title>
     <style>
+       
        body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: #cecccc;
+            background: linear-gradient(135deg, #cfd9df 0%, #789caf 100%);
         }
         .container {
             box-sizing: border-box;
@@ -23,7 +22,7 @@
             
             text-align: center;
             color: white;
-            background-color: #202220;
+            background: linear-gradient(135deg, #c3e9ca 0%, #77e08a 100%);
             flex-direction: row-reverse;
            
         }
@@ -33,7 +32,7 @@
     float: left;
     align-items: center;
     text-align: center;
-    background-color: #cecccc;
+    background: linear-gradient(135deg, #c3e9ca 0%, #77e08a 100%);
     overflow: hidden; /* Prevent overflow */
     display: flex; /* Use flex for alignment */
     flex-direction: column;
@@ -43,7 +42,7 @@
     min-height: 85vh; /* Use vh for relative height */
     width: 85%;
     float: left;
-    background-color: #f5f5f5;
+   
     display: flex;
     align-items: flex-start; /* Align items to the start */
     justify-content: space-around;
@@ -51,6 +50,7 @@
     flex-wrap: wrap;
     position: relative;
     overflow: hidden; /* Prevent overflow */
+   
 }
         .subscription-plan {
             background-color: white;
@@ -109,7 +109,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: white;
+            background: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -306,9 +306,9 @@ img {
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            
             width: 97%;
-            background-color: #f5f5f5;
+            
             justify-content: space-around;
             padding: 20px;
             
@@ -332,12 +332,12 @@ img {
             text-align: left;
             align-items: center;
             text-align: center;
-            background-color: #c0bebe;
+            background-color: #35ec72;
 
         }
 
         th {
-            background-color: #dad6d6;
+            background-color: #4abb59;
             align-items: center;
     text-align: center;
         }
@@ -363,6 +363,11 @@ img {
         #final-amount{
             font-weight: bold;
         }
+        #user-name {
+            color: Black;
+            font-size: 36px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -370,7 +375,7 @@ img {
        
             <div class="row2">
                 <div class="box2">
-                    <a href="/email-panel">Mail</a>
+                    <a href="/email-panel_e-commerce">Mail</a>
                 </div>
                 <div class="box2">
                     <a href="/login-e-commerce">Logout</a>
@@ -385,16 +390,16 @@ img {
     <div id="container2" class="container">
 
             <br>
-            <h3><img src="/dashboard.png" width="200" height="200"></h3>
+            
             <div class="part-one-row">
                 <div class="box1">
-                    <a href="/e-commerce">Panel</a>
+                    <a href="/e-commerce-panel">Panel</a>
                 </div>
                 <div class="box1">
                     <a href="/payment-history-e-commerce">Subcribtion History</a>
                 </div>
                 <div class="box1">
-                    <a href="/email-panel">Mail</a>
+                    <a href="/email-panel_e-commerce">Mail</a>
                 </div>
             </div>
     </div>

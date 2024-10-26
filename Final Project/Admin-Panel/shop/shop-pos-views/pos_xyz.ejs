@@ -177,7 +177,7 @@
         <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
         <div class="nav-left"><a href="/shop_all_history">History</a></div>
         <div class="nav-left"><a href="/shop-online-order">Market</a></div>
-        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/email-panel_shop">Mail</a></div>
         <div class="nav-left"><a href="/login_shop">LogOut</a></div>
     </div>
 
@@ -223,7 +223,7 @@
                     <tr class="totals-row">
                         <td colspan="7">Total</td>
                         <td id="total-quantity">0</td>
-                        <td id="total-price">$0.00</td>
+                        <td id="total-price">0.00 tk</td>
                     </tr>
                 </tfoot>
             </table>
@@ -233,15 +233,15 @@
 
 
         <div class="summary-box">
-            <div>Update Totals: <span id="summary-total-price">$0.00</span></div>
+            <div>Update Totals: <span id="summary-total-price">0.00 tk</span></div>
             <div>
                 Discount (%): <input type="number" id="discount-input" value="0" min="0" max="100">
             </div>
-            <div>After Discount Price: <span id="after-discount-price">$0.00</span></div>
+            <div>After Discount Price: <span id="after-discount-price">0.00 tk</span></div>
             <div>
                 Receive Price: <input type="number" id="receive-price-input" value="0">
             </div>
-            <div>Return Price: <span id="return-price">$0.00</span></div>
+            <div>Return Price: <span id="return-price">0.00 tk</span></div>
         </div>
 
 
@@ -276,27 +276,27 @@
                     const priceCell = input.parentNode.nextElementSibling;
                     const unitPrice = parseFloat(priceCell.getAttribute('data-price'));
                     const price = quantity * unitPrice;
-                    priceCell.textContent = '$' + price.toFixed(2);
+                    priceCell.textContent = 'tk' + price.toFixed(2);
 
                     totalQuantity += quantity;
                     totalPrice += price;
                 });
 
                 totalQuantityCell.textContent = totalQuantity;
-                totalPriceCell.textContent = '$' + totalPrice.toFixed(2);
-                summaryTotalPrice.textContent = '$' + totalPrice.toFixed(2);
+                totalPriceCell.textContent = 'tk' + totalPrice.toFixed(2);
+                summaryTotalPrice.textContent = 'tk' + totalPrice.toFixed(2);
                 updateDiscountAndReturn();
             }
 
             function updateDiscountAndReturn() {
-                const totalPrice = parseFloat(summaryTotalPrice.textContent.replace('$', ''));
+                const totalPrice = parseFloat(summaryTotalPrice.textContent.replace('tk', ''));
                 const discount = parseFloat(discountInput.value) || 0;
                 const discountedPrice = totalPrice - (totalPrice * discount / 100);
-                afterDiscountPrice.textContent = '$' + discountedPrice.toFixed(2);
+                afterDiscountPrice.textContent = 'tk' + discountedPrice.toFixed(2);
 
                 const receivedPrice = parseFloat(receivePriceInput.value) || 0;
                 const returnAmount = receivedPrice - discountedPrice;
-                returnPrice.textContent = '$' + returnAmount.toFixed(2);
+                returnPrice.textContent = 'tk' + returnAmount.toFixed(2);
             }
 
             function rowExists(product) {

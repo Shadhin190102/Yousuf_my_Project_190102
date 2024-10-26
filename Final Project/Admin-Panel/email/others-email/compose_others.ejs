@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compose Email</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .box {
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-sizing: border-box;
+      background-color: #fff;
+      margin: 5px;
+    }
+
+    .box1 {
+      width: 100%;
+      height: 15%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #007BFF;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .box1-content-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .box1-content-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .login-img {
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .username {
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    .mail-link-button {
+      padding: 8px 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-right: auto;
+    }
+
+    .mail-link-button:hover {
+      background-color: #0056b3;
+    }
+
+    .content-container {
+      display: flex;
+      height: 85%;
+    }
+
+    .box2 {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: #fff;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="file"],
+    form textarea {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    .small-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box box1">
+      <div class="box1-content-left">
+        <div class="box1-content-left">
+          <a href="/ill_report-profile" class="mail-link-button">Home</a>
+          <a href="/email-panel-send_others" class="mail-link-button">Sent Mail</a>
+          <a href="/email-panel_others" class="mail-link-button">Recive Mail</a>
+        </div>
+      </div>
+      <div class="box1-content-right">
+        <p class="username"><%= user11.name %></p>
+        <% photos.forEach(photo => { %>
+          <img class="small-icon" src="data:image/<%= photo.mime_type %>;base64,<%= Buffer.from(photo.photo).toString('base64') %>" alt="Photo">
+        <% }) %>
+      </div>
+    </div>
+    <div class="content-container">
+      <div class="box box2">
+        <form action="/send-email_others?user11=<%= user11.username %>" method="post" enctype="multipart/form-data">
+          <div>
+            <label for="from">From:</label>
+            <input type="text" id="from" name="from" value="<%= user11.email %>" readonly>
+          </div>
+          <div>
+            <label for="to">To:</label>
+            <input type="text" id="to" name="to" required>
+          </div>
+          <div>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div>
+            <label for="body">Body:</label>
+            <textarea id="body" name="body" rows="10" required></textarea>
+          </div>
+          <div>
+            <label for="attachment">Attach file:</label>
+            <input type="file" id="attachment" name="attachment">
+          </div>
+          <button type="submit">Send Email</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

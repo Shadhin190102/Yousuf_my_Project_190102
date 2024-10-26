@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #333;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 80%;
+            margin: auto;
+
+
+        }
+
+        form div {
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+            /* Allow vertical resizing of textarea */
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .main-condition,
+        .condition {
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .condition-detail {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 8px 12px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .nav1 {
+
+
+            width: 100%;
+            margin: 20px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-around;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        .nav-left a {
+            color: rgb(78, 67, 67);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 7px;
+        }
+
+        .nav-left a:hover {
+            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+
+            transform: scale(1.05);
+            color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav1">
+        <div class="nav-left"><a href="/dash_board">Dash Board</a></div>
+        <div class="nav-left"><a href="/data-management-panel">Operation</a></div>
+        <div class="nav-left"><a href="/ingredients-home">Ingredient Home</a></div>
+        <div class="nav-left"><a href="/login">LogOut</a></div>
+    </div>
+    <h1>Ingredients Data</h1>
+    <% data.forEach(item=> { %>
+        <form action="/update/<%= item.id %>" method="POST">
+            <input type="hidden" name="id" value="<%= item.id %>">
+            <div>
+                <span><b>Ingredient Name:</b><%= item.ingredient_name %></span>
+
+            </div>
+            <div>
+
+                <span> <b>Weight: </b><%= item.weight %></span>
+
+            </div>
+            <div>
+                <span> <b>Ingredient Type:</b><%= item.ingredient_type %></span>
+    
+            </div>
+            <div>
+               
+                <span> <b> Sub Ingredient Name:</b> <%= item.sub_ingredient_name %></span>
+            </div>
+            <div>
+                <label>Problems:</label>
+                <ul>
+                    <% item.problems.forEach(function(problem, index) { %>
+                        <div> <%= problem %></div>
+            
+                        <% }) %>
+                </ul>
+            </div>
+
+            <div>
+                <div>
+                    <% item.main_conditions.forEach(function(mainCondition, mainIndex) { %>
+                        <div class="main-condition">
+                            <label>Dosage & Administration:</label>
+                     
+                            <input type="text" name="main_conditions[<%= mainIndex %>][main_condition_name]"
+                                value="<%= mainCondition.main_condition_name %>" readonly>
+                            <% mainCondition.conditions.forEach(function(condition, conditionIndex) { %>
+                                <div class="condition">
+                                    <label>Rules:</label>
+                                  
+                                    <input type="text"
+                                        name="main_conditions[<%= mainIndex %>][conditions][<%= conditionIndex %>][condition_name]"
+                                        value="<%= condition.condition_name %>" readonly>
+                                    <% condition.condition_details.forEach(function(detail, detailIndex) { %>
+                                        <div class="condition-detail">
+                                            <label>Time Period:</label>
+                                          
+                                            <input type="text"
+                                                name="main_conditions[<%= mainIndex %>][conditions][<%= conditionIndex %>][condition_details][<%= detailIndex %>][time_period]"
+                                                value="<%= detail.time_period %>" readonly>
+                                            <label>Quantity:</label>
+                                           
+                                            <input type="text"
+                                                name="main_conditions[<%= mainIndex %>][conditions][<%= conditionIndex %>][condition_details][<%= detailIndex %>][quantity]"
+                                                value="<%= detail.quantity %>" readonly>
+                                            <label>Prandial:</label>
+                                           
+                                            <input type="text"
+                                                name="main_conditions[<%= mainIndex %>][conditions][<%= conditionIndex %>][condition_details][<%= detailIndex %>][prandial]"
+                                                value="<%= detail.prandial %>" readonly>
+                                            <label>Time Duration:</label>
+                                      
+                                            <input type="text"
+                                                name="main_conditions[<%= mainIndex %>][conditions][<%= conditionIndex %>][condition_details][<%= detailIndex %>][time_duration]"
+                                                value="<%= detail.time_duration %>" readonly>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+
+            <div>
+                <label>Warnings:</label>
+<% item.warnings.forEach(function(warning, index) { %>
+    <div>
+        <p><%= warning %></p>
+    </div>
+<% }) %>
+            </div>
+          
+        </form>
+        </form>
+        <hr>
+        <% }) %>
+
+
+           
+
+
+</body>
+
+</html>

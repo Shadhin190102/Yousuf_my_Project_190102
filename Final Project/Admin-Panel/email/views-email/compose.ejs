@@ -128,10 +128,12 @@
   <div class="container">
     <div class="box box1">
       <div class="box1-content-left">
-        <a href="/email-panel?user=<%= user.username %>" class="mail-link-button">All Mails</a>
+        <a href="/dash_board" class="mail-link-button">Desh Board</a>
+        <a href="/email-panel-send" class="mail-link-button">Sent Mail</a>
+        <a href="/email-panel" class="mail-link-button">Recive Mail</a>
       </div>
       <div class="box1-content-right">
-        <p class="username"><%= user.username %></p>
+        <p class="username"><%= user.name %></p>
         <% photos.forEach(photo => { %>
           <img class="small-icon" src="data:image/<%= photo.mime_type %>;base64,<%= Buffer.from(photo.photo).toString('base64') %>" alt="Photo">
         <% }) %>
@@ -142,7 +144,7 @@
         <form action="/send-email?user=<%= user.username %>" method="post" enctype="multipart/form-data">
           <div>
             <label for="from">From:</label>
-            <input type="text" id="from" name="from" value="<%= user.username %>" readonly>
+            <input type="text" id="from" name="from" value="<%= user.email %>" readonly>
           </div>
           <div>
             <label for="to">To:</label>
@@ -157,7 +159,7 @@
             <textarea id="body" name="body" rows="10" required></textarea>
           </div>
           <div>
-            <label for="attachment">Attach file:</label>
+            <label for="attachment">Attachment:</label>
             <input type="file" id="attachment" name="attachment">
           </div>
           <button type="submit">Send Email</button>

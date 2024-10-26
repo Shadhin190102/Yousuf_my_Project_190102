@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Details Page</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .search-container {
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    select, input[type="text"], input[type="number"], input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .details-btn {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="companyIdSearch" placeholder="Search by ID...">
+        <input type="text" id="companyNameSearch" placeholder="Search by Name...">
+        <select id="companyTypeSearch">
+            <option value="">Select Type...</option>
+            <option value="Company">Company</option>
+            <option value="Shop">Shop</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Others">Others</option>
+        </select>
+        <input type="text" id="companyMobileSearch" placeholder="Search by Mobile...">
+        <input type="email" id="companyMailSearch" placeholder="Search by Mail...">
+        <input type="text" id="companyAreaSearch" placeholder="Search by Area...">
+        <button class="submit-btn" onclick="submitSearch()">Submit</button>
+    </div>
+
+    <table id="companyTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mobile Number</th>
+                <th>Mail</th>
+                <th>Area</th>
+                <th>Account Status</th>
+                <th>Active/Deactive</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function submitSearch() {
+        var companyId = document.getElementById("companyIdSearch").value;
+        var companyName = document.getElementById("companyNameSearch").value;
+        var companyType = document.getElementById("companyTypeSearch").value;
+        var companyMobile = document.getElementById("companyMobileSearch").value;
+        var companyMail = document.getElementById("companyMailSearch").value;
+        var companyArea = document.getElementById("companyAreaSearch").value;
+
+        // Implement search logic and populate table
+        // Dummy data for demonstration
+        var companyTable = document.getElementById("companyTable").getElementsByTagName("tbody")[0];
+        companyTable.innerHTML = ""; // Clear existing rows
+
+        // Sample data
+        var data = [
+            { id: "1", name: "Company A", mobile: "1234567890", mail: "companya@example.com", area: "Area A", accountStatus: "Active", activeDeactive: "Deactive", details: "Company A details" },
+            { id: "2", name: "Shop B", mobile: "9876543210", mail: "shopb@example.com", area: "Area B", accountStatus: "Active", activeDeactive: "Deactive", details: "Shop B details" },
+            { id: "3", name: "E-commerce C", mobile: "7890123456", mail: "ecommercec@example.com", area: "Area C", accountStatus: "Active", activeDeactive: "Deactive", details: "E-commerce C details" }
+        ];
+
+        // Populate table with data
+        data.forEach(function(item) {
+            var newRow = "<tr>";
+            newRow += "<td>" + item.id + "</td>";
+            newRow += "<td>" + item.name + "</td>";
+            newRow += "<td>" + item.mobile + "</td>";
+            newRow += "<td>" + item.mail + "</td>";
+            newRow += "<td>" + item.area + "</td>";
+            newRow += "<td>" + item.accountStatus + "</td>";
+            newRow += "<td>" + item.activeDeactive + "</td>";
+            newRow += "<td><button class='details-btn' onclick='showDetails(\"" + item.details + "\")'>Details</button></td>";
+            newRow += "</tr>";
+            companyTable.innerHTML += newRow;
+        });
+    }
+
+    function showDetails(details) {
+        alert(details); // Placeholder for displaying company details
+    }
+</script>
+
+</body>
+</html>

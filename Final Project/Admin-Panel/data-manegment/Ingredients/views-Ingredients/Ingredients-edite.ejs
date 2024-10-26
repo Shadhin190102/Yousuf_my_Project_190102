@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+        
+      background: linear-gradient(135deg, #cfd9df 0%, #789caf 100%);
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
@@ -18,7 +19,7 @@
 
         h1 {
             text-align: center;
-            color: #4CAF50;
+            color: #000000;
             margin-bottom: 20px;
         }
 
@@ -122,6 +123,7 @@
 
 
             width: 100%;
+            height: 45px;
             margin: 20px 0px;
             display: flex;
             justify-content: center;
@@ -129,6 +131,7 @@
             justify-content: space-around;
             text-decoration: none;
             font-weight: bold;
+            background: linear-gradient(135deg, #c3e9ca 0%, #77e08a 100%);
         }
 
 
@@ -140,7 +143,7 @@
         }
 
         .nav-left a:hover {
-            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+            background: linear-gradient(135deg, #c3e9ca 0%, #77e08a 100%);
 
             transform: scale(1.05);
             color: black;
@@ -156,7 +159,7 @@
         <div class="nav-left"><a href="/ingredients-home">Ingredient Home</a></div>
         <div class="nav-left"><a href="/login">LogOut</a></div>
     </div>
-    <h1>Ingredients Data</h1>
+    <h1>Ingredient</h1>
     <% data.forEach(item=> { %>
         <form action="/update/<%= item.id %>" method="POST">
             <input type="hidden" name="id" value="<%= item.id %>">

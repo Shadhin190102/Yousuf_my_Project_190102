@@ -9,9 +9,7 @@ const multer = require('multer');
 const session = require('express-session');
 const { format, addYears } = require('date-fns');
 const moment = require('moment-timezone');
-const bcrypt = require('bcrypt'); // For password hashing
-
-
+const bcrypt = require('bcrypt');
 const app = express();
 const port = 8081;
 
@@ -34,7 +32,11 @@ app.set('views', [
     path.join(__dirname, 'compnay/compnay-views'),
     path.join(__dirname, 'e-commerce-side'),
     path.join(__dirname, 'disease-report'),
-    path.join(__dirname, 'email/views-email')
+    path.join(__dirname, 'email/views-email'),
+    path.join(__dirname, 'email/e-commerce-email'),
+    path.join(__dirname, 'email/others-email'),
+    path.join(__dirname, 'email/shop-email'),
+    path.join(__dirname, 'email/views-email-compnay')
 
 ]);
 app.use(express.static(path.join(__dirname, 'data-entry')));
@@ -167,7 +169,7 @@ async function connectToDatabase() {
     const connection855 = await connectToDatabase();
   
     try {
-      const [rows] = await connection855.query('SELECT * FROM all_shop_sales_datas');
+      const [rows] = await connection855.query('SELECT * FROM xyz1_shop_sales_datas');
   
       // Aggregate data by product_id
       const aggregatedData = rows.reduce((acc, row) => {
@@ -557,6 +559,25 @@ app.get('/dash_board', (req, res) => {
             }
         });
     });
+});
+
+
+app.get('/aboutd', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+
+    
+                connection66.query('SELECT mime_type, photo FROM admins_info', (err, photos) => {
+                    if (err) {
+                        console.error('Error fetching photos:', err);
+                        res.status(500).send('Database query error');
+                        return;
+                    }
+
+                    res.render('about', { user: req.session.user, photos: photos });
+                });
+            
 });
 
 app.get('/create_id_home', (req, res) => {
@@ -954,7 +975,7 @@ app.post('/others-id', upload.single('photo'), (req, res) => {
             const mimeType = photo.mimetype;
             const photoData = photo.buffer;
 
-            connection66.query('INSERT INTO admin_others_id (name, username, person, mobileNumber, email, address, type, nidNumber, tradeLicense, tinNumber, bankAccountName, bankAccountNumber, bankBranchName, password, mime_type, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            connection66.query('INSERT INTO admin_others_id (name, username, person, mobileNumber, email, address, type, nidNumber, tradeLicense, tinNumber, bankAccountName, bankAccountNumber, bankBranchName, password, mime_type, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
                 [name, username, person, mobileNumber, email, address, type, nidNumber, tradeLicense, tinNumber, bankAccountName, bankAccountNumber, bankBranchName, password, mimeType, photoData], (err, result) => {
                 if (err) throw err;
                 res.redirect('/others-home');
@@ -1592,29 +1613,6 @@ app.get('/shop_invoice_history_detalis/:id', (req, res) => {
 
 
 
-
-
-
-
-app.get('/email-sms/:id', setUser, (req, res) => {
-    const emailId = req.params.id;
-    const username = req.currentUser.username;
-
-    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
-    connection55.query(query, [emailId, username, username], (err, results) => {
-        if (err) {
-            console.error('Error fetching email details:', err);
-            return res.status(500).send('Database query error');
-        }
-
-        if (results.length === 0) {
-            return res.status(404).send('Email not found');
-        }
-
-        const email = results[0];
-        res.render('email-sms', { email });
-    });
-});
   
 
 
@@ -1819,8 +1817,53 @@ app.get('/payment-history-e-commerce', (req, res) => {
 });
 
 
+app.get('/e-commerce-panel', checkSubscription2, (req, res) => {
+    // If the user has a valid subscription, render the company panel page
+    res.render('e-commerce-panel', { user13: req.session.user13 });
+});
 
 
+app.get('/Ingredients_detalies', (req, res) => {
+    res.render('Ingredients_detalies', { error: null });
+});
+
+
+app.get('/ingredients_home', function(req, res) {
+    connection55.query("SELECT * FROM new_ingredient_final", function(error, result) {
+        if (error) {
+            console.log(error);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.render('ingredients_home', { new_ingredient_final: result });
+        }
+    });
+  });
+
+
+  app.get('/Ingredients_detalies/:id', (req, res) => {
+    const ingredientId = req.params.id;
+    const sql = 'SELECT * FROM new_ingredient_final WHERE id = ?';
+    connection55.query(sql, [ingredientId], (err, results) => {
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.status(500).json({ error: 'Database error' });
+        return;
+      }
+      if (results.length === 0) {
+        // If no data found for the given ID, handle accordingly
+        res.status(404).send('Ingredient not found');
+        return;
+      }
+      // Parse the JSON strings in the results
+      results.forEach(item => {
+        item.problems = JSON.parse(item.problems);
+        item.main_conditions = JSON.parse(item.main_conditions);
+        item.warnings = JSON.parse(item.warnings);
+      });
+      // Render the 'Ingredients_detalies' template, passing the data to be displayed
+      res.render('Ingredients_detalies', { data: results });
+    });
+});
 
 
 
@@ -2140,81 +2183,245 @@ app.get('/Ill-report', (req, res) => {
 
 
 
- 
-  
-function setUser(req, res, next) {
-    const userKey = req.query.user || 'user'; // default to 'user' if no query parameter is provided
-    req.currentUser = req.session[userKey];
 
-    if (!req.currentUser) {
-        // Redirect to login if user not logged in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/email-panel', (req, res) => {
+    const username = req.session.user ? req.session.user.username : null;
+
+    if (!username) {
         return res.redirect('/');
     }
-    
-    next();
-}
 
-app.get('/email-panel', setUser, (req, res) => {
-    const username = req.currentUser.username;
-    
     // Fetch user's emails from the database
     connection55.query('SELECT * FROM all_emails_data WHERE recipient = ?', [username], (err, results) => {
         if (err) {
             console.error('Error executing email query:', err);
             return res.status(500).send('Database query error');
         }
-        
+
         // Fetch user's photos from the database
         connection66.query('SELECT * FROM admins_info WHERE username = ?', [username], (err, photos) => {
             if (err) {
                 console.error('Error fetching photos:', err);
                 return res.status(500).send('Database query error');
             }
-            
+
             // Render the email panel with user's emails and photos
-            res.render('email-panel', { all_emails_data: results, user: req.currentUser, photos: photos });
+            res.render('email-panel', { all_emails_data: results, user: req.session.user, photos: photos });
         });
     });
 });
 
+app.get('/email-panel-send', (req, res) => {
+    const username = req.session.user ? req.session.user.username : null;
 
-app.get('/email-panel-send', setUser, (req, res) => {
-    const username = req.currentUser.username;
-    
-    // Fetch user's emails from the database
+    if (!username) {
+        return res.redirect('/');
+    }
+
+    // Fetch user's sent emails from the database
     connection55.query('SELECT * FROM all_emails_data WHERE sender = ?', [username], (err, results) => {
         if (err) {
             console.error('Error executing email query:', err);
             return res.status(500).send('Database query error');
         }
-        
+
         // Fetch user's photos from the database
         connection66.query('SELECT * FROM admins_info WHERE username = ?', [username], (err, photos) => {
             if (err) {
                 console.error('Error fetching photos:', err);
                 return res.status(500).send('Database query error');
             }
-            
+
             // Render the email panel with user's emails and photos
-            res.render('email-panel-send', { all_emails_data: results, user: req.currentUser, photos: photos });
+            res.render('email-panel-send', { all_emails_data: results, user: req.session.user, photos: photos });
         });
     });
 });
-  
-app.get('/compose', setUser, (req, res) => {
-    const username = req.currentUser.username;
+
+app.get('/compose', (req, res) => {
+    const username = req.session.user ? req.session.user.username : null;
+    
+    if (!username) {
+        return res.redirect('/');
+    }
+
+    // Fetch user's photos from the database
     connection66.query('SELECT * FROM admins_info WHERE username = ?', [username], (err, photos) => {
         if (err) {
             console.error('Error fetching photos:', err);
             return res.status(500).send('Database query error');
         }
-        res.render('compose', { user: req.currentUser, photos: photos });
+        res.render('compose', { user: req.session.user, photos: photos });
     });
 });
 
-app.post('/send-email', upload.single('attachment'), setUser, (req, res) => {
+app.post('/send-email', upload.single('attachment'), (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/'); // Redirect to login if not logged in
+    }
+
     const { to, subject, body } = req.body;
-    const from = req.currentUser.username;
+    const from = req.session.user.username;
+    const attachment = req.file ? req.file.buffer : null;
+    const mimeType = req.file ? req.file.mimetype : null;
+    const fileName = req.file ? req.file.originalname : null;
+
+    const query = 'INSERT INTO all_emails_data (sender, recipient, subject, body, attachment, mime_type, file_name) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    connection55.query(query, [from, to, subject, body, attachment, mimeType, fileName], (err, result) => {
+        if (err) {
+            console.error('Error inserting email into database:', err);
+            return res.status(500).send('Database insert error');
+        }
+        res.redirect('/email-panel-send');
+    });
+});
+
+
+app.get('/email-sms/:id', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/'); // Redirect to login if not logged in
+    }
+
+    
+
+    const emailId = req.params.id;
+    const username = req.session.user.username;
+
+    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
+    connection55.query(query, [emailId, username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching email details:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Email not found');
+        }
+
+        const email = results[0];
+        res.render('email-sms', { email });
+    });
+});
+
+
+
+
+
+
+
+app.get('/download-attachment/:id', (req, res) => {
+    const emailId = req.params.id;
+
+    const query = 'SELECT attachment, mime_type, file_name FROM all_emails_data WHERE id = ?';
+    connection55.query(query, [emailId], (err, results) => {
+        if (err) {
+            console.error('Error fetching attachment:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Attachment not found');
+        }
+
+        const email = results[0];
+        res.setHeader('Content-Disposition', 'attachment; filename=' + email.file_name);
+        res.setHeader('Content-Type', email.mime_type);
+        res.send(email.attachment);
+    });
+});
+
+
+
+
+
+
+
+app.get('/email-panel_company', (req, res) => {
+    if (!req.session.user21) {
+        return res.redirect('/login-compnay-admin'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user21.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE recipient = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_compnay WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel_company', { all_emails_data: results, user21: req.session.user21, photos: photos });
+        });
+    });
+});
+
+app.get('/email-panel-send_compnay', (req, res) => {
+    if (!req.session.user21) {
+        return res.redirect('/login-compnay-admin'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user21.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE sender = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_compnay WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel-send_compnay', { all_emails_data: results, user21: req.session.user21, photos: photos });
+        });
+    });
+});
+
+app.get('/compose_company', (req, res) => {
+    if (!req.session.user21) {
+        return res.redirect('/login-compnay-admin'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user21.username;
+    
+    connection66.query('SELECT * FROM admin_compnay WHERE username = ?', [username], (err, photos) => {
+        if (err) {
+            console.error('Error fetching photos:', err);
+            return res.status(500).send('Database query error');
+        }
+        res.render('compose_company', { user21: req.session.user21, photos: photos });
+    });
+});
+
+app.post('/send-email_compnay', upload.single('attachment'), (req, res) => {
+    if (!req.session.user21) {
+        return res.redirect('/login-compnay-admin'); // Redirect to login if not logged in
+    }
+
+    const { to, subject, body } = req.body;
+    const from = req.session.user21.username;
     const attachment = req.file ? req.file.path : null;
 
     const query = 'INSERT INTO all_emails_data (sender, recipient, subject, body, attachment) VALUES (?, ?, ?, ?, ?)';
@@ -2223,9 +2430,455 @@ app.post('/send-email', upload.single('attachment'), setUser, (req, res) => {
             console.error('Error inserting email into database:', err);
             return res.status(500).send('Database insert error');
         }
-        res.redirect(`/compose?user=${req.currentUser.username}`);
+        res.redirect('/compose_company');
     });
 });
+
+
+
+app.get('/email-sms-compnay/:id', (req, res) => {
+    if (!req.session.user21) {
+        return res.redirect('/login-compnay-admin'); // Redirect to login if not logged in
+    }
+
+    const emailId = req.params.id;
+    const username = req.session.user21.username;
+
+    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
+    connection55.query(query, [emailId, username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching email details:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Email not found');
+        }
+
+        const email = results[0];
+        res.render('email-sms-compnay', { email });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/email-panel_e-commerce', (req, res) => {
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user13.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE recipient = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_e_commerce WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel_e-commerce', { all_emails_data: results, user13: req.session.user13, photos: photos });
+        });
+    });
+});
+
+app.get('/email-panel-send_e-commerce', (req, res) => {
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user13.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE sender = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_e_commerce WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel-send_e-commerce', { all_emails_data: results, user13: req.session.user13, photos: photos });
+        });
+    });
+});
+
+app.get('/compose_e-commerce', (req, res) => {
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user13.username;
+    
+    connection66.query('SELECT * FROM admin_e_commerce WHERE username = ?', [username], (err, photos) => {
+        if (err) {
+            console.error('Error fetching photos:', err);
+            return res.status(500).send('Database query error');
+        }
+        res.render('compose_e-commerce', { user13: req.session.user13, photos: photos });
+    });
+});
+
+app.post('/send-email_e-commerce', upload.single('attachment'), (req, res) => {
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce'); // Redirect to login if not logged in
+    }
+
+    const { to, subject, body } = req.body;
+    const from = req.session.user13.username;
+    const attachment = req.file ? req.file.path : null;
+
+    const query = 'INSERT INTO all_emails_data (sender, recipient, subject, body, attachment) VALUES (?, ?, ?, ?, ?)';
+    connection55.query(query, [from, to, subject, body, attachment], (err, result) => {
+        if (err) {
+            console.error('Error inserting email into database:', err);
+            return res.status(500).send('Database insert error');
+        }
+        res.redirect('/compose_e-commerce');
+    });
+});
+
+
+
+app.get('/email-sms-e-commerce/:id', (req, res) => {
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce'); // Redirect to login if not logged in
+    }
+
+    const emailId = req.params.id;
+    const username = req.session.user13.username;
+
+    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
+    connection55.query(query, [emailId, username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching email details:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Email not found');
+        }
+
+        const email = results[0];
+        res.render('email-sms-e-commerce', { email });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/email-panel_shop', (req, res) => {
+    if (!req.session.user15) {
+        return res.redirect('/login_shop'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user15.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE recipient = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_shop_id WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel_shop', { all_emails_data: results, user15: req.session.user15, photos: photos });
+        });
+    });
+});
+
+app.get('/email-panel-send_shop', (req, res) => {
+    if (!req.session.user15) {
+        return res.redirect('/login_shop'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user15.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE sender = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_shop_id WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel-send_shop', { all_emails_data: results, user15: req.session.user15, photos: photos });
+        });
+    });
+});
+
+app.get('/compose_shop', (req, res) => {
+    if (!req.session.user15) {
+        return res.redirect('/login_shop'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user15.username;
+    
+    connection66.query('SELECT * FROM admin_shop_id WHERE username = ?', [username], (err, photos) => {
+        if (err) {
+            console.error('Error fetching photos:', err);
+            return res.status(500).send('Database query error');
+        }
+        res.render('compose_shop', { user15: req.session.user15, photos: photos });
+    });
+});
+
+app.post('/send-email_shop', upload.single('attachment'), (req, res) => {
+    if (!req.session.user15) {
+        return res.redirect('/login_shop'); // Redirect to login if not logged in
+    }
+
+    const { to, subject, body } = req.body;
+    const from = req.session.user15.username;
+    const attachment = req.file ? req.file.path : null;
+
+    const query = 'INSERT INTO all_emails_data (sender, recipient, subject, body, attachment) VALUES (?, ?, ?, ?, ?)';
+    connection55.query(query, [from, to, subject, body, attachment], (err, result) => {
+        if (err) {
+            console.error('Error inserting email into database:', err);
+            return res.status(500).send('Database insert error');
+        }
+        res.redirect('/compose_shop');
+    });
+});
+
+
+
+app.get('/email-sms-shop/:id', (req, res) => {
+    if (!req.session.user15) {
+        return res.redirect('/login_shop'); // Redirect to login if not logged in
+    }
+
+    const emailId = req.params.id;
+    const username = req.session.user15.username;
+
+    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
+    connection55.query(query, [emailId, username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching email details:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Email not found');
+        }
+
+        const email = results[0];
+        res.render('email-sms-shop', { email });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/email-panel_others', (req, res) => {
+    if (!req.session.user11) {
+        return res.redirect('/login-ill_report'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user11.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE recipient = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_others_id WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel_others', { all_emails_data: results, user11: req.session.user11, photos: photos });
+        });
+    });
+});
+
+app.get('/email-panel-send_others', (req, res) => {
+    if (!req.session.user11) {
+        return res.redirect('/login-ill_report'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user11.username;
+
+    connection55.query('SELECT * FROM all_emails_data WHERE sender = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error executing email query:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        connection66.query('SELECT * FROM admin_others_id WHERE username = ?', [username], (err, photos) => {
+            if (err) {
+                console.error('Error fetching photos:', err);
+                return res.status(500).send('Database query error');
+            }
+
+            res.render('email-panel-send_others', { all_emails_data: results, user11: req.session.user11, photos: photos });
+        });
+    });
+});
+
+app.get('/compose_others', (req, res) => {
+    if (!req.session.user11) {
+        return res.redirect('/login-ill_report'); // Redirect to login if not logged in
+    }
+
+    const username = req.session.user11.username;
+    
+    connection66.query('SELECT * FROM admin_others_id WHERE username = ?', [username], (err, photos) => {
+        if (err) {
+            console.error('Error fetching photos:', err);
+            return res.status(500).send('Database query error');
+        }
+        res.render('compose_others', { user11: req.session.user11, photos: photos });
+    });
+});
+
+app.post('/send-email_others', upload.single('attachment'), (req, res) => {
+    if (!req.session.user11) {
+        return res.redirect('/login-ill_report'); // Redirect to login if not logged in
+    }
+
+    const { to, subject, body } = req.body;
+    const from = req.session.user11.username;
+    const attachment = req.file ? req.file.buffer : null;
+    const mimeType = req.file ? req.file.mimetype : null;
+    const fileName = req.file ? req.file.originalname : null;
+
+    const query = 'INSERT INTO all_emails_data (sender, recipient, subject, body, attachment, mime_type, file_name) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    connection55.query(query, [from, to, subject, body, attachment, mimeType, fileName], (err, result) => {
+        if (err) {
+            console.error('Error inserting email into database:', err);
+            return res.status(500).send('Database insert error');
+        }
+        res.redirect('/compose_others');
+    });
+});
+
+
+
+app.get('/email-sms-otherss/:id', (req, res) => {
+    if (!req.session.user11) {
+        return res.redirect('/login-ill_report'); // Redirect to login if not logged in
+    }
+
+    const emailId = req.params.id;
+    const username = req.session.user11.username;
+
+    const query = 'SELECT * FROM all_emails_data WHERE id = ? AND (sender = ? OR recipient = ?)';
+    connection55.query(query, [emailId, username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching email details:', err);
+            return res.status(500).send('Database query error');
+        }
+
+        if (results.length === 0) {
+            return res.status(404).send('Email not found');
+        }
+
+        const email = results[0];
+        res.render('email-sms-otherss', { email });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3043,6 +3696,8 @@ app.get('/login-compnay-admin', (req, res) => {
     });
 });
 
+
+
 // Route to handle login submission
 app.post('/login-compnay-admin', (req, res) => {
     const { username, password } = req.body;
@@ -3089,41 +3744,130 @@ app.get('/compnay-admin-profile', (req, res) => {
     }
 });
 
-// Middleware to check subscription status
-function checkSubscription(req, res, next) {
-    if (!req.session.user22) {
+function checkSubscriptions(req, res, next) {
+    // Check if the user is logged in
+    if (!req.session.user21) {
         return res.redirect('/login-compnay-admin');
     }
 
+    // Query to check for the user's subscription plan
     const query = `
-        SELECT plan_end_date 
+        SELECT plan, plan_end_date 
         FROM payments 
         WHERE user_name = ? 
         ORDER BY plan_end_date DESC 
         LIMIT 1
     `;
-    connection55.query(query, [req.session.user22.username], (err, results) => {
+    connection55.query(query, [req.session.user21.username], (err, results) => {
         if (err) {
             console.error('Error fetching data from MySQL:', err);
             res.status(500).send('Error fetching data from database');
             return;
         }
 
+        // Check if there are any results (i.e., any plan exists for the user)
         if (results.length === 0) {
-            // No active plans found, redirect to purchase page or show an error
-            return res.redirect('/compnay-admin-profile?message=No%20active%20subscription%20found.%20Please%20purchase%20a%20plan.');
+            // No active plan found, redirect to the profile page with a message
+            return res.redirect('/compnay-admin-profile?message=No%20active%20subscription%20plan%20found.%20Please%20purchase%20a%20plan.');
         }
 
+        // Check the plan's end date to see if it's still valid
         const planEndDate = new Date(results[0].plan_end_date);
         const currentDate = new Date();
 
+        // If the subscription is active (planEndDate >= currentDate), allow access to the panel
         if (planEndDate >= currentDate) {
-            next(); // User has an active subscription, proceed to the next middleware/route handler
+            next(); // Subscription is valid, proceed to the next middleware/route handler
         } else {
+            // If the subscription has expired, redirect to the profile page with a message
             res.redirect('/compnay-admin-profile?message=Your%20subscription%20has%20expired.%20Please%20renew%20your%20plan.');
         }
     });
 }
+
+
+
+
+
+
+
+
+
+function checkSubscription2(req, res, next) {
+    // Check if the user is logged in
+    if (!req.session.user13) {
+        return res.redirect('/login-e-commerce');
+    }
+
+    // Query to check for the user's subscription plan
+    const query = `
+        SELECT plan, plan_end_date 
+        FROM payments 
+        WHERE user_name = ? 
+        ORDER BY plan_end_date DESC 
+        LIMIT 1
+    `;
+    connection55.query(query, [req.session.user13.username], (err, results) => {
+        if (err) {
+            console.error('Error fetching data from MySQL:', err);
+            res.status(500).send('Error fetching data from database');
+            return;
+        }
+
+        // Check if there are any results (i.e., any plan exists for the user)
+        if (results.length === 0) {
+            // No active plan found, redirect to the profile page with a message
+            return res.redirect('/e-commerce-profile?message=No%20active%20subscription%20plan%20found.%20Please%20purchase%20a%20plan.');
+        }
+
+        // Check the plan's end date to see if it's still valid
+        const planEndDate = new Date(results[0].plan_end_date);
+        const currentDate = new Date();
+
+        // If the subscription is active (planEndDate >= currentDate), allow access to the panel
+        if (planEndDate >= currentDate) {
+            next(); // Subscription is valid, proceed to the next middleware/route handler
+        } else {
+            // If the subscription has expired, redirect to the profile page with a message
+            res.redirect('/e-commerce-profile?message=Your%20subscription%20has%20expired.%20Please%20renew%20your%20plan.');
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/payment-ill_report', (req, res) => {
     const data = req.body;
@@ -3196,9 +3940,9 @@ app.get('/payment-history-compnay-admin', (req, res) => {
 });
 
 // Route to company panel with subscription check
-app.get('/compnay-panel', (req, res) => {
+app.get('/compnay-panel', checkSubscriptions, (req, res) => {
+    // If the user has a valid subscription, render the company panel page
     res.render('compnay-panel', { user21: req.session.user21 });
-    
 });
 
 app.get('/compnay_all_history', (req, res) => {
@@ -3937,12 +4681,6 @@ app.get('/company_stock_out_history', (req, res) => {
 
 
 
-
-
-
-
-
-  
 
 
 

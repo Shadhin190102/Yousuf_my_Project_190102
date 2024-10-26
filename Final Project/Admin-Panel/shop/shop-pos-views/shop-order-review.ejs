@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +11,13 @@
             margin: 0;
             padding: 0;
         }
-
-        .container {
+               .container {
             width: 90%;
             margin: 20px auto;
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: auto;
         }
 
         h2 {
@@ -28,19 +25,50 @@
             color: #333333;
         }
 
-       
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-        .new-product-btn {
+        .search-form label {
+            font-weight: bold;
+        }
 
+        .search-form input[type="text"],
+        .search-form select {
+            padding: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-form input[type="submit"] {
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             padding: 8px 20px;
             cursor: pointer;
-            position: relative;
-            left: 70%;
-            top: 2px;
+        }
+
+        .panel {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .new-product-btn {
+        
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            cursor: pointer;
+            position:relative; left:70%; top:2px;
         }
 
         table {
@@ -48,9 +76,7 @@
             border-collapse: collapse;
         }
 
-        table,
-        th,
-        td {
+        table, th, td {
             border: 1px solid #cccccc;
             padding: 8px;
             text-align: left;
@@ -59,17 +85,15 @@
         th {
             background-color: #f2f2f2;
         }
-
-        td,
-        th {
-
+        td, th {
+            
             text-align: center;
             align-items: center;
-
+            
         }
 
         td a {
-
+            
             color: #4CAF50;
             text-decoration: none;
             font-size: 15px;
@@ -79,7 +103,6 @@
         td a:hover {
             color: #175019;
         }
-
         button {
             background-color: #4CAF50;
             color: white;
@@ -87,44 +110,42 @@
             border-radius: 5px;
             padding: 8px 20px;
             cursor: pointer;
-            float: right;
+            margin-left: 93%;
         }
-
         button:hover {
             background-color: #45a049;
         }
-
         .nav1 {
 
 
-            width: 100%;
+width: 100%;
 
-            margin: 20px 0px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            justify-content: space-around;
-            text-decoration: none;
-            font-weight: bold;
-        }
+margin: 20px 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: space-around;
+text-decoration: none;
+font-weight: bold;
+}
 
 
-        .nav-left a {
-            color: rgb(78, 67, 67);
-            text-decoration: none;
-            font-size: 18px;
-        }
+.nav-left a {
+color: rgb(78, 67, 67);
+text-decoration: none;
+font-size: 18px;
+}
 
-        .nav-left a:hover {
-            background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
+.nav-left a:hover {
+background: linear-gradient(135deg, #b1c9d3 0%, #c2d9ee 100%);
 
-            transform: scale(1.05);
-            color: black;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
+transform: scale(1.05);
+color: black;
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+        
     </style>
 </head>
-
 <body>
     <div class="nav1">
         <div class="nav-left"><a href="/shop-pos-panel">Home</a></div>
@@ -132,13 +153,13 @@
         <div class="nav-left"><a href="/xyz1_shop_invoice">Stock In</a></div>
         <div class="nav-left"><a href="/shop_all_history">History</a></div>
         <div class="nav-left"><a href="/shop-online-order">Market</a></div>
-        <div class="nav-left"><a href="/email-panel">Mail</a></div>
+        <div class="nav-left"><a href="/email-panel_shop">Mail</a></div>
         <div class="nav-left"><a href="/login_shop">LogOut</a></div>
     </div>
 
     <div class="container">
         <h2>Product</h2>
-
+    
         <table id="searchResults">
             <thead>
                 <tr>
@@ -157,68 +178,46 @@
                 </tr>
             </thead>
             <tbody>
-                <% shop_product_order_review.forEach(item=> { %>
-                    <tr id="row_<%= item.id %>">
-                        <td>
-                            <%= item.id %>
-                        </td>
-                        <td>
-                            <%= item.product_name %>
-                        </td>
-                        <td>
-                            <%= item.product_pcs %>
-                        </td>
-                        <td>
-                            <%= item.weight %>
-                        </td>
-                        <td>
-                            <%= item.company %>
-                        </td>
-                        <td>
-                            <%= item.product_type %>
-                        </td>
-                        <td>
-                            <%= item.single_price %>
-                        </td>
-                        <td>
-                            <%= item.box_price %>
-                        </td>
-                        <td>
-                            <%= item.discount %>
-                        </td>
-                        <td><input type="number" class="quantity" name="quantity" value="<%= item.quantity %>" required>
-                        </td>
-                        <td class="price" data-base-price="<%= item.a_d_b_price %>">
-                            <%= item.a_d_b_price.toFixed(2) %>
-                        </td>
-                        <td>
-                            <form id="cancelForm_<%= item.id %>" class="cancelForm" action="/cancel-item" method="POST">
-                                <input type="hidden" name="id" value="<%= item.id %>">
-                                <button type="submit">Cancel</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <% }); %>
+                <% shop_product_order_review.forEach(item => { %>
+                <tr id="row_<%= item.id %>">
+                    <td><%= item.id %></td>
+                    <td><%= item.product_name %></td>
+                    <td><%= item.product_pcs %></td>
+                    <td><%= item.weight %></td>
+                    <td><%= item.company %></td>
+                    <td><%= item.product_type %></td>
+                    <td><%= item.single_price %></td>
+                    <td><%= item.box_price %></td>
+                    <td><%= item.discount %></td>
+                    <td><input type="number" class="quantity" name="quantity" value="<%= item.quantity %>" required></td>
+    <td class="price" data-base-price="<%= item.a_d_b_price %>"><%= item.a_d_b_price.toFixed(2) %></td>
+                    <td>
+                        <form id="cancelForm_<%= item.id %>" class="cancelForm" action="/cancel-item" method="POST">
+                            <input type="hidden" name="id" value="<%= item.id %>">
+                            <button type="submit">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
             </tbody>
         </table>
         <br>
-
+    
         <button id="submitBtn" type="button">Submit</button>
-        <br><br>
-
+        
     </div>
-
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const quantityInputs = document.querySelectorAll(".quantity");
 
             quantityInputs.forEach(input => {
-                input.addEventListener("input", function () {
+                input.addEventListener("input", function() {
                     const quantity = parseInt(this.value) || 0; // Default to 0 if the input is invalid
                     const row = this.closest("tr");
                     const priceCell = row.querySelector(".price");
                     const basePrice = parseFloat(priceCell.dataset.basePrice);
-
+                    
                     const newPrice = basePrice * quantity;
                     priceCell.textContent = newPrice.toFixed(2);
                 });
@@ -227,68 +226,67 @@
 
 
         const tableBody = document.querySelector("#searchResults tbody");
-        const rows = tableBody.querySelectorAll("tr");
+    const rows = tableBody.querySelectorAll("tr");
 
-        // Function to convert EJS data to JSON
-        function convertToJSON() {
-            const data = [];
-            // Iterate through each row
-            rows.forEach(row => {
-                const rowData = {};
-                const cells = row.querySelectorAll("td");
-                // Iterate through each cell in the row
-                cells.forEach((cell, index) => {
-                    const headerText = document.querySelector(`thead th:nth-child(${index + 1})`).textContent;
-                    // Skip adding the "Action" property
-                    if (headerText !== "Action") {
-                        const value = cell.textContent.trim();
-                        rowData[headerText] = value;
-                    }
-                });
-                // Add quantity value to rowData
-                const quantityInput = row.querySelector(".quantity");
-                if (quantityInput) {
-                    rowData["Quantity"] = quantityInput.value;
-                }
-                data.push(rowData);
-            });
-            return data;
-        }
-
-        // Function to send JSON data to server and redirect
-        function sendDataToServer(jsonData) {
-            fetch('/your-endpoint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(jsonData)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Data sent successfully');
-                        // Redirect to /home-index
-                        window.location.href = '/shop-order-review';
-                    } else {
-                        console.error('Failed to send data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-        // Event listener for submit button
-        document.getElementById("submitBtn").addEventListener("click", () => {
-            // Convert EJS data to JSON
-            const jsonData = convertToJSON();
-            console.log(jsonData);
-            // Send JSON data to server and redirect
-            sendDataToServer(jsonData);
+    // Function to convert EJS data to JSON
+    function convertToJSON() {
+    const data = [];
+    // Iterate through each row
+    rows.forEach(row => {
+        const rowData = {};
+        const cells = row.querySelectorAll("td");
+        // Iterate through each cell in the row
+        cells.forEach((cell, index) => {
+            const headerText = document.querySelector(`thead th:nth-child(${index + 1})`).textContent;
+            // Skip adding the "Action" property
+            if (headerText !== "Action") {
+                const value = cell.textContent.trim();
+                rowData[headerText] = value;
+            }
         });
+        // Add quantity value to rowData
+        const quantityInput = row.querySelector(".quantity");
+        if (quantityInput) {
+            rowData["Quantity"] = quantityInput.value;
+        }
+        data.push(rowData);
+    });
+    return data;
+}
+
+    // Function to send JSON data to server and redirect
+    function sendDataToServer(jsonData) {
+        fetch('/your-endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Data sent successfully');
+                // Redirect to /home-index
+                window.location.href = '/shop-order-review';
+            } else {
+                console.error('Failed to send data');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Event listener for submit button
+    document.getElementById("submitBtn").addEventListener("click", () => {
+        // Convert EJS data to JSON
+        const jsonData = convertToJSON();
+        console.log(jsonData);
+        // Send JSON data to server and redirect
+        sendDataToServer(jsonData);
+    });
     </script>
 
-
+    
 </body>
-
 </html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Chat App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .box {
+      border: 1px solid #ddd;
+      padding: 10px;
+      box-sizing: border-box;
+      background-color: #fff;
+      margin: 5px;
+    }
+    .box1 {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #007BFF;
+      color: white;
+      padding: 0 20px;
+    }
+    .box1-content-left {
+      display: flex;
+      align-items: center;
+    }
+    .box1-content-right {
+      display: flex;
+      align-items: center;
+    }
+    .login-img {
+      height: 100%;
+      border-radius: 50%;
+    }
+    .username {
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    .search-input {
+      width: 60%;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+    .search-button {
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .search-button:hover {
+      background-color: #218838;
+    }
+    .compose-button {
+      padding: 8px 16px;
+     
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+    .compose-button:hover {
+      background-color: #0056b3;
+    }
+    .content-container {
+      display: flex;
+      height: 90%;
+    }
+    .box2 {
+      width: 25%;
+      height: 100%;
+      overflow-y: auto;
+      background-color: #fff;
+    }
+    .box2 .email-index {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .box2 .email-index:hover {
+      background-color: #f1f1f1;
+    }
+    .sender-img {
+      height: 50px;
+      width: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .email-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .email-info .sender-name {
+      font-weight: bold;
+      margin: 0;
+    }
+    .email-info .email-subject {
+      margin: 0;
+      color: #555;
+    }
+    .box3 {
+      width: 75%;
+      height: 100%;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: #fff;
+    }
+    .small-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box box1">
+      <div class="box1-content-left">
+        <a href="/ill_report-profile" class="compose-button">Home</a>
+        <a href="/email-panel_others" class="compose-button">Recive Mail</a>
+        <a href="/compose_others" class="compose-button">Compose</a>
+      </div>
+      <div class="box1-content-right">
+        <input type="text" id="search-input" placeholder="Search..." class="search-input">
+        <button class="search-button" onclick="searchEmails()">Search</button>
+        <p class="username"><%= user11.name %></p>
+        <% photos.forEach(photo => { %>
+          <img class="small-icon" src="data:image/<%= photo.mime_type %>;base64,<%= Buffer.from(photo.photo).toString('base64') %>" alt="Photo">
+        <% }) %>
+      </div>
+    </div>
+    <div class="content-container">
+      <div class="box box2" id="email-list">
+        <% all_emails_data.forEach(email => { %>
+          <div class="email-index" data-username="<%= email.sender %>" data-subject="<%= email.subject %>" data-date="<%= new Date(email.created_at).toLocaleString() %>" onclick="showEmail('<%= email.id %>')">
+            <img src="/path/to/sender-img.jpg" alt="Sender" class="sender-img">
+            <div class="email-info">
+              <p class="sender-name"><%= email.sender %></p>
+              <p class="email-subject"><%= email.subject %></p>
+              <p class="email-date"><%= new Date(email.created_at).toLocaleString() %></p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <div class="box box3" id="email-details">
+        <!-- Email details will be shown here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showEmail(id) {
+      fetch(`/email-sms/${id}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('email-details').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching email details:', error));
+    }
+
+    function searchEmails() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const emails = document.querySelectorAll('.email-index');
+
+      emails.forEach(email => {
+        const username = email.getAttribute('data-username').toLowerCase();
+        const subject = email.getAttribute('data-subject').toLowerCase();
+        const date = email.getAttribute('data-date').toLowerCase();
+
+        if (username.includes(searchTerm) || subject.includes(searchTerm) || date.includes(searchTerm)) {
+          email.style.display = 'flex';
+        } else {
+          email.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

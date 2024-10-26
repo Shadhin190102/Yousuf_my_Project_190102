@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Analysis Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .search-container {
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .details-panel {
+        border: 1px solid #ddd;
+        padding: 10px;
+        display: none;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="idSearch" placeholder="Search by ID...">
+        <input type="text" id="nameSearch" placeholder="Search by Name...">
+        <input type="text" id="companySearch" placeholder="Search by Company...">
+        <select id="typeSearch">
+            <option value="Medicine">Medicine</option>
+            <option value="Others">Others</option>
+        </select>
+        <button onclick="search()">Submit</button>
+    </div>
+
+    <div id="medicineTable" style="display:none;">
+        <h2>Medicine Information</h2>
+        <table id="medicineDataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Weight</th>
+                    <th>Age</th>
+                    <th>Company</th>
+                    <th>Material</th>
+                    <th>Disease</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Medicine A</td>
+                    <td>50 mg</td>
+                    <td>Adult</td>
+                    <td>PharmaX</td>
+                    <td>Acetaminophen</td>
+                    <td>Fever</td>
+                    <td><button class="Edit-btn" onclick="document.location='/Data/data-ana-med-de.html'">Details</button></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <div id="medicineDetailsPanel" class="details-panel"></div>
+    </div>
+
+    <div id="othersTable" style="display:none;">
+        <h2>Other Information</h2>
+        <table id="othersDataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Medicine</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Product X</td>
+                    <td>Company Y</td>
+                    <td>Medicine B</td>
+                    <td><button class="Edit-btn" onclick="document.location='/Data/data-ana-oth-det.html'">Details</button></td>
+                    <!-- <td><button onclick="document.location='/Data/data-ana-med-de.html'">Details</button></td> -->
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <div id="othersDetailsPanel" class="details-panel"></div>
+    </div>
+</div>
+
+<script>
+    function search() {
+        var idInput = document.getElementById("idSearch").value.toUpperCase();
+        var nameInput = document.getElementById("nameSearch").value.toUpperCase();
+        var companyInput = document.getElementById("companySearch").value.toUpperCase();
+        var type = document.getElementById("typeSearch").value;
+        
+        var medicineTable = document.getElementById("medicineTable");
+        var othersTable = document.getElementById("othersTable");
+        
+        if (type === "Medicine") {
+            medicineTable.style.display = "block";
+            othersTable.style.display = "none";
+        
+        } else {
+            othersTable.style.display = "block";
+            medicineTable.style.display = "none";
+        
+        }
+    }
+
+    function showDetails(type, btn) {
+        var row = btn.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+        var detailsPanelId = type === 'medicine' ? 'medicineDetailsPanel' : 'othersDetailsPanel';
+        var detailsPanel = document.getElementById(detailsPanelId);
+        detailsPanel.innerHTML = "<strong>Details:</strong><br>";
+        for (var j = 0; j < cells.length - 1; j++) { // Exclude last cell which contains the button
+            detailsPanel.innerHTML += "<strong>" + cells[j].parentNode.getElementsByTagName("th")[j].innerText + ":</strong> " + cells[j].innerText + "<br>";
+        }
+        detailsPanel.style.display = "block";
+    }
+</script>
+</body>
+</html>

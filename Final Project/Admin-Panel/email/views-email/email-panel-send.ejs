@@ -68,7 +68,6 @@
     }
     .compose-button {
       padding: 8px 16px;
-      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 5px;
@@ -77,7 +76,7 @@
       margin-right: 20px;
     }
     .compose-button:hover {
-      background-color: #218838;
+      background-color: #0056b3;
     }
     .content-container {
       display: flex;
@@ -118,6 +117,11 @@
       margin: 0;
       color: #555;
     }
+    .email-info .email-date {
+      margin: 0;
+      color: #999;
+      font-size: 0.9em;
+    }
     .box3 {
       width: 75%;
       height: 100%;
@@ -138,13 +142,14 @@
   <div class="container">
     <div class="box box1">
       <div class="box1-content-left">
+        <a href="/dash_board" class="compose-button">Dashboard</a>
+        <a href="/email-panel" class="compose-button">Receive Mail</a>
         <a href="/compose" class="compose-button">Compose</a>
-        <a href="/email-panel" class="compose-button">Recive Mail</a>
       </div>
       <div class="box1-content-right">
         <input type="text" id="search-input" placeholder="Search..." class="search-input">
         <button class="search-button" onclick="searchEmails()">Search</button>
-        <p class="username"><%= user.username %></p>
+        <p class="username"><%= user.name %></p>
         <% photos.forEach(photo => { %>
           <img class="small-icon" src="data:image/<%= photo.mime_type %>;base64,<%= Buffer.from(photo.photo).toString('base64') %>" alt="Photo">
         <% }) %>
@@ -153,11 +158,12 @@
     <div class="content-container">
       <div class="box box2" id="email-list">
         <% all_emails_data.forEach(email => { %>
-          <div class="email-index" data-username="<%= email.sender %>" data-subject="<%= email.subject %>" onclick="showEmail('<%= email.id %>')">
+          <div class="email-index" data-username="<%= email.sender %>" data-subject="<%= email.subject %>" data-date="<%= new Date(email.created_at).toLocaleString() %>" onclick="showEmail('<%= email.id %>')">
             <img src="/path/to/sender-img.jpg" alt="Sender" class="sender-img">
             <div class="email-info">
               <p class="sender-name"><%= email.sender %></p>
               <p class="email-subject"><%= email.subject %></p>
+              <p class="email-date"><%= new Date(email.created_at).toLocaleString() %></p>
             </div>
           </div>
         <% }) %>
@@ -185,8 +191,9 @@
       emails.forEach(email => {
         const username = email.getAttribute('data-username').toLowerCase();
         const subject = email.getAttribute('data-subject').toLowerCase();
+        const date = email.getAttribute('data-date').toLowerCase();
 
-        if (username.includes(searchTerm) || subject.includes(searchTerm)) {
+        if (username.includes(searchTerm) || subject.includes(searchTerm) || date.includes(searchTerm)) {
           email.style.display = 'flex';
         } else {
           email.style.display = 'none';

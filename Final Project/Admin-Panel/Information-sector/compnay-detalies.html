@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Information</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .information-container {
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .edit-btn {
+        float: right;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="information-container">
+        <h2>Company Information</h2>
+        <button class="edit-btn" onclick="editInformation()">Edit</button>
+    </div>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Company ID</th>
+                <td>123</td>
+            </tr>
+            <tr>
+                <th>Company Name</th>
+                <td>Company A</td>
+            </tr>
+            <tr>
+                <th>Company Type</th>
+                <td>Company</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>companya@example.com</td>
+            </tr>
+            <tr>
+                <th>Number</th>
+                <td>1234567890</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>123, Street Name, City</td>
+            </tr>
+            <tr>
+                <th>Owner Name</th>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <th>Owner Mobile Number</th>
+                <td>9876543210</td>
+            </tr>
+            <tr>
+                <th>Owner NID</th>
+                <td>1234567890123456</td>
+            </tr>
+            <tr>
+                <th>TIN Number</th>
+                <td>7890123456</td>
+            </tr>
+            <tr>
+                <th>Trade License Number</th>
+                <td>ABC123</td>
+            </tr>
+            <tr>
+                <th>Active Status</th>
+                <td>Active</td>
+            </tr>
+            <tr>
+                <th>Product Discount</th>
+                <td>10%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <img src="company_photo1.jpg" alt="Company Photo 1">
+<img src="company_photo2.jpg" alt="Company Photo 2">
+</div>
+
+<script>
+    function editInformation() {
+        // Placeholder for edit functionality
+        alert("Edit button clicked!");
+    }
+</script>
+
+</body>
+</html>

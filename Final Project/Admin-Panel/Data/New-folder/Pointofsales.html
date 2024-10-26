@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine POS</title>
+  <style>
+     body {
+        margin: 0px;
+        height: 0px;
+        background-color: rgb(250, 247, 247);
+    }
+    .nav1 {
+        background-color: rgb(6, 6, 6);
+        width: 100%;
+        margin: 20px 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-around;
+        text-decoration: none;
+    }
+    .nav-left-1 a {
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        text-decoration: none;
+        color: rgb(243, 237, 237);
+        font-size: 35px;
+    }
+    .nav-left a {
+        color: rgb(246, 245, 245);
+        text-decoration: none;
+        font-size: 20px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 2px;
+      text-align: center;
+    }
+    .container2 {
+      max-width: 99%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    form input[type="number"],
+    form input[type="text"] {
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: calc(20% - 10px);
+    }
+    .print-history input[type="submit"] {
+      position: relative;
+      right: -670px;
+      top: -10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      width: calc(20% - 10px);
+      margin: 20px 0px;
+    }
+    .quantity-stock-price {
+      text-align: right;
+    }
+    #discount {
+      margin-top: 10px;
+    }
+    #return-amount {
+      margin-top: 10px;
+    }
+    #save-button {
+      margin-top: 20px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container2">
+    <div class="nav1">
+      <div class="nav-left"><a href="/Shop pos/pos.html">Home</a></div>
+      <div class="nav-left"><a href="/Shop pos/Pointofsales.html">POS</a></div>
+      <div class="nav-left"><a href="/Shop pos/stoctin.html">Stock In</a></div>
+      <div class="nav-left"><a href="/Shop pos/stockout.html">Stock Out</a></div>
+      <div class="nav-left"><a href="/Shop pos/posinventory.html">Inventroy</a></div>
+      <div class="nav-left"><a href="/Shop pos/posaccounts.html">Accounts</a></div>
+      <div class="nav-left"><a href="/Shop pos/poswastage.html">Wastage</a></div>
+      <div class="nav-left"><a href="/Shop pos/posmarket.html">Market</a></div>
+      <div class="nav-left"><a href="/Shop pos/mailbox.html">Mail</a></div>
+    </div>
+    <header>
+      <h3>Medicine Point of Sale</h3>
+    </header>
+    <div class="container">
+      <div class="print-history">
+        <a href="/Shop pos/sale-print.html"><input type="submit" value="Print"></a>
+        <a href="/Shop pos/Sales-history.html"><input type="submit" value="History"></a>
+        <form id="posForm" action="products-pos-search" method="GET">
+          <input type="search" id="product_id" name="product_id" placeholder="Products Code">
+          <input type="search" id="productName" name="productName" placeholder="Product Name">
+          <input type="search" id="ingrediantName" name="ingrediantName" placeholder="ingrediant Name">
+          <input type="search" id="companyName" name="companyName" placeholder="compnay Name">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Weight</th>
+            <th>Product Type</th>
+            <th>Company</th>
+            <th>Stock</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+          <% xyzshop.forEach(item => { %>
+            <tr>
+              <td><%= item.product_id %></td>
+              <td><%= item.productName %></td>
+              <td><%= item.weight %></td>
+              <td><%= item.productType %></td>
+              <td><%= item.companyName %></td>
+              <td><%= item.PhysicalStock %></td>
+              <td class="quantity-stock-price">
+                <input type="number" class="productQuantity" min="1" value="1" data-price="<%= item.price %>">
+              </td>
+              <td class="price"><%= item.price %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+        <!-- Table footer -->
+        <tfoot>
+          <tr>
+            <td colspan="6" style="text-align: right;"><strong>Total:</strong></td>
+            <td id="productQuantity">0</td>
+            <td id="totalPrice">0</td>
+          </tr>
+          <tr>
+            <td colspan="7" style="text-align: right;"><strong>Discount (%):</strong></td>
+            <td><input type="number" id="discount" min="0" value="0" step="0.01"></td>
+          </tr>
+          <tr>
+            <td colspan="7" style="text-align: right;"><strong>Received Amount (Tk):</strong></td>
+            <td><input type="number" id="receivedAmount" min="0" value="0" step="0.01"></td>
+          </tr>
+          <tr>
+            <td colspan="7" style="text-align: right;"><strong>Total Price After Discount:</strong></td>
+            <td id="totalPriceAfterDiscount">0</td>
+          </tr>
+          <tr>
+            <td colspan="7" style="text-align: right;"><strong>Return Amount:</strong></td>
+            <td id="returnAmount">0</td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- Save button -->
+      <button id="save-button">Save</button>
+    </div>
+  </div>
+
+  <!-- Your JavaScript code -->
+  <script>
+    const quantityInputs = document.querySelectorAll('.productQuantity');
+    let totalPrice = 0;
+    let productQuantity = 0;
+  
+    quantityInputs.forEach(input => {
+      input.addEventListener('input', function() {
+        updatePrice(this);
+        updateTotals();
+      });
+    });
+  
+    const discountInput = document.getElementById('discount');
+    const receivedAmountInput = document.getElementById('receivedAmount');
+  
+    discountInput.addEventListener('input', updateTotals);
+    receivedAmountInput.addEventListener('input', updateTotals);
+  
+    function updatePrice(input) {
+      const price = parseFloat(input.getAttribute('data-price'));
+      let quantity = parseInt(input.value);
+      if (isNaN(quantity)) {
+        quantity = 0;
+      }
+      const updatedPrice = price * quantity;
+      input.parentNode.nextElementSibling.innerText = updatedPrice.toFixed(2);
+    }
+  
+    function updateTotals() {
+      totalPrice = 0;
+      productQuantity = 0;
+  
+      quantityInputs.forEach(input => {
+        let quantity = parseInt(input.value);
+        if (isNaN(quantity)) {
+          quantity = 0;
+        }
+        const price = parseFloat(input.parentNode.nextElementSibling.innerText);
+        totalPrice += price;
+        productQuantity += quantity;
+      });
+  
+      const discount = parseFloat(discountInput.value);
+      const receivedAmount = parseFloat(receivedAmountInput.value);
+  
+      const totalPriceAfterDiscount = totalPrice * (1 - (discount / 100));
+      const returnAmount = receivedAmount - totalPriceAfterDiscount;
+  
+      document.getElementById('productQuantity').innerText = productQuantity;
+      document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+      document.getElementById('totalPriceAfterDiscount').innerText = totalPriceAfterDiscount.toFixed(2);
+      document.getElementById('returnAmount').innerText = returnAmount.toFixed(2);
+    }
+  
+    window.onload = function() {
+      updateTotals();
+    };
+  
+    function saveData() {
+      const data = {
+        // Extract data from table fields
+        // Replace the following placeholders with actual values
+        product_id: document.getElementById('product_id').value,
+        productName: document.getElementById('productName').value,
+        weight: document.getElementById('weight').value,
+        productType: document.getElementById('productType').value,
+        companyName: document.getElementById('companyName').value,
+        productQuantity: document.getElementById('productQuantity').innerText, // Use innerText instead of value
+        totalPrice: document.getElementById('totalPrice').innerText, // Use innerText instead of value
+        discount: document.getElementById('discount').value,
+        receivedAmount: document.getElementById('receivedAmount').value,
+        totalPriceAfterDiscount: document.getElementById('totalPriceAfterDiscount').innerText, // Use innerText instead of value
+        returnAmount: document.getElementById('returnAmount').innerText // Use innerText instead of value
+      };
+  
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/storeData'); // Replace '/storeData' with your server endpoint
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          console.log('Data saved successfully');
+        } else {
+          console.error('Error saving data:', xhr.statusText);
+        }
+      };
+      xhr.onerror = function() {
+        console.error('Error saving data');
+      };
+      xhr.send(JSON.stringify(data));
+    }
+  
+    document.getElementById('save-button').addEventListener('click', function() {
+  saveData();
+});
+console.log('Save button clicked');
+console.log('Data being sent:', JSON.stringify(data));
+
+  </script>
+  
+</body>
+</html>
